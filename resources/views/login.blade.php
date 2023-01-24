@@ -20,8 +20,8 @@
                               @if (session()->has('succes'))
                                     <div class="w-full text-sm text-center text-green-500 md:text-md">{{ session('succes') }}</div>
                               @endif
-                              @if (session()->has('error'))
-                                    <div class="w-full text-sm text-center text-red-500 md:text-md">{{ session('error') }}</div>
+                              @if ($errors->any())
+                                    <div class="w-full text-sm text-center text-red-500 md:text-md">{{ $errors->first() }}</div>
                               @endif
                               <form action="/login" method="post" class="flex flex-col w-full">
                                     @csrf

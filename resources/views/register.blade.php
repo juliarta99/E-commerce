@@ -49,7 +49,7 @@
                                           @enderror
                                     <button type="submit" class="w-1/2 px-1 py-2 mt-3 font-semibold bg-blue-500 rounded-md xl:w-1/4 lg:w-1/3">Sign Up</button>
                               </form>
-                              <a href="/register" class="mt-1 text-sm lg:text-md">Sudah punya akun?</a>
+                              <a href="/login" class="mt-1 text-sm lg:text-md">Sudah punya akun?</a>
                         </div>
                   </div>
             </div>

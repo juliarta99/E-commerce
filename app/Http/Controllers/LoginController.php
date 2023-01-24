@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 
 class LoginController extends Controller
 {
@@ -22,7 +23,7 @@ class LoginController extends Controller
     {
         $credentials = $request->validate(
             [
-                'email' => 'required|email:dns',
+                'email' => 'required|email',
                 'password' => 'required'
             ]
         );
@@ -33,7 +34,7 @@ class LoginController extends Controller
             return redirect()->intended('/');
         }
 
-        return back()->withErrors('error', 'Email or password not failed');
+        return Redirect::back()->withErrors(['error' => 'Email or password not failed']);
     }
 
     public function create()
