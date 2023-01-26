@@ -1,4 +1,4 @@
-<nav class="w-full shadow-sm fixed bg-white">
+<nav class="w-full shadow-sm fixed bg-white z-[999]">
       <div class="flex items-center justify-between py-4 px-9">
             <div id="logo" class="cursor-pointer">
                   <a href="/">

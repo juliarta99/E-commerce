@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,3 +24,6 @@ Route::get('/logout', [LoginController::class, 'logout'])->middleware('auth');
 
 Route::get('/register', [LoginController::class, 'create'])->middleware('guest');
 Route::post('/register', [LoginController::class, 'store'])->middleware('guest');
+
+Route::get('/products', [ProductController::class, 'index']);
+Route::get('/product/{product:slug}', [ProductController::class, 'show']);

@@ -9,10 +9,8 @@ class HomeController extends Controller
 {
     public function index()
     {
-        return view('welcome',
-        [
-            'title' => 'E-commerce',
-            'products' => Product::latest()->with('kategori')->get(),
-        ]);
+        $title = 'E-commerce';
+        $products = Product::latest()->with('kategori')->get();
+        return view('welcome', compact('products', 'title'));
     }
 }

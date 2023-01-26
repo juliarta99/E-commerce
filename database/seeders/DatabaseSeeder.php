@@ -25,12 +25,12 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         Kategori::create([
-            'name' => 'Baju',
-            'slug' => 'baju'
+            'name' => 'shirt',
+            'slug' => 'shirt'
         ]);
         Kategori::create([
-            'name' => 'Celana',
-            'slug' => 'celana'
+            'name' => 'clothes',
+            'slug' => 'clothes'
         ]);
 
         Product::factory(10)->create();

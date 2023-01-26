@@ -19,10 +19,12 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->string('name');
             $table->integer('harga');
-            $table->integer('harga_awal')->nullable();
+            $table->integer('harga_awal');
+            $table->integer('potongan');
+            $table->integer('berat');
             $table->text('deskripsi');
             $table->string('image')->nullable();
-            $table->float('rate')->default(0.0);
+            $table->double('rate')->default(0.0);
             $table->string('kabupaten');
             $table->string('provinsi');
             $table->bigInteger('terjual')->default(0);
