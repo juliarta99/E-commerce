@@ -19,8 +19,13 @@ return new class extends Migration
             $table->string('username')->unique();
             $table->string('email')->unique();
             $table->string('no_hp')->unique();
+            $table->date('tgl_lahir')->nullable();
+            $table->char('jk')->nullable();
             $table->timestamp('email_verified_at')->nullable();
+            $table->timestamp('no_hp_verified_at')->nullable();
             $table->string('password');
+            $table->boolean('is_seller')->default(false);
+            $table->boolean('is_admin')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });

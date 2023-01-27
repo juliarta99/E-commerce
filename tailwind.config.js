@@ -3,6 +3,7 @@ module.exports = {
   content: [
     "./resources/**/*.blade.php",
     "./resources/**/*.js",
+    'node_modules/preline/dist/*.js',
   ],
   theme: {
     extend: {},
@@ -10,5 +11,7 @@ module.exports = {
       'poppins': ['Poppins','ui-monospace', 'SFMono-Regular'],
     },
   },
-  plugins: [],
+  plugins: [
+    require('preline/plugin'),
+  ],
 }

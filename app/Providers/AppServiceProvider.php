@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Gate;
+use App\Models\User;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,6 +26,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        // rupiah generate
         Blade::directive('currency', function ( $expression ) { return "Rp. <?php echo number_format($expression,0,',','.'); ?>"; });
+        // cek seller
+        Gate::define('is_seller', function(User $user) {
+            return $user->is_seller;
+        });
+        // cek admin
+        Gate::define('is_admin', function(User $user) {
+            return $user->is_admin;
+        });
     }
 }

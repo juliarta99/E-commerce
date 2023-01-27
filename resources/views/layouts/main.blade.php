@@ -13,5 +13,6 @@
       @yield('content')
       @include('layouts.footer')
 </body>
-<script src="js/script.js"></script>
+<script src="./assets/vendor/preline/dist/preline.js"></script>
+<script src="{{ asset('js/script.js') }}"></script>
 </html>

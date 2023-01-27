@@ -7,8 +7,8 @@
             </div>
             <form action="/products?search=" class="hidden w-1/2 lg:block">
                   <div class="flex">
-                        <input type="text" name="search" id="search" placeholder="Cari produk pilihan anda" class="w-full px-4 py-2 rounded-l-lg shadow-md outline-none">
-                        <button class="p-2 bg-gray-200 rounded-r-lg shadow-md">
+                        <input type="text" name="search" id="search" placeholder="Cari produk pilihan anda" class="w-full px-2 py-1 text-xs rounded-l-lg shadow-md outline-none lg:text-sm lg:px-4 lg:py-2">
+                        <button class="p-1 bg-gray-200 rounded-r-lg shadow-md lg:p-2">
                               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 sm:w-6 sm:h-6">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                               </svg>                            
@@ -51,35 +51,35 @@
                               </a>
                         </div>
                         <div class="flex items-center justify-center cursor-pointer" id="profile">
-                              <img src="img/profile_default.png" alt="Profile" class="w-6 h-6 mr-1 rounded-full sm:w-8 sm:h-8">
+                              <img src="{{ asset('img/profile_default.png') }}" alt="Profile" class="w-6 h-6 mr-1 rounded-full sm:w-8 sm:h-8">
                               <p class="text-xs first-letter:font-semibold sm:text-sm lg:text-md">{{ Auth::user()->name }}</p>
-                              <div id="show-profile" class="absolute hidden p-4 translate-y-32 rounded-md shadow-md lg:translate-y-24">
-                                    <div class="flex items-center mb-1">
-                                          <a href="">
+                              <div id="show-profile" class="absolute hidden p-4 translate-y-32 bg-white rounded-md shadow-md lg:translate-y-24">
+                                    <div class="mb-1">
+                                          <a class="flex items-center" href="/editProfile">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                                       <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
                                                 </svg>                                              
                                                 <p class="ml-2 text-sm lg:text-md">Edit Profile</p>
                                           </a>
                                     </div>
-                                    <div class="flex items-center mb-1">
-                                          <a href="">
+                                    <div class="mb-1">
+                                          <a class="flex items-center" href="">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 sm:w-6 sm:h-6">
                                                       <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
                                                 </svg>                                               
                                                 <p class="ml-2 text-sm lg:text-md">Pembelian</p>
                                           </a>
                                     </div>
-                                    <div class="flex items-center mb-1">
-                                          <a href="">
+                                    <div class="mb-1">
+                                          <a class="flex items-center" href="">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 sm:w-6 sm:h-6">
                                                       <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
                                                 </svg>                              
                                                 <p class="ml-2 text-sm lg:text-md">Toko Favorit</p>
                                           </a>
                                     </div>
-                                    <div class="flex items-center mb-1">
-                                          <a href="/logout">
+                                    <div class="mb-1">
+                                          <a class="flex items-center" href="/logout">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 sm:w-6 sm:h-6">
                                                       <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
                                                 </svg>                                    
