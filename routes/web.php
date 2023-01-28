@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AlamatController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\HomeController;
@@ -30,3 +31,6 @@ Route::get('/products', [ProductController::class, 'index']);
 Route::get('/product/{product:slug}', [ProductController::class, 'show']);
 
 Route::get('/editProfile', [ProfileController::class, 'edit'])->middleware('auth');
+Route::put('/editProfile', [ProfileController::class, 'update'])->middleware('auth');
+
+Route::post('/alamat', [AlamatController::class, 'store'])->middleware('auth');

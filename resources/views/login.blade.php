@@ -38,6 +38,9 @@
                                           @error('password')
                                                 <div class="w-full text-sm text-red-500 md:text-md">{{ $message }}</div>
                                           @enderror
+                                    
+                                    {{-- hidden image --}}
+                                    <input type="hidden" name="image" id="image" value="img/profile_default.png">
                                     <button type="submit" class="w-1/2 px-1 py-2 mt-3 font-semibold bg-blue-500 rounded-md xl:w-1/4 lg:w-1/3">Login</button>
                               </form>
                               <a href="/register" class="mt-1 text-sm lg:text-md">Belum punya akun?</a>

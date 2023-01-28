@@ -51,7 +51,11 @@
                               </a>
                         </div>
                         <div class="flex items-center justify-center cursor-pointer" id="profile">
-                              <img src="{{ asset('img/profile_default.png') }}" alt="Profile" class="w-6 h-6 mr-1 rounded-full sm:w-8 sm:h-8">
+                              @if (Auth::user()->image != null)
+                                    <img src="{{ asset('storage/'. Auth::user()->image) }}" alt="Profile" class="w-6 h-6 mr-1 rounded-full sm:w-8 sm:h-8">
+                              @else
+                                    <img src="{{ asset('img/profile_default.png') }}" alt="Profile" class="w-6 h-6 mr-1 rounded-full sm:w-8 sm:h-8">
+                              @endif
                               <p class="text-xs first-letter:font-semibold sm:text-sm lg:text-md">{{ Auth::user()->name }}</p>
                               <div id="show-profile" class="absolute hidden p-4 translate-y-32 bg-white rounded-md shadow-md lg:translate-y-24">
                                     <div class="mb-1">

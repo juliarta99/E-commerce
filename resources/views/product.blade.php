@@ -13,13 +13,13 @@
                               <button class="px-4 py-1 mt-2 duration-500 border-2 border-white rounded-md text-md xl:text-lg hover:text-black hover:bg-white">Beli</button>
                         </a>
                   </div>
-                  <div class="sticky top-28 mb-4 lg:top-16 z-[1] w-full p-2 lg:p-3 shadow-md bg-white">
-                        <div class="flex justify-center gap-3 text-black [--scrollspy-offset:1]" data-hs-scrollspy="#scrollspy-1"  data-hs-scrollspy-scrollable-parent="#scrollspy-scrollable-parent-1">
+                  <div class="sticky top-32 mb-4 lg:top-16 z-[1] w-full p-2 lg:p-3 shadow-md bg-white">
+                        <div class="flex justify-center gap-3 text-black">
                               <a href="#deskripsi">
-                                    <h4 class="text-sm text-black lg:text-md hs-scrollspy-active:text-blue-500 active">Deskripsi</h4>
+                                    <h4 class="text-sm text-black lg:text-md">Deskripsi</h4>
                               </a>
                               <a href="#ulasan">
-                                    <h4 class="text-sm text-black lg:text-md hs-scrollspy-active:text-blue-500">Ulasan</h4>
+                                    <h4 class="text-sm text-black lg:text-md">Ulasan</h4>
                               </a>
                         </div>
                   </div>
@@ -44,7 +44,7 @@
                               </div>
                         </div>
                   </div>
-                  <div class="w-full px-2 mt-4" id="scrollspy-1">
+                  <div class="w-full px-2 mt-4" id="ulasan">
                         <h1 class="text-lg lg:text-xl">Ulasan</h1>
                         <div class="w-20 h-1 bg-blue-500"></div>
                         {{-- total ulasan --}}

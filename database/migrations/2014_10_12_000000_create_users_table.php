@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('no_hp')->unique();
             $table->date('tgl_lahir')->nullable();
             $table->char('jk')->nullable();
+            $table->string('image')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamp('no_hp_verified_at')->nullable();
             $table->string('password');
