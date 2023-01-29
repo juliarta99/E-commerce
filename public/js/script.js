@@ -4,7 +4,17 @@ const profile = document.getElementById('profile');
 
 profile.addEventListener('click', function(){
       showProfile.classList.toggle('hidden');
+      showToko.classList.add('hidden');
 });
+
+// buatToko
+const toko = document.getElementById('toko');
+const showToko = document.getElementById('showToko');
+
+toko.addEventListener('click', ()=> {
+      showToko.classList.toggle('hidden');
+      showProfile.classList.add('hidden');
+})
 
 
 // edit profile
@@ -119,3 +129,11 @@ if(localStorage.getItem("tambahAlamat")){
       btnBiodata.classList.remove('border-blue-500');
       btnTambahAlamat.innerHTML = "Batalkan";
 }
+
+// set interval session
+const sessionSucces1 = document.getElementById('sessionSucces1');
+const sessionSucces2 = document.getElementById('sessionSucces2');
+setInterval(function(){
+      sessionSucces1.classList.add('hidden');
+      sessionSucces2.classList.add('hidden');
+}, 5000);

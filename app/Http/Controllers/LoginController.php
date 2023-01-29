@@ -23,7 +23,7 @@ class LoginController extends Controller
     {
         $credentials = $request->validate(
             [
-                'email' => 'required|email',
+                'email' => 'required|email:dns',
                 'password' => 'required'
             ]
         );
@@ -51,7 +51,7 @@ class LoginController extends Controller
             [
                 'name' => 'required|max:50',
                 'username' => 'required|max:255|unique:users',
-                'email' => 'required|email',
+                'email' => 'required|email:dns',
                 'no_hp' => 'required',
                 'password' => ['required', Password::min(8)->numbers()->symbols()->mixedCase()]
             ]

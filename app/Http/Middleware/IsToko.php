@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class IsSeller
+class IsToko
 {
     /**
      * Handle an incoming request.
@@ -16,7 +16,7 @@ class IsSeller
      */
     public function handle(Request $request, Closure $next)
     {
-        if(!auth()->check() || !auth()->user()->is_seller) {
+        if(!auth()->check() || !auth()->user()->is_toko) {
             abort(403);
         }
         return $next($request);

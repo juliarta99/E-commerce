@@ -29,8 +29,8 @@ class AppServiceProvider extends ServiceProvider
         // rupiah generate
         Blade::directive('currency', function ( $expression ) { return "Rp. <?php echo number_format($expression,0,',','.'); ?>"; });
         // cek seller
-        Gate::define('is_seller', function(User $user) {
-            return $user->is_seller;
+        Gate::define('is_toko', function(User $user) {
+            return $user->is_toko;
         });
         // cek admin
         Gate::define('is_admin', function(User $user) {

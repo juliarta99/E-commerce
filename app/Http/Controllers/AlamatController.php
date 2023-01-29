@@ -52,7 +52,7 @@ class AlamatController extends Controller
         
             // 'id_user' => Auth::user()->id
         Alamat::create($validateData);
-        return redirect('/editProfile')->with('succes', 'Alamat berhasil ditambahkan');
+        return redirect('/editProfile')->with('succesTambahAlamat', 'Alamat berhasil ditambahkan');
     }
 
     /**

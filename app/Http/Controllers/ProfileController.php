@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
-    public function edit(User $user)
+    public function edit()
     {
         return view('profile.edit',
         [
@@ -38,6 +38,6 @@ class ProfileController extends Controller
         }
 
         User::where('id', Auth::user()->id)->update($validateData);
-        return redirect('/editProfile')->with('succes', 'Profile berhasil diubah');
+        return redirect('/editProfile')->with('succesUbahProfile', 'Profile berhasil diubah');
     }
 }

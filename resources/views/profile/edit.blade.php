@@ -19,8 +19,8 @@
                               <button id="ubahPassword" class="p-2 px-4 text-xs text-white bg-blue-500 rounded-md sm:text-sm">Ubah Password</button>
                         </div>
                   </div>
-                  <div id="detailBiodata" class="w-full">
-                        <div class="items-center justify-center w-full sm:flex">
+                  <div id="detailBiodata" class="w-full mt-3">
+                        <div class="items-center justify-center w-full sm:flex max-w-5xl mx-auto">
                               <div class="w-full sm:w-1/2">
                                     @if (Auth::user()->image != null)
                                           <img src="{{ asset('storage/'. Auth::user()->image) }}" class="w-48 mx-auto rounded-full sm:w-full md:w-1/2" alt="{{ Auth::user()->name }}">
@@ -55,10 +55,16 @@
                   </div>
                   {{-- form ubah --}}
                   <div id="formUbahBiodata" class="hidden">
-                        <form action="/editProfile" method="post" enctype="multipart/form-data" class="flex flex-col mt-5">
+                        <form action="/editProfile" method="post" enctype="multipart/form-data" class="flex max-w-md mx-auto flex-col mt-5">
                               @csrf
                               @method('put')
                               <h1 class="font-semibold text-center uppercase text-md lg:text-lg">Ubah Biodata Diri</h1>
+                              @if (session()->has('succesUbahProfile'))
+                              <div id="sessionSucces1" class="overflow-hidden w-auto mx-auto rounded-md my-1">
+                                    <div class="bg-green-500 py-2 px-4 ">{{ session('succesUbahProfile') }}</div>
+                                    <div id="timeSessionSucces" class="bg-black h-1"></div>
+                              </div>
+                              @endif
                               <input type="hidden" name="oldImage" value="{{ Auth::user()->image }}">
                               <label class="text-sm text-black lg:text-md" for="image">Image</label>
                               <input class="w-full px-4 py-2 text-sm bg-gray-200 rounded-md lg:text-md @error('image') border-2 border-red-500 @enderror" type="file" name="image" id="image" value="{{ old('image', Auth::user()->image) }}">
@@ -120,20 +126,57 @@
                                     <button id="buttonTambahAlamat" class="p-2 px-4 text-xs text-white bg-blue-500 rounded-md sm:text-sm">Tambah alamat</button>
                               </div>
                         </div>
-                        @if (array($alamats) != null)
-                              <div class="w-full" id="showAlamat">
+                        <div id="showAlamat">
+                              <div class="flex flex-col max-w-md mx-auto mt-5">       
                                     @foreach ($alamats as $alamat)
-                                    <p>{{ $alamat->penerima }}</p>
+                                    <div class="p-2 px-4 rounded-md bg-blue-500 mt-2">
+                                          <p class="text-sm lg:text-md font-semibold xl:text-lg">{{ $alamat->penerima }}</p>
+                                          <div class="flex items-center">
+                                                @if ($alamat->label == 'Kantor')
+                                                      {{-- office --}}
+                                                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z" />
+                                                      </svg>
+                                                @else
+                                                      {{-- home --}}
+                                                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                                                      </svg>
+                                                @endif
+                                                <div class="ml-2">
+                                                      <p class="text-xs lg:text-sm opacity-80">{{ $alamat->kelurahan }}, {{ $alamat->kecamatan }}, {{ $alamat->kabupaten }}, {{ $alamat->provinsi }}</p>
+                                                      <p class="text-xs lg:text-sm opacity-80">{{ $alamat->detail }}</p>
+                                                </div>
+                                          </div>
+                                          @if ($alamat->catatan != null)    
+                                                <div class="flex items-center">
+                                                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 01-.825-.242m9.345-8.334a2.126 2.126 0 00-.476-.095 48.64 48.64 0 00-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0011.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155" />
+                                                      </svg>                                              
+                                                      <p class="ml-2 text-xs lg:text-sm">{{ $alamat->catatan }}</p>
+                                                </div>
+                                          @endif
+                                          <div class="flex items-center">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                                      <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
+                                                </svg>                                                    
+                                                <p class="ml-2 text-sm xl:text-md">{{ $alamat->no_hp }}</p>
+                                          </div>
+                                    </div>
                                     @endforeach
                               </div>
-                        @else
-                              <p class="text-sm opacity-80 lg:text-md">Belum ada alamat</p>
-                        @endif
+                        </div>
                         {{-- form tambah --}}
                         <div id="formTambahAlamat" class="hidden">
-                              <form action="/alamat" method="post" class="flex flex-col mt-5">
+                              <form action="/alamat" method="post" class="flex flex-col mt-5 max-w-md mx-auto">
                                     @csrf
                                     <h1 class="font-semibold text-center uppercase text-md lg:text-l">Form Tambah Alamat</h1>
+                                    @if (session()->has('succesTambahAlamat'))
+                                    <div id="sessionSucces2" class="overflow-hidden w-auto mx-auto rounded-md my-1">
+                                          <div class="bg-green-500 py-2 px-4 ">{{ session('succesTambahAlamat') }}</div>
+                                          <div id="timeSessionSucces" class="bg-black h-1"></div>
+                                    </div>
+                                     @endif
                                     <input type="hidden" name="id_user" value="{{ Auth::user()->id }}">
                                     
                                     <label class="text-sm text-black lg:text-md" for="penerima">Penerima</label>

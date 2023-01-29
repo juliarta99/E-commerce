@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Alamat;
+use App\Models\Toko;
 
 class User extends Authenticatable
 {
@@ -39,7 +40,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function alamat()
+    public function toko()
+    {
+        return $this->hasOne(Toko::class);
+    }
+
+    public function alamats()
     {
         return $this->hasMany(Alamat::class);
     }
