@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('username')->unique();
             $table->string('email')->unique();
-            $table->string('no_hp')->unique();
+            $table->string('no_hp')->unique()->nullable();
             $table->date('tgl_lahir')->nullable();
             $table->char('jk')->nullable();
             $table->string('image')->nullable();

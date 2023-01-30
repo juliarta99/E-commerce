@@ -26,7 +26,7 @@ class ProfileController extends Controller
             'name' => 'required',
             'tgl_lahir' => 'nullable|date',
             'jk' => 'max:1',
-            'no_hp' => 'required',
+            'no_hp' => 'nullable',
             'email' => 'required|email'
         ]);
 

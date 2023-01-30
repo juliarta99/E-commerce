@@ -29,11 +29,6 @@
                                           @error('username')
                                               <div class="w-full text-sm text-red-500 md:text-md">{{ $message }}</div>
                                           @enderror
-                                    <label class="mt-2" for="No. Handphone">No. Handphone</label>
-                                    <input type="tel" name="no_hp" id="no_hp" class="@error('no_hp') border-2 border-red-500 @enderror w-full px-3 py-2 bg-white rounded-md" value="{{ old('no_hp') }}" placeholder="No. Handphone">
-                                          @error('no_hp')
-                                              <div class="w-full text-sm text-red-500 md:text-md">{{ $message }}</div>
-                                          @enderror
                                     <label class="mt-2" for="email">Email</label>
                                     <input type="email" name="email" id="email" class="@error('email') border-2 border-red-500 @enderror w-full px-3 py-2 bg-white rounded-md peer" value="{{ old('email') }}" placeholder="email">
                                     <p class="hidden text-red-500 peer-invalid:block">
@@ -43,8 +38,13 @@
                                               <div class="w-full text-sm text-red-500 md:text-md">{{ $message }}</div>
                                           @enderror
                                     <label class="mt-2" for="password">Password</label>
-                                    <input type="password" name="password" id="password" class="@error('email') border-2 border-red-500 @enderror w-full px-3 py-2 bg-white rounded-md" placeholder="password">
+                                    <input type="password" name="password" id="password" class="@error('password') border-2 border-red-500 @enderror w-full px-3 py-2 bg-white rounded-md" placeholder="password">
                                           @error('password')
+                                              <div class="w-full text-sm text-red-500 md:text-md">{{ $message }}</div>
+                                          @enderror
+                                    <label class="mt-2" for="konfirmasiPassword">Konfirmasi Password</label>
+                                    <input type="password" name="konfirmasiPassword" id="konfirmasiPassword" class="@error('konfirmasiPassword') border-2 border-red-500 @enderror w-full px-3 py-2 bg-white rounded-md" placeholder="Konfirmasi Password">
+                                          @error('konfirmasiPassword')
                                               <div class="w-full text-sm text-red-500 md:text-md">{{ $message }}</div>
                                           @enderror
                                     <button type="submit" class="w-1/2 px-1 py-2 mt-3 font-semibold bg-blue-500 rounded-md xl:w-1/4 lg:w-1/3">Sign Up</button>

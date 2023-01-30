@@ -9,6 +9,8 @@ use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 
+use function PHPUnit\Framework\returnValue;
+
 class LoginController extends Controller
 {
     public function index()
@@ -52,11 +54,10 @@ class LoginController extends Controller
                 'name' => 'required|max:50',
                 'username' => 'required|max:255|unique:users',
                 'email' => 'required|email:dns',
-                'no_hp' => 'required',
-                'password' => ['required', Password::min(8)->numbers()->symbols()->mixedCase()]
+                'password' => ['required', Password::min(8)->numbers()->symbols()->mixedCase()],
+                'konfirmasiPassword' => 'required|same:password'
             ]
         );
-
         $validateData['password'] = Hash::make($request->password);
 
         User::create($validateData);

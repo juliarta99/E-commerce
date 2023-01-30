@@ -13,7 +13,7 @@ class TokoController extends Controller
     {
         return view('toko.index',
         [
-            'title' => 'Toko'
+            'title' => 'Toko Saya'
         ]);
     }
 
@@ -33,7 +33,6 @@ class TokoController extends Controller
     {
         $validateData = $request->validate([
             'name' => 'required|max:50',
-            'slug' => 'required|unique:tokos',
             'alamat' => 'required',
             'tentang' => 'required',
             'image' => 'file|image|max:1024',
@@ -46,7 +45,7 @@ class TokoController extends Controller
         
         Toko::create($validateData);
         
-        $toko = Toko::where('slug', $request->slug)->get();
+        $toko = Toko::where('id', $request->id_user)->get();
         if($toko != null) {
             User::where('id', Auth::user()->id)->update([
                 'is_toko' => 1,

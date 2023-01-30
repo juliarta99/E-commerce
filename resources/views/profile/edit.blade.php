@@ -20,7 +20,7 @@
                         </div>
                   </div>
                   <div id="detailBiodata" class="w-full mt-3">
-                        <div class="items-center justify-center w-full sm:flex max-w-5xl mx-auto">
+                        <div class="items-center justify-center w-full max-w-5xl mx-auto sm:flex">
                               <div class="w-full sm:w-1/2">
                                     @if (Auth::user()->image != null)
                                           <img src="{{ asset('storage/'. Auth::user()->image) }}" class="w-48 mx-auto rounded-full sm:w-full md:w-1/2" alt="{{ Auth::user()->name }}">
@@ -48,21 +48,28 @@
                                           </div>
                                           <h1 class="mt-5 font-semibold text-black text-md lg:text-lg">Kontak</h1>
                                           <h3 class="text-sm lg:text-md">Email : {{ Auth::user()->email  }}</h3>
-                                          <h3 class="text-sm lg:text-md">Nomor HP : {{ Auth::user()->no_hp  }}</h3>
+                                          <div class="flex">
+                                                <h3 class="mr-1 text-sm lg:text-md">Nomor HP :</h3>
+                                                @if (Auth::user()->no_hp != null)
+                                                      <h3 class="text-sm uppercase lg:text-md">{{ Auth::user()->no_hp }}</h3>
+                                                @else
+                                                      <h3 class="text-sm lg:text-md">Belum ditambahkan</h3>
+                                                @endif
+                                          </div>
                                     </div>
                               </div>
                         </div>
                   </div>
                   {{-- form ubah --}}
                   <div id="formUbahBiodata" class="hidden">
-                        <form action="/editProfile" method="post" enctype="multipart/form-data" class="flex max-w-md mx-auto flex-col mt-5">
+                        <form action="/editProfile" method="post" enctype="multipart/form-data" class="flex flex-col max-w-md mx-auto mt-5">
                               @csrf
                               @method('put')
                               <h1 class="font-semibold text-center uppercase text-md lg:text-lg">Ubah Biodata Diri</h1>
                               @if (session()->has('succesUbahProfile'))
-                              <div id="sessionSucces1" class="overflow-hidden w-auto mx-auto rounded-md my-1">
-                                    <div class="bg-green-500 py-2 px-4 ">{{ session('succesUbahProfile') }}</div>
-                                    <div id="timeSessionSucces" class="bg-black h-1"></div>
+                              <div id="sessionSucces1" class="w-auto mx-auto my-1 overflow-hidden rounded-md">
+                                    <div class="px-4 py-2 bg-green-500 ">{{ session('succesUbahProfile') }}</div>
+                                    <div id="timeSessionSucces" class="h-1 bg-black"></div>
                               </div>
                               @endif
                               <input type="hidden" name="oldImage" value="{{ Auth::user()->image }}">
@@ -129,8 +136,8 @@
                         <div id="showAlamat">
                               <div class="flex flex-col max-w-md mx-auto mt-5">       
                                     @foreach ($alamats as $alamat)
-                                    <div class="p-2 px-4 rounded-md bg-blue-500 mt-2">
-                                          <p class="text-sm lg:text-md font-semibold xl:text-lg">{{ $alamat->penerima }}</p>
+                                    <div class="p-2 px-4 mt-2 bg-blue-500 rounded-md">
+                                          <p class="text-sm font-semibold lg:text-md xl:text-lg">{{ $alamat->penerima }}</p>
                                           <div class="flex items-center">
                                                 @if ($alamat->label == 'Kantor')
                                                       {{-- office --}}
@@ -168,13 +175,13 @@
                         </div>
                         {{-- form tambah --}}
                         <div id="formTambahAlamat" class="hidden">
-                              <form action="/alamat" method="post" class="flex flex-col mt-5 max-w-md mx-auto">
+                              <form action="/alamat" method="post" class="flex flex-col max-w-md mx-auto mt-5">
                                     @csrf
                                     <h1 class="font-semibold text-center uppercase text-md lg:text-l">Form Tambah Alamat</h1>
                                     @if (session()->has('succesTambahAlamat'))
-                                    <div id="sessionSucces2" class="overflow-hidden w-auto mx-auto rounded-md my-1">
-                                          <div class="bg-green-500 py-2 px-4 ">{{ session('succesTambahAlamat') }}</div>
-                                          <div id="timeSessionSucces" class="bg-black h-1"></div>
+                                    <div id="sessionSucces2" class="w-auto mx-auto my-1 overflow-hidden rounded-md">
+                                          <div class="px-4 py-2 bg-green-500 ">{{ session('succesTambahAlamat') }}</div>
+                                          <div id="timeSessionSucces" class="h-1 bg-black"></div>
                                     </div>
                                      @endif
                                     <input type="hidden" name="id_user" value="{{ Auth::user()->id }}">
