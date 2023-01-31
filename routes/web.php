@@ -31,6 +31,12 @@ Route::post('/register', [LoginController::class, 'store'])->middleware('guest')
 Route::get('/toko', [TokoController::class, 'index'])->middleware('is_toko');
 Route::get('/toko/create', [TokoController::class, 'create'])->middleware('auth');
 Route::post('/toko/create', [TokoController::class, 'store'])->middleware('auth');
+Route::get('/toko/{toko:slug}/edit', [TokoController::class, 'edit'])->middleware('is_toko');
+Route::put('/toko/{toko:slug}', [TokoController::class, 'update'])->middleware('is_toko');
+Route::get('/toko/{toko:slug}/editBack', [TokoController::class, 'editBack'])->middleware('is_toko');
+Route::put('/toko/{toko:slug}/editBack', [TokoController::class, 'updateBack'])->middleware('is_toko');
+Route::resource('/toko/product', TokoProductController::class)->middleware('is_toko');
+
 
 Route::get('/products', [ProductController::class, 'index']);
 Route::get('/product/{product:slug}', [ProductController::class, 'show']);

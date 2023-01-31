@@ -54,9 +54,9 @@
                                                 <div class="flex items-center">
                                                       @foreach (Auth::user()->toko()->get() as $toko)
                                                             @if ($toko->image != null)
-                                                                  <img src="{{ 'storage/'.$toko->image }}" alt="mkd" class="rounded-full">
+                                                                  <img src="{{ 'storage/'.$toko->image }}" alt="mkd" class="w-6 h-6 mr-1 rounded-full">
                                                             @else
-                                                                  <img src="{{ asset('img/toko_default.jpg') }}" alt="ProfileToko" class="w-8 h-8 rounded-full">
+                                                                  <img src="{{ asset('img/toko_default.jpg') }}" alt="ProfileToko" class="w-6 h-6 mr-1 rounded-full">
                                                             @endif
                                                             <h1 class="text-xs lg:text-sm">{{ $toko->name }}</h1>
                                                       @endforeach

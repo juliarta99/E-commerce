@@ -24,7 +24,6 @@
                         <div class="w-full text-sm text-red-500 lg:text-md">{{ $message }}</div>
                   @enderror
             
-            
                   <label class="mt-2 text-sm text-black lg:text-md" for="alamat">Alamat</label>
                   <input class="w-full px-4 py-2 text-sm bg-gray-200 rounded-md lg:text-md @error('alamat') border-2 border-red-500 @enderror" type="alamat" name="alamat" id="alamat" value="{{ old('alamat') }}">
                   @error('alamat')

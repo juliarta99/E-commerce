@@ -1,6 +1,6 @@
 // show nav profile
-const showProfile = document.getElementById('show-profile');
-const profile = document.getElementById('profile');
+const showProfile = document.querySelector('#show-profile');
+const profile = document.querySelector('#profile');
 
 profile.addEventListener('click', function(){
       showProfile.classList.toggle('hidden');
@@ -8,8 +8,8 @@ profile.addEventListener('click', function(){
 });
 
 // buatToko
-const toko = document.getElementById('toko');
-const showToko = document.getElementById('showToko');
+const toko = document.querySelector('#toko');
+const showToko = document.querySelector('#showToko');
 
 toko.addEventListener('click', ()=> {
       showToko.classList.toggle('hidden');
@@ -18,16 +18,16 @@ toko.addEventListener('click', ()=> {
 
 
 // edit profile
-const btnBiodata = document.getElementById('buttonBiodata');
-const btnAlamat = document.getElementById('buttonAlamat');
-const biodata = document.getElementById('biodata');
-const alamat = document.getElementById('alamat');
-const btnTambahAlamat = document.getElementById('buttonTambahAlamat');
-const formTambahAlamat = document.getElementById('formTambahAlamat');
-const detailBiodata = document.getElementById('detailBiodata');
-const formUbahBiodata = document.getElementById('formUbahBiodata');
-const btnUbahBiodata = document.getElementById('buttonUbahBiodata');
-const showAlamat = document.getElementById('showAlamat');
+const btnBiodata = document.querySelector('#buttonBiodata');
+const btnAlamat = document.querySelector('#buttonAlamat');
+const biodata = document.querySelector('#biodata');
+const alamat = document.querySelector('#alamat');
+const btnTambahAlamat = document.querySelector('#buttonTambahAlamat');
+const formTambahAlamat = document.querySelector('#formTambahAlamat');
+const detailBiodata = document.querySelector('#detailBiodata');
+const formUbahBiodata = document.querySelector('#formUbahBiodata');
+const btnUbahBiodata = document.querySelector('#buttonUbahBiodata');
+const showAlamat = document.querySelector('#showAlamat');
 
 btnBiodata.addEventListener('click',  () =>{
       localStorage.setItem("biodata", "true");
@@ -131,8 +131,8 @@ if(localStorage.getItem("tambahAlamat")){
 }
 
 // set interval session
-const sessionSucces1 = document.getElementById('sessionSucces1');
-const sessionSucces2 = document.getElementById('sessionSucces2');
+const sessionSucces1 = document.querySelector('#sessionSucces1');
+const sessionSucces2 = document.querySelector('#sessionSucces2');
 setInterval(function(){
       sessionSucces1.classList.add('hidden');
       sessionSucces2.classList.add('hidden');

@@ -41,7 +41,11 @@
                                           </div>
                                           <div class="flex">
                                                 <h3 class="mr-1 text-sm lg:text-md">Jenis Kelamin :</h3> @if (Auth::user()->jk != null)
-                                                            <h3 class="text-sm uppercase lg:text-md">{{ Auth::user()->jk }}</h3>
+                                                            @if (Auth::user()->jk == 'l')
+                                                                  <h3 class="text-sm lg:text-md">Laki - Laki</h3>    
+                                                            @else
+                                                                  <h3 class="text-sm lg:text-md">Perempuan</h3>
+                                                            @endif
                                                       @else
                                                             <h3 class="text-sm lg:text-md">Belum ditambahkan</h3>
                                                       @endif

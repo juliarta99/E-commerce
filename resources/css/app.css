@@ -2,6 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+#sessionSucces{
+      animation: session 5s;
+}
+@keyframes session {
+      0% {
+            overflow: block;
+      }
+      100%{
+            overflow: hidden;
+      }
+}
 #timeSessionSucces{
       animation: hiddenSession 6s;
 }

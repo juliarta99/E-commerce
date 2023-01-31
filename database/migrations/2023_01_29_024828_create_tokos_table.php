@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->string('alamat');
             $table->string('image')->nullable();
+            $table->string('backImage')->nullable();
             $table->text('tentang');
             $table->double('rate')->default(0.0);
             $table->timestamps();
