@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.trix-button-group.trix-button-group--file-tools {
+      @apply hidden;
+}
+
 #sessionSucces{
       animation: session 5s;
 }

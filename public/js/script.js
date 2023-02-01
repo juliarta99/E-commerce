@@ -28,8 +28,9 @@ const detailBiodata = document.querySelector('#detailBiodata');
 const formUbahBiodata = document.querySelector('#formUbahBiodata');
 const btnUbahBiodata = document.querySelector('#buttonUbahBiodata');
 const showAlamat = document.querySelector('#showAlamat');
+const editAlamat = document.querySelector('#editAlamat');
 
-btnBiodata.addEventListener('click',  () =>{
+btnBiodata.addEventListener('click',  ()=>{
       localStorage.setItem("biodata", "true");
       localStorage.removeItem("alamat");
       localStorage.removeItem("ubahBiodata");
@@ -82,7 +83,7 @@ btnUbahBiodata.addEventListener('click', () =>{
       localStorage.setItem("ubahBiodata", "true");
       localStorage.removeItem("biodata");
       localStorage.removeItem("alamat");
-      localStorage.removeItem("tamabahAlamat");
+      localStorage.removeItem("tambahAlamat");
       detailBiodata.classList.toggle('hidden');
       formUbahBiodata.classList.toggle('hidden');
       if(formUbahBiodata.classList.contains('hidden')) {
@@ -129,6 +130,13 @@ if(localStorage.getItem("tambahAlamat")){
       btnBiodata.classList.remove('border-blue-500');
       btnTambahAlamat.innerHTML = "Batalkan";
 }
+
+editAlamat.addEventListener('click', ()=> {
+      localStorage.removeItem("ubahBiodata");
+      localStorage.removeItem("biodata");
+      localStorage.setItem("alamat", "true");
+      localStorage.removeItem("tambahAlamat");
+});
 
 // set interval session
 const sessionSucces1 = document.querySelector('#sessionSucces1');

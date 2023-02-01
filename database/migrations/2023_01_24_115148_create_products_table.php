@@ -21,7 +21,8 @@ return new class extends Migration
             $table->string('name');
             $table->integer('harga');
             $table->integer('harga_awal');
-            $table->integer('potongan');
+            $table->integer('potongan')->default(0);
+            $table->integer('diskon')->default(0);
             $table->integer('berat');
             $table->text('deskripsi');
             $table->string('image')->nullable();

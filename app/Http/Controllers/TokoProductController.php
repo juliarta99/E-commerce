@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Kategori;
+use Illuminate\Support\Facades\Auth;
 
 class TokoProductController extends Controller
 {
@@ -17,7 +18,8 @@ class TokoProductController extends Controller
     {
         return view('toko.product.create',
         [
-            'title' => 'Create Product'
+            'title' => 'Create Product',
+            'kategoris' => Kategori::all(),
         ]);
     }
 
@@ -30,9 +32,23 @@ class TokoProductController extends Controller
     public function store(Request $request)
     {
         $validateData = $request->validate([
-
+            'name' => 'required',
+            'id_toko' => 'required',
+            'id_kategori' => 'required',
+            'harga_awal' => 'required',
+            'harga' => 'required',
+            'berat' => 'required',
+            'image' => 'nullable|file|image|max:1024',
+            'kabupaten' => 'required',
+            'provinsi' => 'required',
+            'deskripsi' => 'required'
         ]);
-
+        $validateData['potongan'] = $request->harga_awal - $request->harga;
+        $validateData['diskon'] = $validateData['potongan'] / $request->harga_awal * 100;
+        if($request->file('image')) {
+            $validateData['image'] = $request->file('image')->store('product-images');
+        }
+        
         Product::create($validateData);
         return redirect('/toko')->with('succes', 'Product berhasil ditambahkan');
     }
@@ -92,7 +108,7 @@ class TokoProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        Product::destroy($product->id);
+        Product::destroy('id', $product->id);
         return redirect('/login')->with('succes', 'Product berhasil dihapus');
     }
 }

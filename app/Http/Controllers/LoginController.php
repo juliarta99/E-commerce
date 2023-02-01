@@ -52,7 +52,6 @@ class LoginController extends Controller
         $validateData =  $request->validate(
             [
                 'name' => 'required|max:50',
-                'username' => 'required|max:255|unique:users',
                 'email' => 'required|email:dns',
                 'password' => ['required', Password::min(8)->numbers()->symbols()->mixedCase()],
                 'konfirmasiPassword' => 'required|same:password'

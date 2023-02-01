@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TokoController;
+use App\Http\Controllers\TokoProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,3 +46,6 @@ Route::get('/editProfile', [ProfileController::class, 'edit'])->middleware('auth
 Route::put('/editProfile', [ProfileController::class, 'update'])->middleware('auth');
 
 Route::post('/alamat', [AlamatController::class, 'store'])->middleware('auth');
+Route::get('/alamat/{alamat:id}/edit', [AlamatController::class, 'edit'])->middleware('auth');
+Route::put('/alamat/{alamat:id}', [AlamatController::class, 'update'])->middleware('auth');
+Route::delete('/alamat/{alamat:id}', [AlamatController::class, 'destroy'])->middleware('auth');

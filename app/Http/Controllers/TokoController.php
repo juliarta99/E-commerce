@@ -7,6 +7,7 @@ use App\Models\Toko;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Product;
 use Symfony\Component\HttpFoundation\Test\Constraint\RequestAttributeValueSame;
 
 class TokoController extends Controller
@@ -15,7 +16,8 @@ class TokoController extends Controller
     {
         return view('toko.index',
         [
-            'title' => 'Toko Saya'
+            'title' => 'Toko Saya',
+            'products' => Product::where('id_toko', Auth::user()->toko->id)->get(),
         ]);
     }
 

@@ -24,11 +24,6 @@
                                           @error('name')
                                               <div class="w-full text-sm text-red-500 md:text-md">{{ $message }}</div>
                                           @enderror
-                                    <label class="mt-2" for="username">Username</label>
-                                    <input type="text" name="username" id="username" class="@error('username') border-2 border-red-500 @enderror w-full px-3 py-2 bg-white rounded-md" value="{{ old('username') }}" placeholder="username">
-                                          @error('username')
-                                              <div class="w-full text-sm text-red-500 md:text-md">{{ $message }}</div>
-                                          @enderror
                                     <label class="mt-2" for="email">Email</label>
                                     <input type="email" name="email" id="email" class="@error('email') border-2 border-red-500 @enderror w-full px-3 py-2 bg-white rounded-md peer" value="{{ old('email') }}" placeholder="email">
                                     <p class="hidden text-red-500 peer-invalid:block">

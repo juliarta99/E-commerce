@@ -8,32 +8,6 @@ use Illuminate\Support\Facades\Auth;
 
 class AlamatController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $validateData = $request->validate([
@@ -56,17 +30,6 @@ class AlamatController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Alamat  $alamat
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Alamat $alamat)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Alamat  $alamat
@@ -74,7 +37,15 @@ class AlamatController extends Controller
      */
     public function edit(Alamat $alamat)
     {
-        //
+        if(Auth::user()->id != $alamat->id_user){
+            return redirect('/editProfile');
+        }
+        
+        return view('profile.alamat.edit',
+        [
+            'title' => 'Edit Alamat',
+            'alamat' => $alamat
+        ]);
     }
 
     /**
@@ -86,7 +57,20 @@ class AlamatController extends Controller
      */
     public function update(Request $request, Alamat $alamat)
     {
-        //
+        $creadentials = $request->validate([
+            'penerima' => 'required|max:50',
+            'label' => 'required|max:50',
+            'kelurahan' => 'required|max:50',
+            'kecamatan' => 'required|max:50',
+            'kabupaten' => 'required|max:50',
+            'provinsi' => 'required|max:50',
+            'detail' => 'required',
+            'catatan' => 'max:255',
+            'no_hp' => 'required',
+        ]);
+
+        Alamat::where('id', $alamat->id)->update($creadentials);
+        return redirect('/editProfile')->with('succes', 'Alamat berhasil diedit');
     }
 
     /**
@@ -97,6 +81,11 @@ class AlamatController extends Controller
      */
     public function destroy(Alamat $alamat)
     {
-        //
+        if(Auth::user()->id != $alamat->id_user){
+            return redirect('/editProfile');
+        }
+
+        Alamat::destroy('id', $alamat->id);
+        return redirect('/editProfile')->with('succes', 'Alamat berhasil dihapus');
     }
 }
