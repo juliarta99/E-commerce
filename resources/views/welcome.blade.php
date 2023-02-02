@@ -16,9 +16,13 @@
                                                 <div class="flex flex-wrap items-center w-full p-4 mb-4 bg-white shadow-md">
                                                       <div class="w-full md:w-1/2 lg:w-full">
                                                             <div class="relative">
-                                                                  <img src="https://source.unsplash.com/900x450/?{{ $product->kategori->name }}" class="rounded-md" alt="Product">
+                                                                  @if ($product->image != null)
+                                                                        <img src="storage/{{ $product->kategori->name }}" class="rounded-md" alt="Product">
+                                                                  @else
+                                                                        <img src="https://source.unsplash.com/900x450/?{{ $product->kategori->name }}" class="rounded-md" alt="Product">
+                                                                  @endif
                                                                   <p class="absolute top-0 left-0 p-2 text-sm text-white bg-black rounded-tl-md lg:text-md">{{ $product->kategori->name }}</p>
-                                                                  <p class="absolute top-0 right-0 p-2 text-sm text-white bg-red-500 rounded-tr-md lg:text-md">{{$product->potongan}}%</p>
+                                                                  <p class="absolute top-0 right-0 p-2 text-sm text-white bg-red-500 rounded-tr-md lg:text-md">{{$product->diskon}}%</p>
                                                             </div>
                                                       </div>
                                                       <div class="w-full px-4 md:w-1/2 lg:w-full">

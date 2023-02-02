@@ -38,6 +38,7 @@ Route::get('/toko/{toko:slug}/editBack', [TokoController::class, 'editBack'])->m
 Route::put('/toko/{toko:slug}/editBack', [TokoController::class, 'updateBack'])->middleware('is_toko');
 Route::resource('/toko/product', TokoProductController::class)->middleware('is_toko');
 
+Route::get('/{toko:slug}', [TokoController::class, 'show'])->middleware('auth');
 
 Route::get('/products', [ProductController::class, 'index']);
 Route::get('/product/{product:slug}', [ProductController::class, 'show']);

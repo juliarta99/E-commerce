@@ -114,4 +114,19 @@ class TokoController extends Controller
         return redirect('/toko')->with('succes', 'Background toko berhasil diganti');
         
     }
+
+    public function show(Toko $toko)
+    {
+        if(Auth::user()->is_toko != null) {
+            if($toko->id == Auth::user()->toko->id) {
+                return redirect('/toko');
+            }
+        }
+        return view('toko',
+        [
+            'title' => $toko->name,
+            'toko' => $toko,
+            'products' => Product::where('id_toko', $toko->id)->get(),
+        ]);
+    }
 }

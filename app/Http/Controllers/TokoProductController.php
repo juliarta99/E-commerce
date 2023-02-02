@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Kategori;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class TokoProductController extends Controller
 {
@@ -61,6 +62,9 @@ class TokoProductController extends Controller
      */
     public function show(Product $product)
     {
+        if($product->id_toko != Auth::user()->toko->id){
+            return redirect('/toko')->with('tidakDitemukan', 'Product tidak ditemukan');
+        }
         return view('toko.product.show',
         [
             'title' => $product->name,
@@ -76,10 +80,14 @@ class TokoProductController extends Controller
      */
     public function edit(Product $product)
     {
+        if($product->id_toko != Auth::user()->toko->id){
+            return redirect('/toko')->with('tidakDitemukan', 'Product tidak ditemukan');
+        }
         return view('toko.product.edit',
         [
-            'title' => 'Edit'. $product->name,
-            'product' => $product
+            'title' => 'Edit '. $product->name,
+            'product' => $product,
+            'kategoris' => Kategori::all(),
         ]);
     }
 
@@ -93,8 +101,23 @@ class TokoProductController extends Controller
     public function update(Request $request, Product $product)
     {
         $creadentials = $request->validate([
-
+            'name' => 'required|max:50',
+            'id_kategori' => 'required',
+            'harga_awal' => 'required',
+            'harga' => 'required',
+            'berat' => 'required',
+            'image' => 'file|image|max:1024',
+            'kabupaten' => 'required',
+            'provinsi' => 'required',
+            'deskripsi' => 'required'
         ]);
+
+        if($request->file('image')) {
+            if($request->oldImage) {
+                Storage::delete($request->oldImage);
+            }
+            $validateData['image'] = $request->file('image')->store('product-images');
+        }
 
         Product::where('id', $product->id)->update($creadentials);
         return redirect('/toko')->with('succes', 'Product berhasil diedit');
@@ -109,6 +132,6 @@ class TokoProductController extends Controller
     public function destroy(Product $product)
     {
         Product::destroy('id', $product->id);
-        return redirect('/login')->with('succes', 'Product berhasil dihapus');
+        return redirect('/toko')->with('succes', 'Product berhasil dihapus');
     }
 }
