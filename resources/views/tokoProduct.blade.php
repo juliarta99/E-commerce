@@ -2,24 +2,13 @@
 @section('content')
       <div class="pt-32 pb-10 px-9 lg:pt-24">
             <div class="w-full">
-                  @if (session()->has('succes'))
-                        <div class="w-auto p-2 px-2 mt-8 text-sm font-semibold text-center bg-green-500 rounded-t-md lg:mt-4 lg:text-md">{{ session('succes') }}</div>
-                  @endif
                   <div class="fixed bottom-0 z-[9] flex flex-col w-auto p-4 text-white bg-blue-500 right-9 rounded-t-md">
                         <h1 class="text-sm lg:text-md xl:text-lg opacity-95">Harga : @currency($product->harga)</h1>
                         <h1 class="text-sm lg:text-md opacity-95">Potongan : @currency($product->harga_awal * 2 - $product->harga * 2)</h1>
                         <h1 class="text-md lg:text-lg xl:text-xl">Total : @currency(2 * $product->harga)</h1>
-                        @if (Auth::user()->keranjang()->where('id_product', $product->id))
-                              <a href="/keranjang/{{ Auth::user()->username }}">
-                                    <button class="px-4 py-1 mt-2 duration-500 bg-black rounded-md text-md xl:text-lg hover:text-black hover:bg-white">Lihat keranjang</button>
-                              </a>
-                        @else
-                              <form action="/keranjang/create" method="post" class="mx-auto">
-                                    @csrf
-                                    <input type="hidden" name="id_product" value="{{ $product->id }}">
-                                    <button class="px-4 py-1 mt-2 duration-500 bg-black rounded-md text-md xl:text-lg hover:text-black hover:bg-white" type="submit">+ Keranjang</button>
-                              </form>
-                        @endif
+                        <a href="">
+                              
+                        </a>
                         <a href="" class="mx-auto">
                               <button class="px-4 py-1 mt-2 duration-500 border-2 border-white rounded-md text-md xl:text-lg hover:text-black hover:bg-white">Beli</button>
                         </a>
@@ -55,15 +44,15 @@
                               </div>
                         </div>
                   </div>
-                  <div class="w-auto px-5 py-2 my-3 border-2 border-black rounded-md border-opacity-5">
+                  <div class="w-auto border-2 border-black rounded-md border-opacity-5 my-3 py-2 px-5">
                         <a href="/{{ $product->toko->slug }}">
                         
                               <div class="flex items-center">
                                     <div class="mr-3">
                                           @if ($product->toko->image != null)
-                                                <img src="storage/{{ $product->toko->image }}" class="w-10 h-10 rounded-full lg:w-12 lg:h-12" alt="{{ $product->toko->name }}">
+                                                <img src="storage/{{ $product->toko->image }}" class="lg:w-12 w-10 lg:h-12 h-10 rounded-full" alt="{{ $product->toko->name }}">
                                           @else
-                                                <img src="{{ asset('img/toko_default.jpg') }}" alt="Background Toko" class="w-10 h-10 rounded-full lg:w-12 lg:h-12">
+                                                <img src="{{ asset('img/toko_default.jpg') }}" alt="Background Toko" class="lg:w-12 w-10 lg:h-12 h-10 rounded-full">
                                           @endif
                                     </div>
                                     <div class="w-full">

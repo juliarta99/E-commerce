@@ -46,9 +46,9 @@
                                                             @else
                                                                   <h3 class="text-sm lg:text-md">Perempuan</h3>
                                                             @endif
-                                                      @else
-                                                            <h3 class="text-sm lg:text-md">Belum ditambahkan</h3>
-                                                      @endif
+                                                @else
+                                                      <h3 class="text-sm lg:text-md">Belum ditambahkan</h3>
+                                                @endif
                                           </div>
                                           <h1 class="mt-5 font-semibold text-black text-md lg:text-lg">Kontak</h1>
                                           <h3 class="text-sm lg:text-md">Email : {{ Auth::user()->email  }}</h3>
@@ -71,9 +71,8 @@
                               @method('put')
                               <h1 class="font-semibold text-center uppercase text-md lg:text-lg">Ubah Biodata Diri</h1>
                               @if (session()->has('succesUbahProfile'))
-                              <div id="sessionSucces1" class="w-auto mx-auto my-1 overflow-hidden rounded-md">
+                              <div class="w-auto mx-auto my-1 overflow-hidden rounded-md">
                                     <div class="px-4 py-2 bg-green-500 ">{{ session('succesUbahProfile') }}</div>
-                                    <div id="timeSessionSucces" class="h-1 bg-black"></div>
                               </div>
                               @endif
                               <input type="hidden" name="oldImage" value="{{ Auth::user()->image }}">
@@ -206,9 +205,8 @@
                                     @csrf
                                     <h1 class="font-semibold text-center uppercase text-md lg:text-l">Form Tambah Alamat</h1>
                                     @if (session()->has('succesTambahAlamat'))
-                                    <div id="sessionSucces2" class="w-auto mx-auto my-1 overflow-hidden rounded-md">
+                                    <div class="w-auto mx-auto my-1 overflow-hidden rounded-md">
                                           <div class="px-4 py-2 bg-green-500 ">{{ session('succesTambahAlamat') }}</div>
-                                          <div id="timeSessionSucces" class="h-1 bg-black"></div>
                                     </div>
                                      @endif
                                     <input type="hidden" name="id_user" value="{{ Auth::user()->id }}">

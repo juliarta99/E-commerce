@@ -55,6 +55,11 @@ class User extends Authenticatable
         return $this->hasOne(Toko::class, 'id_user');
     }
 
+    public function keranjang()
+    {
+        return $this->hasMany(Keranjang::class, 'id_user');
+    }
+
     public function alamats()
     {
         return $this->hasMany(Alamat::class);

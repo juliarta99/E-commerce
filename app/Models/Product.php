@@ -14,6 +14,11 @@ class Product extends Model
 
     protected $guarded = ['id'];
 
+    public function keranjang()
+    {
+        return $this->hasMany(Keranjang::class);
+    }
+
     public function kategori()
     {
         return $this->belongsTo(Kategori::class,'id_kategori');

@@ -8,7 +8,9 @@
                         </div>
                   </div>
                   <div class="w-full mt-8">
-                        <h1 class="text-2xl font-bold text-black lg:text-3xl xl:text-4xl">Product</h1>
+                        <a href="/products">
+                              <h1 class="text-2xl font-bold text-black lg:text-3xl xl:text-4xl">Product</h1>
+                        </a>
                         <div class="flex flex-wrap">
                               @foreach ($products as $product)    
                                     <div class="w-full mb-4 lg:p-2 xl:w-1/3 lg:w-1/2">
