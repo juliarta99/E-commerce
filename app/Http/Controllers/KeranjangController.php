@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Keranjang;
@@ -41,6 +40,9 @@ class KeranjangController extends Controller
      */
     public function store(Request $request)
     {
+        if(count(Auth::user()->keranjang->where('id_product', $request->id_product)) == 1) {
+            return Redirect::back()->with('sudahAda', 'Product sudah ditambahkan di keranjang');
+        }
         $validateData = $request->validate([
             'id_product' => 'required'
         ]);

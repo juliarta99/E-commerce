@@ -62,6 +62,6 @@ class User extends Authenticatable
 
     public function alamats()
     {
-        return $this->hasMany(Alamat::class);
+        return $this->hasMany(Alamat::class, 'id_user');
     }
 }
