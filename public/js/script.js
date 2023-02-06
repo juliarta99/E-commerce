@@ -16,6 +16,22 @@ toko.addEventListener('click', ()=> {
       showProfile.classList.add('hidden');
 })
 
+// checked keranjang
+function checkAll() {
+      const checkAllProduct = document.querySelector('#checkAllProduct');
+      const checkProduct = document.querySelectorAll('.checkProduct');
+
+      if (checkAllProduct.checked){
+            for (let i = 0; i < checkProduct.length; i++) {
+                  checkProduct[i].checked = true;
+            }
+      } else {
+            for ( let i = 0; i < checkProduct.length; i++) {
+                  checkProduct[i].checked = false;
+            }
+      }
+
+}
 
 // edit profile
 const btnBiodata = document.querySelector('#buttonBiodata');

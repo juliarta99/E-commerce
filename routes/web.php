@@ -8,6 +8,7 @@ use App\Http\Controllers\KeranjangController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TokoController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TokoProductController;
 
 /*
@@ -42,8 +43,14 @@ Route::put('/alamat/{alamat:id}', [AlamatController::class, 'update'])->middlewa
 Route::delete('/alamat/{alamat:id}', [AlamatController::class, 'destroy'])->middleware('auth');
 
 Route::post('/keranjang/create', [KeranjangController::class, 'store'])->middleware('auth');
-Route::get('/keranjang/{user:username}', [KeranjangController::class, 'index'])->middleware('auth');
+Route::get('/keranjang', [KeranjangController::class, 'index'])->middleware('auth');
+Route::delete('/keranjang/delete', [KeranjangController::class, 'destroy'])->middleware('auth');
 
+// admin
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('is_admin')->name('dashboard');
+
+
+// toko
 Route::get('/toko', [TokoController::class, 'index'])->middleware('is_toko');
 Route::get('/toko/create', [TokoController::class, 'create'])->middleware('auth');
 Route::post('/toko/create', [TokoController::class, 'store'])->middleware('auth');

@@ -23,7 +23,7 @@
                               @if ($errors->any())
                                     <div class="w-full text-sm text-center text-red-500 md:text-md">{{ $errors->first() }}</div>
                               @endif
-                              <form action="/login" method="post" class="flex flex-col w-full">
+                              <form action="/login" method="post" class="flex flex-col w-full" autocomplete="off">
                                     @csrf
                                     <label class="mt-2" for="email">Email</label>
                                     <input type="email" name="email" id="email" class="@error('email') border-2 border-red-500 @enderror w-full px-3 py-2 bg-white rounded-md peer" value="{{ old('email') }}" placeholder="email">

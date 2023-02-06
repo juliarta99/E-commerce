@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Alamat;
 use App\Models\Toko;
+use App\Models\Comment;
 use Cviebrock\EloquentSluggable\Sluggable;
 
 class User extends Authenticatable
@@ -60,8 +61,13 @@ class User extends Authenticatable
         return $this->hasMany(Keranjang::class, 'id_user');
     }
 
-    public function alamats()
+    public function alamat()
     {
         return $this->hasMany(Alamat::class, 'id_user');
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'id_user');
     }
 }

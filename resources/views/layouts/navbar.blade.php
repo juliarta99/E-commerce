@@ -5,10 +5,10 @@
                         <h1 class="font-semibold text-blue-500 text-md sm:text-xl lg:text-2xl">E-commerce</h1>
                   </a>
             </div>
-            <form action="/products?search=" class="hidden w-1/2 lg:block">
+            <form action="/products" class="hidden w-1/2 lg:block">
                   <div class="flex">
-                        <input type="text" name="search" id="search" placeholder="Cari produk pilihan anda" class="w-full px-2 py-1 text-xs rounded-l-lg shadow-md outline-none lg:text-sm lg:px-4 lg:py-2">
-                        <button class="p-1 bg-gray-200 rounded-r-lg shadow-md lg:p-2">
+                        <input type="text" name="search" id="search" placeholder="Cari produk pilihan anda" class="w-full px-2 py-1 text-xs rounded-l-lg shadow-md outline-none lg:text-sm lg:px-4 lg:py-2" value="{{ request('search') }}">
+                        <button type="submit" class="p-1 bg-gray-200 rounded-r-lg shadow-md lg:p-2">
                               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 sm:w-6 sm:h-6">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                               </svg>                            
@@ -18,7 +18,7 @@
             <div class="flex">
                   <div class="flex items-center justify-center mr-4 border-r-2 border-r-gray-500">
                         <div class="mr-2 cursor-pointer">
-                              <a href="/keranjang/{{ Auth::user()->username }}">
+                              <a href="/keranjang">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 sm:w-6 sm:h-6">
                                           <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
                                     </svg>

@@ -14,7 +14,7 @@ class ProductController extends Controller
         return view('products',
         [
             'title' => 'All Products',
-            'products' => Product::latest()->with('kategori')->get(),
+            'products' => Product::latest()->with('kategori')->filter(request(['search']))->get(),
         ]);
     }
 

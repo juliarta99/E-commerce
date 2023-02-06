@@ -89,11 +89,24 @@ class KeranjangController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Keranjang  $keranjang
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Keranjang $keranjang)
+    public function destroy(Request $request)
     {
-        //
+        $request->validate([
+            'checkProducts' => 'required', 
+        ]);
+        $checkProducts = $request->input('checkProducts');
+        foreach($checkProducts as $checkProduct) {
+            $product = Keranjang::where('id', $checkProduct)->get();
+            foreach($product as $p) {
+                if($p->id_user != Auth::user()->id) {
+                    return redirect('keranjang')->with('error', 'Product tidak berada di keranjang anda');
+                }
+            }
+            Keranjang::destroy('id', $checkProduct);
+        }
+        return redirect('keranjang')->with('succes', 'Product berhasil dihapus dari keranjang');
     }
 }

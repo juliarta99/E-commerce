@@ -14,6 +14,13 @@ class Product extends Model
 
     protected $guarded = ['id'];
 
+    public function scopeFilter($query, array $filters)
+    {
+        $query->when($filters['search'] ?? false, function($query, $search) {
+            return $query->where('name', 'like', '%' . $search . '%');
+        });
+    }
+
     public function keranjang()
     {
         return $this->hasMany(Keranjang::class, 'id_product');
@@ -27,6 +34,11 @@ class Product extends Model
     public function toko()
     {
         return $this->belongsTo(Toko::class, 'id_toko');
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'id_product');
     }
 
     public function sluggable(): array
