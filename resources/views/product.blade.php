@@ -12,18 +12,26 @@
                         <h1 class="text-sm lg:text-md xl:text-lg opacity-95">Harga : @currency($product->harga)</h1>
                         <h1 class="text-sm lg:text-md opacity-95">Potongan : @currency($product->harga_awal * 2 - $product->harga * 2)</h1>
                         <h1 class="text-md lg:text-lg xl:text-xl">Total : @currency(2 * $product->harga)</h1>
-                        @if(count(Auth::user()->keranjang->where('id_product', $product->id)) == 0)
-                        <form action="/keranjang/create" method="post" class="mx-auto">
-                              @csrf
-                              <input type="hidden" name="id_product" value="{{ $product->id }}">
-                              <button class="px-4 py-1 mt-2 duration-500 bg-black rounded-md text-md xl:text-lg hover:text-black hover:bg-white" type="submit">+ Keranjang</button>
-                        </form>
-                        @else
-                              @foreach (Auth::user()->keranjang->where('id_product', $product->id) as $keranjang)
-                                    <a href="/keranjang">
-                                          <button class="px-4 py-1 mt-2 duration-500 bg-black rounded-md text-md xl:text-lg hover:text-black hover:bg-white">Lihat keranjang</button>
+                        @if (!auth()->check())
+                              <div class="mx-auto">
+                                    <a href="/login">
+                                          <button class="px-4 py-1 mt-2 duration-500 bg-black rounded-md text-md xl:text-lg hover:text-black hover:bg-white">+ Keranjang</button>
                                     </a>
-                              @endforeach
+                              </div>
+                        @else
+                              @if(count(Auth::user()->keranjangs->where('id_product', $product->id)) == 0)
+                              <form action="/keranjang/create" method="post" class="mx-auto">
+                                    @csrf
+                                    <input type="hidden" name="id_product" value="{{ $product->id }}">
+                                    <button class="px-4 py-1 mt-2 duration-500 bg-black rounded-md text-md xl:text-lg hover:text-black hover:bg-white" type="submit">+ Keranjang</button>
+                              </form>
+                              @else
+                                    @foreach (Auth::user()->keranjangs->where('id_product', $product->id) as $keranjang)
+                                          <a href="/keranjang">
+                                                <button class="px-4 py-1 mt-2 duration-500 bg-black rounded-md text-md xl:text-lg hover:text-black hover:bg-white">Lihat keranjang</button>
+                                          </a>
+                                    @endforeach
+                              @endif
                         @endif
                         <a href="" class="mx-auto">
                               <button class="px-4 py-1 mt-2 duration-500 border-2 border-white rounded-md text-md xl:text-lg hover:text-black hover:bg-white">Beli</button>
@@ -60,28 +68,32 @@
                               </div>
                         </div>
                   </div>
-                  <div class="w-auto px-5 py-2 my-3 border-2 border-black rounded-md border-opacity-5">
-                        <a href="/{{ $product->toko->slug }}">
-                        
-                              <div class="flex items-center">
-                                    <div class="mr-3">
-                                          @if ($product->toko->image != null)
-                                                <img src="storage/{{ $product->toko->image }}" class="w-10 h-10 rounded-full lg:w-12 lg:h-12" alt="{{ $product->toko->name }}">
-                                          @else
-                                                <img src="{{ asset('img/toko_default.jpg') }}" alt="Background Toko" class="w-10 h-10 rounded-full lg:w-12 lg:h-12">
-                                          @endif
+                  <div class="w-full px-5 py-2 my-3 border-2 border-black rounded-md border-opacity-5">
+                        <div class="flex items-center">
+                              <div class="flex flex-wrap justify-between">
+                                    <div class="flex items-center float-left">
+                                                <div class="mr-3">
+                                                      @if ($product->toko->image != null)
+                                                            <img src="storage/{{ $product->toko->image }}" class="w-10 h-10 rounded-full lg:w-12 lg:h-12" alt="{{ $product->toko->name }}">
+                                                      @else
+                                                            <img src="{{ asset('img/toko_default.jpg') }}" alt="Background Toko" class="w-10 h-10 rounded-full lg:w-12 lg:h-12">
+                                                      @endif
+                                                </div>
+                                                <div class="w-full">
+                                                      <h6 class="text-sm lg:text-md">{{ $product->toko->name }}</h6>
+                                                      <div class="flex items-center">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 mr-1">
+                                                                  <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
+                                                            </svg> 
+                                                            <p class="text-sm lg:text-md">{{ $product->toko->rate }}</p>
+                                                      </div>
+                                                </div>
                                     </div>
-                                    <div class="w-full">
-                                          <h6 class="text-sm lg:text-md">{{ $product->toko->name }}</h6>
-                                          <div class="flex items-center">
-                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 mr-1">
-                                                      <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
-                                                </svg> 
-                                                <p class="text-sm lg:text-md">{{ $product->toko->rate }}</p>
-                                          </div>
-                                    </div>
+                                    <form action="" method="post" class="">
+                                          <button class="bg-blue-500 p-2 rounded-md text-sm md:text-md">Tambah ke favorit</button>
+                                    </form>
                               </div>
-                        </a>
+                        </div>
                   </div>
                   <div class="w-full px-2 mt-4" id="ulasan">
                         <h1 class="text-lg lg:text-xl">Ulasan</h1>

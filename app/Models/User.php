@@ -56,12 +56,12 @@ class User extends Authenticatable
         return $this->hasOne(Toko::class, 'id_user');
     }
 
-    public function keranjang()
+    public function keranjangs()
     {
         return $this->hasMany(Keranjang::class, 'id_user');
     }
 
-    public function alamat()
+    public function alamats()
     {
         return $this->hasMany(Alamat::class, 'id_user');
     }
@@ -69,5 +69,10 @@ class User extends Authenticatable
     public function comments()
     {
         return $this->hasMany(Comment::class, 'id_user');
+    }
+
+    public function favorits()
+    {
+        return $this->hasMany(Favorit::class, 'id_user');
     }
 }

@@ -9,8 +9,6 @@ use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 
-use function PHPUnit\Framework\returnValue;
-
 class LoginController extends Controller
 {
     public function index()
@@ -53,7 +51,7 @@ class LoginController extends Controller
             [
                 'name' => 'required|max:50',
                 'email' => 'required|email:dns',
-                'password' => ['required', Password::min(8)->numbers()->symbols()->mixedCase()],
+                'password' => ['required', Password::min(8)->numbers()->symbols()],
                 'konfirmasiPassword' => 'required|same:password'
             ]
         );

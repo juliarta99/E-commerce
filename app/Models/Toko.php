@@ -23,6 +23,11 @@ class Toko extends Model
         return $this->hasMany(Product::class);
     }
 
+    public function favorits()
+    {
+        return $this->hasMany(Favorit::class, 'id_toko');
+    }
+
     public function sluggable(): array
     {
         return [

@@ -142,7 +142,7 @@
                                           <div class="px-4 py-2 text-center bg-green-500 rounded-md">{{ session('succes') }}</div>
                                     @endif
                                     
-                                    @if (count(Auth::user()->alamat) == 0)
+                                    @if (count(Auth::user()->alamats) == 0)
                                           <p class="text-sm text-center lg:text-md font-semibold">Alamat belum ditambahkan</p>
                                     @else
                                           @foreach ($alamats as $alamat)

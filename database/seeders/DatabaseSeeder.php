@@ -32,7 +32,5 @@ class DatabaseSeeder extends Seeder
             'name' => 'clothes',
             'slug' => 'clothes'
         ]);
-
-        Product::factory(10)->create();
     }
 }
