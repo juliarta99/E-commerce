@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Favorit;
-use App\Http\Requests\StoreFavoritRequest;
-use App\Http\Requests\UpdateFavoritRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class FavoritController extends Controller
 {
@@ -15,7 +16,11 @@ class FavoritController extends Controller
      */
     public function index()
     {
-        //
+        return view('favorit',
+        [
+            'title' => 'Favorit',
+            'favorits' => Auth::user()->favorits,
+        ]);
     }
 
     /**
@@ -31,12 +36,22 @@ class FavoritController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreFavoritRequest  $request
+     * @param  Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreFavoritRequest $request)
+    public function store(Request $request)
     {
-        //
+        if(count(Auth::user()->favorits->where('id_toko', $request->id_toko)) == 1) {
+            return Redirect::back()->with('error', 'Toko sudah ada dalam favorit');
+        }
+        $validateData = $request->validate([
+            'id_toko' => 'required',
+        ]);
+        
+        $validateData['id_user'] = Auth::user()->id;
+
+        Favorit::create($validateData);
+        return Redirect::back()->with('succes', 'Toko berhasil ditambahkan ke dalam toko favorit');
     }
 
     /**
@@ -64,11 +79,11 @@ class FavoritController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateFavoritRequest  $request
+     * @param  Illuminate\Http\Request  $request
      * @param  \App\Models\Favorit  $favorit
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateFavoritRequest $request, Favorit $favorit)
+    public function update(Request $request, Favorit $favorit)
     {
         //
     }
@@ -79,8 +94,9 @@ class FavoritController extends Controller
      * @param  \App\Models\Favorit  $favorit
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Favorit $favorit)
+    public function destroy(Request $request)
     {
-        //
+        Favorit::destroy('id', $request->id_favorit);
+        return Redirect::back()->with('succes', 'Toko berhasil dihapus dari favorit');
     }
 }

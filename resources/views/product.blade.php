@@ -5,6 +5,9 @@
                   @if (session()->has('succes'))
                         <div class="w-auto p-2 px-2 mt-8 text-sm font-semibold text-center bg-green-500 rounded-t-md lg:mt-4 lg:text-md">{{ session('succes') }}</div>
                   @endif
+                  @if (session()->has('error'))
+                        <div class="w-auto p-2 px-2 mt-8 text-sm font-semibold text-center bg-red-500 rounded-t-md lg:mt-4 lg:text-md">{{ session('error') }}</div>
+                  @endif
                   @if (session()->has('sudahAda'))
                         <div class="w-auto p-2 px-2 mt-8 text-sm font-semibold text-center bg-red-500 rounded-t-md lg:mt-4 lg:text-md">{{ session('succes') }}</div>
                   @endif
@@ -70,8 +73,8 @@
                   </div>
                   <div class="w-full px-5 py-2 my-3 border-2 border-black rounded-md border-opacity-5">
                         <div class="flex items-center">
-                              <div class="flex flex-wrap justify-between">
-                                    <div class="flex items-center float-left">
+                              <div class="flex flex-wrap items-center">
+                                    <div class="flex items-center">
                                                 <div class="mr-3">
                                                       @if ($product->toko->image != null)
                                                             <img src="storage/{{ $product->toko->image }}" class="w-10 h-10 rounded-full lg:w-12 lg:h-12" alt="{{ $product->toko->name }}">
@@ -79,7 +82,7 @@
                                                             <img src="{{ asset('img/toko_default.jpg') }}" alt="Background Toko" class="w-10 h-10 rounded-full lg:w-12 lg:h-12">
                                                       @endif
                                                 </div>
-                                                <div class="w-full">
+                                                <div class="mr-2">
                                                       <h6 class="text-sm lg:text-md">{{ $product->toko->name }}</h6>
                                                       <div class="flex items-center">
                                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 mr-1">
@@ -89,9 +92,22 @@
                                                       </div>
                                                 </div>
                                     </div>
-                                    <form action="" method="post" class="">
-                                          <button class="bg-blue-500 p-2 rounded-md text-sm md:text-md">Tambah ke favorit</button>
-                                    </form>
+                                    @if (count(Auth::user()->favorits->where('id_toko', $product->toko->id)) == 1)  
+                                          <form action="/favorit/delete" method="post" class="">
+                                                @csrf
+                                                @method('delete')
+                                                @foreach (Auth::user()->favorits->where('id_toko', $product->toko->id) as $idFavorit)
+                                                      <input type="hidden" name="id_favorit" value="{{ $idFavorit->id }}">
+                                                @endforeach
+                                                <button class="bg-blue-500 p-2 rounded-md text-sm md:text-md" type="submit">Hapus dari favorit</button>
+                                          </form>
+                                    @else
+                                          <form action="/favorit/create" method="post" class="">
+                                                @csrf
+                                                <input type="hidden" name="id_toko" value="{{ $product->toko->id }}">
+                                                <button class="bg-blue-500 p-2 rounded-md text-sm md:text-md" type="submit">Tambah ke favorit</button>
+                                          </form>
+                                    @endif
                               </div>
                         </div>
                   </div>

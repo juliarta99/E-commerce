@@ -9,6 +9,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TokoController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FavoritController;
 use App\Http\Controllers\TokoProductController;
 
 /*
@@ -24,6 +25,7 @@ use App\Http\Controllers\TokoProductController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
+// login
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate'])->name('login')->middleware('guest');
 Route::get('/logout', [LoginController::class, 'logout'])->middleware('auth');
@@ -31,20 +33,29 @@ Route::get('/logout', [LoginController::class, 'logout'])->middleware('auth');
 Route::get('/register', [LoginController::class, 'create'])->middleware('guest');
 Route::post('/register', [LoginController::class, 'store'])->middleware('guest');
 
+// product
 Route::get('/products', [ProductController::class, 'index']);
 Route::get('/product/{product:slug}', [ProductController::class, 'show']);
 
+// profile
 Route::get('/editProfile', [ProfileController::class, 'edit'])->middleware('auth');
 Route::put('/editProfile', [ProfileController::class, 'update'])->middleware('auth');
 
+// alamat
 Route::post('/alamat', [AlamatController::class, 'store'])->middleware('auth');
 Route::get('/alamat/{alamat:id}/edit', [AlamatController::class, 'edit'])->middleware('auth');
 Route::put('/alamat/{alamat:id}', [AlamatController::class, 'update'])->middleware('auth');
 Route::delete('/alamat/{alamat:id}', [AlamatController::class, 'destroy'])->middleware('auth');
 
+// keranjang
 Route::post('/keranjang/create', [KeranjangController::class, 'store'])->middleware('auth');
 Route::get('/keranjang', [KeranjangController::class, 'index'])->middleware('auth');
 Route::delete('/keranjang/delete', [KeranjangController::class, 'destroy'])->middleware('auth');
+
+// favorit
+Route::get('/favorit', [FavoritController::class, 'index'])->middleware('auth');
+Route::post('/favorit/create', [FavoritController::class, 'store'])->middleware('auth');
+Route::delete('/favorit/delete', [FavoritController::class, 'destroy'])->middleware('auth');
 
 // admin
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('is_admin')->name('dashboard');
