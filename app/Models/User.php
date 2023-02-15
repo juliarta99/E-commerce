@@ -10,9 +10,10 @@ use Laravel\Sanctum\HasApiTokens;
 use App\Models\Alamat;
 use App\Models\Toko;
 use App\Models\Comment;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Cviebrock\EloquentSluggable\Sluggable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable, Sluggable;
 

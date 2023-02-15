@@ -73,7 +73,7 @@
                   </div>
                   <div class="w-full px-5 py-2 my-3 border-2 border-black rounded-md border-opacity-5">
                         <div class="flex items-center">
-                              <div class="flex flex-wrap items-center">
+                              <div class="flex justify-between w-full items-center">
                                     <div class="flex items-center">
                                                 <div class="mr-3">
                                                       @if ($product->toko->image != null)
@@ -99,7 +99,7 @@
                                                 @foreach (Auth::user()->favorits->where('id_toko', $product->toko->id) as $idFavorit)
                                                       <input type="hidden" name="id_favorit" value="{{ $idFavorit->id }}">
                                                 @endforeach
-                                                <button class="bg-blue-500 p-2 rounded-md text-sm md:text-md" type="submit">Hapus dari favorit</button>
+                                                <button class="bg-red-500 p-2 rounded-md text-sm md:text-md" type="submit">Hapus dari favorit</button>
                                           </form>
                                     @else
                                           <form action="/favorit/create" method="post" class="">

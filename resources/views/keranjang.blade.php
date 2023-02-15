@@ -9,7 +9,7 @@
       <div class="w-full mt-3">
             <div class="w-full items-center flex">
                   <div class="mr-2">
-                        <input type="checkbox" name="checkAllProduct" onclick="checkAll()" id="checkAllProduct">
+                        <input type="checkbox" name="checkAllProduct" onclick="checkAll()" id="checkAllProduct" class="">
                   </div>
                   <button type="submit" class="p-2 rounded-md bg-blue-500 text-white font-bold text-sm lg:text-md">Hapus Keranjang</button>
             </div>

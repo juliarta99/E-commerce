@@ -2,6 +2,9 @@
 @section('content')
       <div class="pb-10 px-9 pt-36 lg:pt-24">
             <div class="w-full">
+                  @if (session()->has('succes'))
+                        <div class="w-auto p-2 px-2 mt-8 text-sm font-semibold text-center bg-green-500 rounded-t-md lg:mt-4 lg:text-md">{{ session('succes') }}</div>
+                  @endif
                   <div class="w-full">
                         <div class="flex flex-wrap">
                               <img src="img/banner-e-commerce.png" class="w-full h-32 rounded-md md:h-40 lg:h-52 xl:h-64" alt="ImageScroll">

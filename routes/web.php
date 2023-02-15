@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AlamatController;
+use App\Http\Controllers\CropImageController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\HomeController;
@@ -11,6 +12,7 @@ use App\Http\Controllers\TokoController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FavoritController;
 use App\Http\Controllers\TokoProductController;
+use App\Http\Controllers\VerificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,13 +35,22 @@ Route::get('/logout', [LoginController::class, 'logout'])->middleware('auth');
 Route::get('/register', [LoginController::class, 'create'])->middleware('guest');
 Route::post('/register', [LoginController::class, 'store'])->middleware('guest');
 
+// verification akun
+Route::get('/email/verify', [VerificationController::class, 'notice'])->middleware('auth')->name('verification.notice');
+Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->middleware('auth', 'signed')->name('verification.verify');
+Route::post('/email/resend-verify', [VerificationController::class, 'resend'])->middleware('auth', 'throttle:6,1')->name('verification.send');
+
+// crop image
+Route::get('/cropImage', [CropImageController::class, 'index'])->middleware('auth');
+Route::post('/cropImage', [CropImageController::class, 'crop'])->middleware('auth');
+
 // product
 Route::get('/products', [ProductController::class, 'index']);
 Route::get('/product/{product:slug}', [ProductController::class, 'show']);
 
 // profile
-Route::get('/editProfile', [ProfileController::class, 'edit'])->middleware('auth');
-Route::put('/editProfile', [ProfileController::class, 'update'])->middleware('auth');
+Route::get('/editProfile', [ProfileController::class, 'edit'])->middleware('auth', 'verified');
+Route::put('/editProfile', [ProfileController::class, 'update'])->middleware('auth', 'verified');
 
 // alamat
 Route::post('/alamat', [AlamatController::class, 'store'])->middleware('auth');

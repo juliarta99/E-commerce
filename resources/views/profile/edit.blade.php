@@ -15,7 +15,7 @@
             <div id="biodata" class="w-full mt-8">
                   <div class="flex w-50 sm:w-full">
                         <div class="mx-auto">
-                              <button id="buttonUbahBiodata" class="p-2 px-4 mr-4 text-xs text-white bg-blue-500 rounded-md sm:text-sm">Ubah biodata</button>
+                              <button id="buttonUbahBiodata" class="p-2 px-4 mr-4 text-xs text-white bg-blue-500 rounded-md sm:text-sm">Ubah Profile</button>
                               <button id="ubahPassword" class="p-2 px-4 text-xs text-white bg-blue-500 rounded-md sm:text-sm">Ubah Password</button>
                         </div>
                   </div>

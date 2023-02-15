@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Auth\Events\Registered;
 
 class LoginController extends Controller
 {
@@ -47,7 +48,7 @@ class LoginController extends Controller
 
     public function store(Request $request)
     {
-        $validateData =  $request->validate(
+        $request->validate(
             [
                 'name' => 'required|max:50',
                 'email' => 'required|email:dns',
@@ -55,10 +56,15 @@ class LoginController extends Controller
                 'konfirmasiPassword' => 'required|same:password'
             ]
         );
-        $validateData['password'] = Hash::make($request->password);
+        $request['password'] = Hash::make($request->password);
 
-        User::create($validateData);
-        return redirect('/login')->with('succes', 'Register berhasil');
+        $user = User::create($request->except('_token'));
+
+        event(new Registered($user));
+
+        auth()->login($user);
+
+        return redirect()->route('verification.notice')->with('succes', 'Akun berhasil dibuat, silahkan verifikasi email anda!');
     }
 
     public function logout(Request $request)
