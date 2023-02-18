@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
-use App\Models\Keranjang;
+use App\Models\Toko;
 use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
@@ -24,6 +24,9 @@ class ProductController extends Controller
         [
             'title' => $product->name,
             'product' => $product,
+            'toko' => Auth::user()->toko->id,
+            'keranjang' => Auth::user()->keranjangs->where('id_product', $product->id),
+            'favorit' => Auth::user()->favorits->where('id_toko', $product->toko->id),
         ]);
     }
 }

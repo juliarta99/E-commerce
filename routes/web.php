@@ -49,8 +49,8 @@ Route::get('/products', [ProductController::class, 'index']);
 Route::get('/product/{product:slug}', [ProductController::class, 'show']);
 
 // profile
-Route::get('/editProfile', [ProfileController::class, 'edit'])->middleware('auth', 'verified');
-Route::put('/editProfile', [ProfileController::class, 'update'])->middleware('auth', 'verified');
+Route::get('/editProfile', [ProfileController::class, 'edit'])->middleware('auth');
+Route::put('/editProfile', [ProfileController::class, 'update'])->middleware('auth');
 
 // alamat
 Route::post('/alamat', [AlamatController::class, 'store'])->middleware('auth');

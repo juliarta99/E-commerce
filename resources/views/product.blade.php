@@ -22,18 +22,24 @@
                                     </a>
                               </div>
                         @else
-                              @if(count(Auth::user()->keranjangs->where('id_product', $product->id)) == 0)
-                              <form action="/keranjang/create" method="post" class="mx-auto">
-                                    @csrf
-                                    <input type="hidden" name="id_product" value="{{ $product->id }}">
-                                    <button class="px-4 py-1 mt-2 duration-500 bg-black rounded-md text-md xl:text-lg hover:text-black hover:bg-white" type="submit">+ Keranjang</button>
-                              </form>
+                              @if ( $toko == $product->toko->id)
+                                    <div class="mx-auto">
+                                          <a href="/toko/product/{{ $product->slug }}">
+                                                <button class="px-4 py-1 mt-2 duration-500 bg-black rounded-md text-md xl:text-lg hover:text-black hover:bg-white">Lihat Product</button>
+                                          </a>
+                                    </div>
                               @else
-                                    @foreach (Auth::user()->keranjangs->where('id_product', $product->id) as $keranjang)
+                                    @if(count($keranjang) == 0)
+                                          <form action="/keranjang/create" method="post" class="mx-auto">
+                                                @csrf
+                                                <input type="hidden" name="id_product" value="{{ $product->id }}">
+                                                <button class="px-4 py-1 mt-2 duration-500 bg-black rounded-md text-md xl:text-lg hover:text-black hover:bg-white" type="submit">+ Keranjang</button>
+                                          </form>
+                                    @else
                                           <a href="/keranjang">
                                                 <button class="px-4 py-1 mt-2 duration-500 bg-black rounded-md text-md xl:text-lg hover:text-black hover:bg-white">Lihat keranjang</button>
                                           </a>
-                                    @endforeach
+                                    @endif
                               @endif
                         @endif
                         <a href="" class="mx-auto">
@@ -92,21 +98,25 @@
                                                       </div>
                                                 </div>
                                     </div>
-                                    @if (count(Auth::user()->favorits->where('id_toko', $product->toko->id)) == 1)  
-                                          <form action="/favorit/delete" method="post" class="">
-                                                @csrf
-                                                @method('delete')
-                                                @foreach (Auth::user()->favorits->where('id_toko', $product->toko->id) as $idFavorit)
-                                                      <input type="hidden" name="id_favorit" value="{{ $idFavorit->id }}">
-                                                @endforeach
-                                                <button class="bg-red-500 p-2 rounded-md text-sm md:text-md" type="submit">Hapus dari favorit</button>
-                                          </form>
-                                    @else
-                                          <form action="/favorit/create" method="post" class="">
-                                                @csrf
-                                                <input type="hidden" name="id_toko" value="{{ $product->toko->id }}">
-                                                <button class="bg-blue-500 p-2 rounded-md text-sm md:text-md" type="submit">Tambah ke favorit</button>
-                                          </form>
+                                    @if ( $toko == $product->toko->id)
+                                        <a href="/toko">
+                                          <button class="px-4 py-2 bg-blue-500 text-sm lg:text-md rounded-md">Lihat Toko</button>
+                                        </a>
+                                    @else     
+                                          @if (count($favorit) == 1)  
+                                                <form action="/favorit/delete" method="post" class="">
+                                                      @csrf
+                                                      @method('delete')
+                                                            <input type="hidden" name="id_favorit" value="{{ $favorit->first()->id }}">
+                                                            <button class="bg-red-500 p-2 rounded-md text-sm md:text-md" type="submit">Hapus dari favorit</button>
+                                                </form>
+                                          @else
+                                                <form action="/favorit/create" method="post" class="">
+                                                      @csrf
+                                                      <input type="hidden" name="id_toko" value="{{ $product->toko->id }}">
+                                                      <button class="bg-blue-500 p-2 rounded-md text-sm md:text-md" type="submit">Tambah ke favorit</button>
+                                                </form>
+                                          @endif
                                     @endif
                               </div>
                         </div>
