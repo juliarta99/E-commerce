@@ -13,8 +13,9 @@
                   @endif
                   <div class="fixed bottom-0 z-[9] flex flex-col w-auto p-4 text-white bg-blue-500 right-9 rounded-t-md">
                         <h1 class="text-sm lg:text-md xl:text-lg opacity-95">Harga : @currency($product->harga)</h1>
+                        <h1 class="hidden" id="hargaBeli">{{ $product->harga }}</h1>
                         <h1 class="text-sm lg:text-md opacity-95">Potongan : @currency($product->harga_awal * 2 - $product->harga * 2)</h1>
-                        <h1 class="text-md lg:text-lg xl:text-xl">Total : @currency(2 * $product->harga)</h1>
+                        <h1 class="text-md lg:text-lg xl:text-xl flex">Total : Rp.<p id="totalBeli">{{ $product->harga }}</p></h1>
                         @if (!auth()->check())
                               <div class="mx-auto">
                                     <a href="/login">
@@ -22,17 +23,22 @@
                                     </a>
                               </div>
                         @else
-                              @if ( $toko == $product->toko->id)
+                              @if ( Auth::user()->toko->id == $product->toko->id )
                                     <div class="mx-auto">
                                           <a href="/toko/product/{{ $product->slug }}">
                                                 <button class="px-4 py-1 mt-2 duration-500 bg-black rounded-md text-md xl:text-lg hover:text-black hover:bg-white">Lihat Product</button>
                                           </a>
                                     </div>
                               @else
-                                    @if(count($keranjang) == 0)
-                                          <form action="/keranjang/create" method="post" class="mx-auto">
+                                    @if(count(Auth::user()->keranjangs->where('id_product', $product->id)) == 0)
+                                          <form action="/keranjang/create" class="flex flex-col" method="post" class="mx-auto">
                                                 @csrf
                                                 <input type="hidden" name="id_product" value="{{ $product->id }}">
+                                                <div class="flex items-center w-full justify-center my-1">
+                                                      <div class="px-2 rounded-md bg-black text-white text-sm lg:text-md mr-2 cursor-pointer" id="kuantitasMin">-</div>
+                                                      <input type="text" name="kuantitas" value="1" id="kuantitas" class="w-1/4 text-black text-center">
+                                                      <div class="px-2 rounded-md bg-black text-white text-sm lg:text-md ml-2 cursor-pointer" id="kuantitasPlus">+</div>
+                                                </div>
                                                 <button class="px-4 py-1 mt-2 duration-500 bg-black rounded-md text-md xl:text-lg hover:text-black hover:bg-white" type="submit">+ Keranjang</button>
                                           </form>
                                     @else
@@ -98,24 +104,30 @@
                                                       </div>
                                                 </div>
                                     </div>
-                                    @if ( $toko == $product->toko->id)
-                                        <a href="/toko">
-                                          <button class="px-4 py-2 bg-blue-500 text-sm lg:text-md rounded-md">Lihat Toko</button>
-                                        </a>
-                                    @else     
-                                          @if (count($favorit) == 1)  
-                                                <form action="/favorit/delete" method="post" class="">
-                                                      @csrf
-                                                      @method('delete')
-                                                            <input type="hidden" name="id_favorit" value="{{ $favorit->first()->id }}">
-                                                            <button class="bg-red-500 p-2 rounded-md text-sm md:text-md" type="submit">Hapus dari favorit</button>
-                                                </form>
-                                          @else
-                                                <form action="/favorit/create" method="post" class="">
-                                                      @csrf
-                                                      <input type="hidden" name="id_toko" value="{{ $product->toko->id }}">
-                                                      <button class="bg-blue-500 p-2 rounded-md text-sm md:text-md" type="submit">Tambah ke favorit</button>
-                                                </form>
+                                    @if (!auth()->check()) 
+                                          <a href="/login">
+                                                <button class="px-4 py-2 bg-blue-500 text-sm lg:text-md rounded-md">Tambah ke favorit</button>
+                                          </a>
+                                    @else
+                                          @if ( Auth::user()->toko->id == $product->toko->id )
+                                                <a href="/toko">
+                                                      <button class="px-4 py-2 bg-blue-500 text-sm lg:text-md rounded-md">Lihat Toko</button>
+                                                </a>
+                                          @else     
+                                                @if (count(Auth::user()->favorits->where('id_toko', $product->toko->id)) == 1)  
+                                                      <form action="/favorit/delete" method="post" class="">
+                                                            @csrf
+                                                            @method('delete')
+                                                                  <input type="hidden" name="id_favorit" value="{{ Auth::user()->favorits->where('id_toko', $product->toko->id)->first()->id }}">
+                                                                  <button class="bg-red-500 p-2 rounded-md text-sm md:text-md" type="submit">Hapus dari favorit</button>
+                                                      </form>
+                                                @else
+                                                      <form action="/favorit/create" method="post" class="">
+                                                            @csrf
+                                                            <input type="hidden" name="id_toko" value="{{ $product->toko->id }}">
+                                                            <button class="bg-blue-500 p-2 rounded-md text-sm md:text-md" type="submit">Tambah ke favorit</button>
+                                                      </form>
+                                                @endif
                                           @endif
                                     @endif
                               </div>

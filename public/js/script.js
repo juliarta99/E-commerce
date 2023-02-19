@@ -1,6 +1,6 @@
 // show nav profile
-const showProfile = document.querySelector('#show-profile');
-const profile = document.querySelector('#profile');
+const showProfile = document.getElementById('show-profile');
+const profile = document.getElementById('profile');
 
 profile.addEventListener('click', function(){
       showProfile.classList.toggle('hidden');
@@ -8,17 +8,40 @@ profile.addEventListener('click', function(){
 });
 
 // buatToko
-const toko = document.querySelector('#toko');
-const showToko = document.querySelector('#showToko');
+const toko = document.getElementById('toko');
+const showToko = document.getElementById('showToko');
 
 toko.addEventListener('click', ()=> {
       showToko.classList.toggle('hidden');
       showProfile.classList.add('hidden');
 })
 
+
+// total beli
+const hargaBeli = document.getElementById('hargaBeli');
+const totalBeli = document.getElementById('totalBeli');
+// kuantitas beli
+const kuantitas = document.getElementById('kuantitas');
+const kuantitasPlus = document.getElementById('kuantitasPlus');
+const kuantitasMin = document.getElementById('kuantitasMin');
+
+kuantitasPlus.addEventListener('click', function() {
+      kuantitas.value = parseInt(kuantitas.value) + 1;
+      totalBeli.innerHTML = parseInt(kuantitas.value) * parseInt(hargaBeli.innerHTML);
+});
+
+kuantitasMin.addEventListener('click', function() {
+      if(kuantitas.value > 1) {
+            kuantitas.value = parseInt(kuantitas.value) - 1;
+            totalBeli.innerHTML = parseInt(kuantitas.value) * parseInt(hargaBeli.innerHTML);
+      }
+});
+
+
+
 // checked keranjang
 function checkAll() {
-      const checkAllProduct = document.querySelector('#checkAllProduct');
+      const checkAllProduct = document.getElementById('checkAllProduct');
       const checkProduct = document.querySelectorAll('.checkProduct');
 
       if (checkAllProduct.checked){
@@ -34,17 +57,17 @@ function checkAll() {
 }
 
 // edit profile
-const btnBiodata = document.querySelector('#buttonBiodata');
-const btnAlamat = document.querySelector('#buttonAlamat');
-const biodata = document.querySelector('#biodata');
-const alamat = document.querySelector('#alamat');
-const btnTambahAlamat = document.querySelector('#buttonTambahAlamat');
-const formTambahAlamat = document.querySelector('#formTambahAlamat');
-const detailBiodata = document.querySelector('#detailBiodata');
-const formUbahBiodata = document.querySelector('#formUbahBiodata');
-const btnUbahBiodata = document.querySelector('#buttonUbahBiodata');
-const showAlamat = document.querySelector('#showAlamat');
-const editAlamat = document.querySelector('#editAlamat');
+const btnBiodata = document.getElementById('buttonBiodata');
+const btnAlamat = document.getElementById('buttonAlamat');
+const biodata = document.getElementById('biodata');
+const alamat = document.getElementById('alamat');
+const btnTambahAlamat = document.getElementById('buttonTambahAlamat');
+const formTambahAlamat = document.getElementById('formTambahAlamat');
+const detailBiodata = document.getElementById('detailBiodata');
+const formUbahBiodata = document.getElementById('formUbahBiodata');
+const btnUbahBiodata = document.getElementById('buttonUbahBiodata');
+const showAlamat = document.getElementById('showAlamat');
+const editAlamat = document.getElementById('editAlamat');
 
 btnBiodata.addEventListener('click',  ()=>{
       localStorage.setItem("biodata", "true");
@@ -155,8 +178,8 @@ editAlamat.addEventListener('click', ()=> {
 });
 
 // set interval session
-const sessionSucces1 = document.querySelector('#sessionSucces1');
-const sessionSucces2 = document.querySelector('#sessionSucces2');
+const sessionSucces1 = document.getElementById('sessionSucces1');
+const sessionSucces2 = document.getElementById('sessionSucces2');
 setInterval(function(){
       sessionSucces1.classList.add('hidden');
       sessionSucces2.classList.add('hidden');

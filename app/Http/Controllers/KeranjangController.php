@@ -44,7 +44,8 @@ class KeranjangController extends Controller
             return Redirect::back()->with('sudahAda', 'Product sudah ditambahkan di keranjang');
         }
         $validateData = $request->validate([
-            'id_product' => 'required'
+            'id_product' => 'required',
+            'kuantitas' => 'required'
         ]);
         $validateData['id_user'] = Auth::user()->id;
 

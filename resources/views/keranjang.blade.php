@@ -7,7 +7,7 @@
       @method('delete')
       <h1 class="text-md lg:text-lg xl:text-xl font-bold">Keranjang</h1>
       @if (count($keranjangs) == 0)
-            <p class="text-sm lg:text-md font-semibold">Belum ada product dalam keranjang</p>
+            <p class="text-sm lg:text-md">Belum ada product dalam keranjang</p>
       @else
             <div class="w-full mt-3">
                   <div class="w-full items-center flex">

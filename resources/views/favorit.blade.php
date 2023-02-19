@@ -9,7 +9,7 @@
     @endif
     <h1 class="text-md md:text-lg lg:text-xl xl:text-2xl font-bold">Toko Favorit</h1>
     @if (count($favorits) == null)
-        <p class="text-sm lg:text-md font-semibold">Belum ada toko favorit yang ditambahkan!</p>
+        <p class="text-sm lg:text-md">Belum ada toko favorit yang ditambahkan!</p>
     @else
         <div class="w-full flex flex-wrap">
             @foreach ($favorits as $favorit)
