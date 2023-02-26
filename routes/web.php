@@ -41,8 +41,7 @@ Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'
 Route::post('/email/resend-verify', [VerificationController::class, 'resend'])->middleware('auth', 'throttle:6,1')->name('verification.send');
 
 // crop image
-Route::get('/cropImage', [CropImageController::class, 'index'])->middleware('auth');
-Route::post('/cropImage', [CropImageController::class, 'crop'])->middleware('auth');
+Route::post('/cropImageToko', [CropImageController::class, 'cropImageToko'])->middleware('auth');
 
 // product
 Route::get('/products', [ProductController::class, 'index']);
