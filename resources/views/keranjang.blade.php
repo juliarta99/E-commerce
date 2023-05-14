@@ -25,18 +25,18 @@
                   @error('checkProducts')
                         <div class="px-4 py-2 bg-red-500 w-auto mx-auto my-2 rounded-md">{{ $message }}</div>
                   @enderror
-                  <div class="flex flex-wrap">
-                        @foreach ($keranjangs as $keranjang)
-                  <div class="w-full mb-4 lg:p-2 xl:w-1/3 lg:w-1/2">
-                              <label for="checkProduct">
+                  <div class="grid lg:grid-cols-5 sm:grid-cols-2 grid-cols-1 gap-y-2 gap-x-4">
+                    @foreach ($keranjangs as $keranjang)
+                    <div class="w-full mb-4">
+                                <label for="checkProduct">
                                     <input type="checkbox" name="checkProducts[]" id="checkProduct" class="w-4 h-4 mb-2 checkProduct" value="{{ $keranjang->id }}">
                                     <div class="flex flex-wrap items-center w-full p-4 mb-4 bg-white shadow-md">
                                           <div class="w-full md:w-1/2 lg:w-full">
                                                 <div class="relative">
                                                       @if ($keranjang->product->image != null)
-                                                      <img src="storage/{{ $keranjang->product->kategori->name }}" class="rounded-md" alt="Product">
+                                                        <img src="{{ asset('storage/'. $keranjang->product->image) }}" class="rounded-md" alt="Product">
                                                       @else
-                                                      <img src="https://source.unsplash.com/900x450/?{{ $keranjang->product->kategori->name }}" class="rounded-md" alt="Product">
+                                                        <img src="https://source.unsplash.com/900x450/?{{ $keranjang->product->kategori->name }}" class="rounded-md" alt="Product">
                                                       @endif
                                                       <p class="absolute top-0 left-0 p-2 text-xs text-white bg-black lg:text-sm rounded-tl-md">{{ $keranjang->product->kategori->name }}</p>
                                                       <p class="absolute top-0 right-0 p-2 text-xs text-white bg-red-500 rounded-tr-md lg:text-sm">{{$keranjang->product->diskon}}%</p>
@@ -49,15 +49,15 @@
                                                 <div class="flex items-center">
                                                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 mr-1">
                                                             <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
-                                                      </svg> 
+                                                      </svg>
                                                       <p class="text-xs">{{ $keranjang->product->rate }}</p>
                                                 </div>
                                                 <p class="text-xs lg:text-sm">Terjual {{ $keranjang->product->terjual }}</p>
                                           </div>
                                     </div>
-                              </label>
-                  </div>
-                        @endforeach
+                                </label>
+                    </div>
+                    @endforeach
                   </div>
             </div>
       @endif

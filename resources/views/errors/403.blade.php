@@ -9,7 +9,7 @@
 </head>
 <body>
     <div class="w-full h-screen flex flex-col items-center justify-center">
-        <img src="" class="" alt="Error 403">
+        <img src="{{ asset('img/403.png') }}" class="w-64 h-64" alt="Error 403">
         <h1 class="text-md md:text-lg lg:text-xl xl:text-2xl">Error 403</h1>
         <p class="text-sm lg:text-md text-red-500">Akses anda ditolak</p>
         <p class="text-sm lg:text-md text-red-500">Jangan coba-coba ya</p>

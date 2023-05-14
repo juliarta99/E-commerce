@@ -64,7 +64,7 @@ class LoginController extends Controller
 
         auth()->login($user);
 
-        return redirect()->route('verification.notice')->with('succes', 'Akun berhasil dibuat, silahkan verifikasi email anda!');
+        return redirect('/')->with('succes', 'Akun berhasil dibuat!');
     }
 
     public function logout(Request $request)

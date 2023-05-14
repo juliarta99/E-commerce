@@ -11,7 +11,7 @@
                         <button type="submit" class="p-1 bg-gray-200 rounded-r-lg shadow-md lg:p-2">
                               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 sm:w-6 sm:h-6">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                              </svg>                            
+                              </svg>
                         </button>
                   </div>
             </form>
@@ -24,7 +24,7 @@
                                     </svg>
                               </a>
                         </div>
-                        @auth    
+                        @auth
                               <div class="mr-2 cursor-pointer">
                                     <a href="/notification">
                                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="{{ Request::is('notification') ? 'blue' : '#000' }}" class="w-4 h-4 sm:w-6 sm:h-6">
@@ -36,14 +36,14 @@
                                     <a href="/chats">
                                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="{{ Request::is('chats') ? 'blue' : '#000' }}" class="w-4 h-4 sm:w-6 sm:h-6">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
-                                          </svg>                            
+                                          </svg>
                                     </a>
                               </div>
                         @endauth
                   </div>
                   @auth
                       <div class="flex items-center justify-center">
-                        <div class="mr-2 cursor-pointer" id="toko">
+                        <div class="mr-2 cursor-pointer" id="toko" onclick="showToko()">
                               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="{{ Request::is('toko') ? 'blue' : '#000' }}" class="w-4 h-4 sm:w-6 sm:h-6">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 21v-7.5a.75.75 0 01.75-.75h3a.75.75 0 01.75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349m-16.5 11.65V9.35m0 0a3.001 3.001 0 003.75-.615A2.993 2.993 0 009.75 9.75c.896 0 1.7-.393 2.25-1.016a2.993 2.993 0 002.25 1.016c.896 0 1.7-.393 2.25-1.016a3.001 3.001 0 003.75.614m-16.5 0a3.004 3.004 0 01-.621-4.72L4.318 3.44A1.5 1.5 0 015.378 3h13.243a1.5 1.5 0 011.06.44l1.19 1.189a3 3 0 01-.621 4.72m-13.5 8.65h3.75a.75.75 0 00.75-.75V13.5a.75.75 0 00-.75-.75H6.75a.75.75 0 00-.75.75v3.75c0 .415.336.75.75.75z" />
                               </svg>
@@ -54,9 +54,9 @@
                                                 <div class="flex items-center">
                                                       @foreach (Auth::user()->toko()->get() as $toko)
                                                             @if ($toko->image != null)
-                                                                  <img src="storage/{{ $toko->image }}" alt="mkd" class="w-6 h-6 mr-1 rounded-full">
+                                                                  <img src="{{ asset('storage/'. $toko->image) }}" alt="mkd" class="w-6 h-6 mr-1 rounded-full object-cover">
                                                             @else
-                                                                  <img src="{{ asset('img/toko_default.jpg') }}" alt="ProfileToko" class="w-6 h-6 mr-1 rounded-full">
+                                                                  <img src="{{ asset('img/toko_default.jpg') }}" alt="ProfileToko" class="w-6 h-6 mr-1 rounded-full object-cover">
                                                             @endif
                                                             <h1 class="text-xs lg:text-sm">{{ $toko->name }}</h1>
                                                       @endforeach
@@ -67,13 +67,13 @@
                                           <h1 class="text-xs lg:text-sm">Toko belum dibuat!!</h1>
                                           <a href="/toko/create" class="text-xs text-blue-500 lg:text-sm">Buat Toko</a>
                                     @endif
-                              </div>                               
+                              </div>
                         </div>
-                        <div class="flex items-center justify-center cursor-pointer" id="profile">
+                        <div class="flex items-center justify-center cursor-pointer" id="profile" onclick="showProfile()">
                               @if (Auth::user()->image != null)
-                                    <img src="{{ asset('storage/'. Auth::user()->image) }}" alt="Profile" class="w-6 h-6 mr-1 rounded-full sm:w-8 sm:h-8">
+                                    <img src="{{ asset('storage/'. Auth::user()->image) }}" alt="Profile" class="w-6 h-6 mr-1 rounded-full sm:w-8 sm:h-8 object-cover">
                               @else
-                                    <img src="{{ asset('img/profile_default.png') }}" alt="Profile" class="w-6 h-6 mr-1 rounded-full sm:w-8 sm:h-8">
+                                    <img src="{{ asset('img/profile_default.png') }}" alt="Profile" class="w-6 h-6 mr-1 rounded-full sm:w-8 sm:h-8 object-cover">
                               @endif
                               <p class="text-xs first-letter:font-semibold sm:text-sm lg:text-md">{{ Auth::user()->name }}</p>
                               <div id="show-profile" class="absolute hidden p-4 bg-white rounded-md shadow-md translate-y-36 lg:translate-y-24">
@@ -86,10 +86,10 @@
                                           </a>
                                     </div>
                                     <div class="mb-1">
-                                          <a class="flex items-center" href="">
+                                          <a class="flex items-center" href="/transaksi">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="{{ Request::is('pembelian') ? 'blue' : '#000' }}" class="w-4 h-4 sm:w-6 sm:h-6">
                                                       <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
-                                                </svg>     
+                                                </svg>
                                                 <p class="ml-2 text-sm lg:text-md {{ Request::is('pembelian') ? 'text-blue-500' : '#000' }}">Pembelian</p>
                                           </a>
                                     </div>
@@ -97,7 +97,7 @@
                                           <a class="flex items-center" href="/favorit">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="{{ Request::is('favorit') ? 'blue' : '#000' }}" class="w-4 h-4 sm:w-6 sm:h-6">
                                                       <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
-                                                </svg>                              
+                                                </svg>
                                                 <p class="ml-2 text-sm lg:text-md {{ Request::is('favorit') ? 'text-blue-500' : '#000' }}">Toko Favorit</p>
                                           </a>
                                     </div>
@@ -105,7 +105,7 @@
                                           <a class="flex items-center" href="/logout">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 sm:w-6 sm:h-6">
                                                       <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
-                                                </svg>                                    
+                                                </svg>
                                                 <p class="ml-2 text-sm lg:text-md">Keluar</p>
                                           </a>
                                     </div>
@@ -113,7 +113,7 @@
                         </div>
                       </div>
                   @endauth
-                  @guest    
+                  @guest
                         <div class="guest">
                               <a href="/login">
                                     <button class="px-4 py-2 border-2 border-blue-500 rounded-lg">Login</button>
@@ -131,7 +131,7 @@
                   <button class="p-2 bg-gray-200 rounded-r-lg shadow-md">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 sm:w-6 sm:h-6">
                               <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                        </svg>                            
+                        </svg>
                   </button>
             </div>
       </form>

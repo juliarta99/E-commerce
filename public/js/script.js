@@ -1,41 +1,41 @@
 // show nav profile
-const showProfile = document.getElementById('show-profile');
-const profile = document.getElementById('profile');
-
-profile.addEventListener('click', function(){
-      showProfile.classList.toggle('hidden');
-      showToko.classList.add('hidden');
-});
+function showProfile() {
+    const showProfile = document.getElementById('show-profile');
+    const showToko = document.getElementById('showToko');
+    showProfile.classList.toggle('hidden');
+    showToko.classList.add('hidden');
+}
 
 // buatToko
-const toko = document.getElementById('toko');
-const showToko = document.getElementById('showToko');
+function showToko() {
+    const showProfile = document.getElementById('show-profile');
+    const showToko = document.getElementById('showToko');
+        showToko.classList.toggle('hidden');
+        showProfile.classList.add('hidden');
+}
 
-toko.addEventListener('click', ()=> {
-      showToko.classList.toggle('hidden');
-      showProfile.classList.add('hidden');
-})
 
+function kuantitasIncrement() {
+    // total beli
+    const hargaBeli = document.getElementById('hargaBeli');
+    const totalBeli = document.getElementById('totalBeli');
+    // kuantitas beli
+    const kuantitas = document.getElementById('kuantitas');
+    kuantitas.value = parseInt(kuantitas.value) + 1;
+    totalBeli.innerHTML = parseInt(kuantitas.value) * parseInt(hargaBeli.innerHTML);
+};
 
-// total beli
-const hargaBeli = document.getElementById('hargaBeli');
-const totalBeli = document.getElementById('totalBeli');
-// kuantitas beli
-const kuantitas = document.getElementById('kuantitas');
-const kuantitasPlus = document.getElementById('kuantitasPlus');
-const kuantitasMin = document.getElementById('kuantitasMin');
-
-kuantitasPlus.addEventListener('click', function() {
-      kuantitas.value = parseInt(kuantitas.value) + 1;
-      totalBeli.innerHTML = parseInt(kuantitas.value) * parseInt(hargaBeli.innerHTML);
-});
-
-kuantitasMin.addEventListener('click', function() {
-      if(kuantitas.value > 1) {
+function kuantitasDecrement() {
+    // total beli
+    const hargaBeli = document.getElementById('hargaBeli');
+    const totalBeli = document.getElementById('totalBeli');
+    // kuantitas beli
+    const kuantitas = document.getElementById('kuantitas');
+    if(kuantitas.value > 1) {
             kuantitas.value = parseInt(kuantitas.value) - 1;
             totalBeli.innerHTML = parseInt(kuantitas.value) * parseInt(hargaBeli.innerHTML);
       }
-});
+};
 
 
 
@@ -69,7 +69,7 @@ const btnUbahBiodata = document.getElementById('buttonUbahBiodata');
 const showAlamat = document.getElementById('showAlamat');
 const editAlamat = document.getElementById('editAlamat');
 
-btnBiodata.addEventListener('click',  ()=>{
+function showMyBiodata() {
       localStorage.setItem("biodata", "true");
       localStorage.removeItem("alamat");
       localStorage.removeItem("ubahBiodata");
@@ -87,9 +87,9 @@ btnBiodata.addEventListener('click',  ()=>{
       }else{
             btnUbahBiodata.innerHTML = "Batalkan";
       }
-});
+};
 
-btnAlamat.addEventListener('click',  () =>{
+function showMyAlamat() {
       localStorage.setItem("alamat", "true");
       localStorage.removeItem("biodata");
       localStorage.removeItem("ubahBiodata");
@@ -107,7 +107,7 @@ btnAlamat.addEventListener('click',  () =>{
       }else{
             btnTambahAlamat.innerHTML = "Batalkan";
       };
-});
+};
 
 if(localStorage.getItem("alamat")){
       biodata.classList.add('hidden');
@@ -118,7 +118,7 @@ if(localStorage.getItem("alamat")){
       btnBiodata.classList.remove('border-blue-500');
 }
 
-btnUbahBiodata.addEventListener('click', () =>{
+function showUbahMyBiodata() {
       localStorage.setItem("ubahBiodata", "true");
       localStorage.removeItem("biodata");
       localStorage.removeItem("alamat");
@@ -130,7 +130,7 @@ btnUbahBiodata.addEventListener('click', () =>{
       }else{
             btnUbahBiodata.innerHTML = "Batalkan";
       }
-});
+};
 
 if(localStorage.getItem("ubahBiodata")){
       biodata.classList.remove('hidden');
@@ -144,7 +144,7 @@ if(localStorage.getItem("ubahBiodata")){
       btnUbahBiodata.innerHTML = "Batalkan";
 }
 
-btnTambahAlamat.addEventListener('click', () =>{
+function showTambahMyAlamat() {
       localStorage.setItem("tambahAlamat", "true");
       localStorage.removeItem("biodata");
       localStorage.removeItem("alamat");
@@ -156,7 +156,7 @@ btnTambahAlamat.addEventListener('click', () =>{
       }else{
             btnTambahAlamat.innerHTML = "Batalkan";
       };
-});
+};
 
 if(localStorage.getItem("tambahAlamat")){
       biodata.classList.add('hidden');
@@ -170,17 +170,17 @@ if(localStorage.getItem("tambahAlamat")){
       btnTambahAlamat.innerHTML = "Batalkan";
 }
 
-editAlamat.addEventListener('click', ()=> {
+function klikBtnUbahAlamat() {
       localStorage.removeItem("ubahBiodata");
       localStorage.removeItem("biodata");
-      localStorage.setItem("alamat", "true");
+      localStorage.removeItem("alamat");
       localStorage.removeItem("tambahAlamat");
-});
+};
 
-// set interval session
-const sessionSucces1 = document.getElementById('sessionSucces1');
-const sessionSucces2 = document.getElementById('sessionSucces2');
-setInterval(function(){
-      sessionSucces1.classList.add('hidden');
-      sessionSucces2.classList.add('hidden');
-}, 5000);
+// // set interval session
+// setInterval(function(){
+//     const sessionSucces1 = document.getElementById('sessionSucces1');
+//     const sessionSucces2 = document.getElementById('sessionSucces2');
+//       sessionSucces1.classList.add('hidden');
+//       sessionSucces2.classList.add('hidden');
+// }, 5000);

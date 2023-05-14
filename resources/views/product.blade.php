@@ -23,30 +23,49 @@
                                     </a>
                               </div>
                         @else
-                              @if ( Auth::user()->toko->id == $product->toko->id )
+                            @if (Auth::user()->is_toko == 1)
+                                @if ( Auth::user()->toko->id == $product->toko->id )
                                     <div class="mx-auto">
-                                          <a href="/toko/product/{{ $product->slug }}">
+                                            <a href="/toko/product/{{ $product->slug }}">
                                                 <button class="px-4 py-1 mt-2 duration-500 bg-black rounded-md text-md xl:text-lg hover:text-black hover:bg-white">Lihat Product</button>
-                                          </a>
+                                            </a>
                                     </div>
-                              @else
+                                @else
                                     @if(count(Auth::user()->keranjangs->where('id_product', $product->id)) == 0)
-                                          <form action="/keranjang/create" class="flex flex-col" method="post" class="mx-auto">
+                                            <form action="/keranjang/create" class="flex flex-col" method="post" class="mx-auto">
                                                 @csrf
                                                 <input type="hidden" name="id_product" value="{{ $product->id }}">
                                                 <div class="flex items-center w-full justify-center my-1">
-                                                      <div class="px-2 rounded-md bg-black text-white text-sm lg:text-md mr-2 cursor-pointer" id="kuantitasMin">-</div>
-                                                      <input type="text" name="kuantitas" value="1" id="kuantitas" class="w-1/4 text-black text-center">
-                                                      <div class="px-2 rounded-md bg-black text-white text-sm lg:text-md ml-2 cursor-pointer" id="kuantitasPlus">+</div>
+                                                        <div class="px-2 rounded-md bg-black text-white text-sm lg:text-md mr-2 cursor-pointer" id="kuantitasMin" onclick="kuantitasDecrement()">-</div>
+                                                        <input type="text" name="kuantitas" value="1" id="kuantitas" class="w-1/4 text-black text-center">
+                                                        <div class="px-2 rounded-md bg-black text-white text-sm lg:text-md ml-2 cursor-pointer" id="kuantitasPlus" onclick="kuantitasIncrement()">+</div>
                                                 </div>
                                                 <button class="px-4 py-1 mt-2 duration-500 bg-black rounded-md text-md xl:text-lg hover:text-black hover:bg-white" type="submit">+ Keranjang</button>
-                                          </form>
+                                            </form>
                                     @else
-                                          <a href="/keranjang">
+                                            <a href="/keranjang">
                                                 <button class="px-4 py-1 mt-2 duration-500 bg-black rounded-md text-md xl:text-lg hover:text-black hover:bg-white">Lihat keranjang</button>
-                                          </a>
+                                            </a>
                                     @endif
-                              @endif
+                                @endif
+                            @else
+                                @if(count(Auth::user()->keranjangs->where('id_product', $product->id)) == 0)
+                                    <form action="/keranjang/create" class="flex flex-col" method="post" class="mx-auto">
+                                        @csrf
+                                        <input type="hidden" name="id_product" value="{{ $product->id }}">
+                                        <div class="flex items-center w-full justify-center my-1">
+                                                <div class="px-2 rounded-md bg-black text-white text-sm lg:text-md mr-2 cursor-pointer" id="kuantitasMin" onclick="kuantitasDecrement()">-</div>
+                                                <input type="text" name="kuantitas" value="1" id="kuantitas" class="w-1/4 text-black text-center">
+                                                <div class="px-2 rounded-md bg-black text-white text-sm lg:text-md ml-2 cursor-pointer" id="kuantitasPlus" onclick="kuantitasIncrement()">+</div>
+                                        </div>
+                                        <button class="px-4 py-1 mt-2 duration-500 bg-black rounded-md text-md xl:text-lg hover:text-black hover:bg-white" type="submit">+ Keranjang</button>
+                                    </form>
+                                @else
+                                    <a href="/keranjang">
+                                        <button class="px-4 py-1 mt-2 duration-500 bg-black rounded-md text-md xl:text-lg hover:text-black hover:bg-white">Lihat keranjang</button>
+                                    </a>
+                                @endif
+                            @endif
                         @endif
                         <a href="" class="mx-auto">
                               <button class="px-4 py-1 mt-2 duration-500 border-2 border-white rounded-md text-md xl:text-lg hover:text-black hover:bg-white">Beli</button>
@@ -65,7 +84,11 @@
                   <div class="flex flex-wrap">
                         <div class="w-full px-2 md:w-1/2">
                               <div class="relative w-full">
-                                    <img src="https://source.unsplash.com/900x450/?{{ $product->kategori->name }}" class="w-full rounded-sm" alt="{{ $product->name }}">
+                                    @if ($product->image != null)
+                                        <img src="{{ asset('storage/'. $product->image) }}" class="rounded-md" alt="Product">
+                                    @else
+                                        <img src="https://source.unsplash.com/900x450/?{{ $product->kategori->name }}" class="rounded-md" alt="Product">
+                                    @endif
                                     <div class="absolute top-0 right-0 p-2 text-white bg-red-500 rounded-tr-sm">{{ $product->diskon }}%</div>
                               </div>
                               <div class="w-full mt-2">
@@ -89,7 +112,7 @@
                                     <div class="flex items-center">
                                                 <div class="mr-3">
                                                       @if ($product->toko->image != null)
-                                                            <img src="storage/{{ $product->toko->image }}" class="w-10 h-10 rounded-full lg:w-12 lg:h-12" alt="{{ $product->toko->name }}">
+                                                            <img src="{{ asset('storage/'. $product->toko->image) }}" class="w-10 h-10 rounded-full lg:w-12 lg:h-12" alt="{{ $product->toko->name }}">
                                                       @else
                                                             <img src="{{ asset('img/toko_default.jpg') }}" alt="Background Toko" class="w-10 h-10 rounded-full lg:w-12 lg:h-12">
                                                       @endif
@@ -99,36 +122,53 @@
                                                       <div class="flex items-center">
                                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 mr-1">
                                                                   <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
-                                                            </svg> 
+                                                            </svg>
                                                             <p class="text-sm lg:text-md">{{ $product->toko->rate }}</p>
                                                       </div>
                                                 </div>
                                     </div>
-                                    @if (!auth()->check()) 
+                                    @if (!auth()->check())
                                           <a href="/login">
                                                 <button class="px-4 py-2 bg-blue-500 text-sm lg:text-md rounded-md">Tambah ke favorit</button>
                                           </a>
                                     @else
-                                          @if ( Auth::user()->toko->id == $product->toko->id )
+                                        @if (Auth::user()->is_toko == 1)
+                                            @if ( Auth::user()->toko->id == $product->toko->id )
                                                 <a href="/toko">
-                                                      <button class="px-4 py-2 bg-blue-500 text-sm lg:text-md rounded-md">Lihat Toko</button>
+                                                    <button class="px-4 py-2 bg-blue-500 text-sm lg:text-md rounded-md">Lihat Toko</button>
                                                 </a>
-                                          @else     
-                                                @if (count(Auth::user()->favorits->where('id_toko', $product->toko->id)) == 1)  
-                                                      <form action="/favorit/delete" method="post" class="">
-                                                            @csrf
-                                                            @method('delete')
-                                                                  <input type="hidden" name="id_favorit" value="{{ Auth::user()->favorits->where('id_toko', $product->toko->id)->first()->id }}">
-                                                                  <button class="bg-red-500 p-2 rounded-md text-sm md:text-md" type="submit">Hapus dari favorit</button>
-                                                      </form>
+                                            @else
+                                                @if (count(Auth::user()->favorits->where('id_toko', $product->toko->id)) == 1)
+                                                    <form action="/favorit/delete" method="post" class="">
+                                                        @csrf
+                                                        @method('delete')
+                                                        <input type="hidden" name="id_favorit" value="{{ Auth::user()->favorits->where('id_toko', $product->toko->id)->first()->id }}">
+                                                        <button class="bg-red-500 p-2 rounded-md text-sm md:text-md" type="submit">Hapus dari favorit</button>
+                                                    </form>
                                                 @else
-                                                      <form action="/favorit/create" method="post" class="">
-                                                            @csrf
-                                                            <input type="hidden" name="id_toko" value="{{ $product->toko->id }}">
-                                                            <button class="bg-blue-500 p-2 rounded-md text-sm md:text-md" type="submit">Tambah ke favorit</button>
-                                                      </form>
+                                                    <form action="/favorit/create" method="post" class="">
+                                                        @csrf
+                                                        <input type="hidden" name="id_toko" value="{{ $product->toko->id }}">
+                                                        <button class="bg-blue-500 p-2 rounded-md text-sm md:text-md" type="submit">Tambah ke favorit</button>
+                                                    </form>
                                                 @endif
-                                          @endif
+                                            @endif
+                                        @else
+                                            @if (count(Auth::user()->favorits->where('id_toko', $product->toko->id)) == 1)
+                                                <form action="/favorit/delete" method="post" class="">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <input type="hidden" name="id_favorit" value="{{ Auth::user()->favorits->where('id_toko', $product->toko->id)->first()->id }}">
+                                                    <button class="bg-red-500 p-2 rounded-md text-sm md:text-md" type="submit">Hapus dari favorit</button>
+                                                </form>
+                                            @else
+                                                <form action="/favorit/create" method="post" class="">
+                                                    @csrf
+                                                    <input type="hidden" name="id_toko" value="{{ $product->toko->id }}">
+                                                    <button class="bg-blue-500 p-2 rounded-md text-sm md:text-md" type="submit">Tambah ke favorit</button>
+                                                </form>
+                                            @endif
+                                        @endif
                                     @endif
                               </div>
                         </div>
@@ -148,35 +188,35 @@
                               <div class="flex items-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 mr-1">
                                           <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
-                                    </svg> 
+                                    </svg>
                                     <h6 class="mr-1 text-black text-md">5</h6>
                                     <input type="range" disabled maxlength="100" value="20">
                               </div>
                               <div class="flex items-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 mr-1">
                                           <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
-                                    </svg> 
+                                    </svg>
                                     <h6 class="mr-1 text-black text-md">4</h6>
                                     <input type="range" disabled maxlength="100" value="65">
                               </div>
                               <div class="flex items-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 mr-1">
                                           <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
-                                    </svg> 
+                                    </svg>
                                     <h6 class="mr-1 text-black text-md">3</h6>
                                     <input type="range" disabled maxlength="100" value="5">
                               </div>
                               <div class="flex items-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 mr-1">
                                           <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
-                                    </svg> 
+                                    </svg>
                                     <h6 class="mr-1 text-black text-md">2</h6>
                                     <input type="range" disabled maxlength="100" value="10">
                               </div>
                               <div class="flex items-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 mr-1">
                                           <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
-                                    </svg> 
+                                    </svg>
                                     <h6 class="mr-1 text-black text-md">1</h6>
                                     <input type="range" disabled maxlength="100" value="0">
                               </div>
@@ -196,27 +236,27 @@
                                                       <div class="mr-1">
                                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 mr-1">
                                                                   <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
-                                                            </svg> 
+                                                            </svg>
                                                       </div>
                                                       <div class="mr-1">
                                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 mr-1">
                                                                   <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
-                                                            </svg> 
+                                                            </svg>
                                                       </div>
                                                       <div class="mr-1">
                                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 mr-1">
                                                                   <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
-                                                            </svg> 
+                                                            </svg>
                                                       </div>
                                                       <div class="mr-1">
                                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 mr-1">
                                                                   <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
-                                                            </svg> 
+                                                            </svg>
                                                       </div>
                                                       <div class="mr-1">
                                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#ddd" class="w-4 h-4 mr-1">
                                                                   <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
-                                                            </svg> 
+                                                            </svg>
                                                       </div>
                                                 </div>
                                           </div>

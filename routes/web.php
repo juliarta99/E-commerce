@@ -40,9 +40,6 @@ Route::get('/email/verify', [VerificationController::class, 'notice'])->middlewa
 Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->middleware('auth', 'signed')->name('verification.verify');
 Route::post('/email/resend-verify', [VerificationController::class, 'resend'])->middleware('auth', 'throttle:6,1')->name('verification.send');
 
-// crop image
-Route::post('/cropImageToko', [CropImageController::class, 'cropImageToko'])->middleware('auth');
-
 // product
 Route::get('/products', [ProductController::class, 'index']);
 Route::get('/product/{product:slug}', [ProductController::class, 'show']);

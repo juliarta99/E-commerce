@@ -17,32 +17,32 @@
                   @error('name')
                         <div class="w-full text-sm text-red-500 lg:text-md">{{ $message }}</div>
                   @enderror
-            
+
                   <label class="mt-2 text-sm text-black lg:text-md" for="image">Profile Image</label>
                   <input class="image w-full px-4 py-2 text-sm bg-gray-200 rounded-md lg:text-md @error('image') border-2 border-red-500 @enderror" type="file" name="image" id="image" value="{{ old('image') }}">
                   @error('image')
                         <div class="w-full text-sm text-red-500 lg:text-md">{{ $message }}</div>
                   @enderror
-            
+
                   <label class="mt-2 text-sm text-black lg:text-md" for="alamat">Alamat</label>
                   <input class="w-full px-4 py-2 text-sm bg-gray-200 rounded-md lg:text-md @error('alamat') border-2 border-red-500 @enderror" type="alamat" name="alamat" id="alamat" value="{{ old('alamat') }}">
                   @error('alamat')
                         <div class="w-full text-sm text-red-500 lg:text-md">{{ $message }}</div>
                   @enderror
-            
+
                   <label class="mt-2 text-sm text-black lg:text-md" for="tentang">Tentang</label>
                   <textarea name="tentang" id="tentang" cols="30" rows="5" class="w-full px-4 py-2 text-sm bg-gray-200 rounded-md lg:text-md @error('tentang') border-2 border-red-500 @enderror" value="{{ old('tentang') }}">{{ old('tentang') }}</textarea>
                   @error('tentang')
                         <div class="w-full text-sm text-red-500 lg:text-md">{{ $message }}</div>
                   @enderror
-            
+
                   <button class="w-auto p-2 px-4 mx-auto mt-3 text-xs text-white bg-blue-500 rounded-md sm:text-sm">Simpan</button>
             </form>
             {{-- <button type="button" class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800" data-hs-overlay="#modal-cropImage">
                   Open modal
                 </button> --}}
             {{-- modal crop image --}}
-                <div id="modal-cropImage" class="pb-10 px-9 pt-36 lg:pt-24 hs-overlay hidden w-full h-full fixed top-0 left-0 z-[60] overflow-x-hidden overflow-y-auto">
+                {{-- <div id="modal-cropImage" class="pb-10 px-9 pt-36 lg:pt-24 hs-overlay hidden w-full h-full fixed top-0 left-0 z-[60] overflow-x-hidden overflow-y-auto">
                   <div class="hs-overlay-open:opacity-100 hs-overlay-open:duration-500 opacity-0 transition-all sm:max-w-lg sm:w-full m-3 sm:mx-auto">
                     <div class="flex flex-col bg-white border shadow-sm rounded-xl dark:bg-gray-800 dark:border-gray-700 dark:shadow-slate-700/[.7]">
                       <div class="flex justify-between items-center py-3 px-4 border-b dark:border-gray-700">
@@ -76,7 +76,7 @@
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> --}}
       </div>
 </div>
 @endsection

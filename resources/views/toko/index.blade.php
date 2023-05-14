@@ -14,22 +14,22 @@
             @if (session()->has('succes'))
                 <div class="w-auto p-2 px-2 mt-8 text-sm font-semibold text-center bg-green-500 rounded-t-md lg:mt-4 lg:text-md">{{ session('succes') }}</div>
             @endif
-            {{-- profile start --}}  
+            {{-- profile start --}}
                 <div class="flex flex-wrap">
                     <div class="w-full">
                         <div class="relative group">
                             @if ($toko->backImage != null)
-                                <img src="{{ 'storage/' . $toko->backImage }}" alt="Background Toko" class="w-full h-auto">
-                            @else    
-                                <img src="{{ asset('img/back_toko.jpg') }}" alt="Background Toko" class="w-full">
+                                <img src="{{ 'storage/' . $toko->backImage }}" alt="Background Toko" class="w-full h-52 object-cover">
+                            @else
+                                <img src="{{ asset('img/back_toko.jpg') }}" alt="Background Toko" class="w-full h-52 object-cover">
                             @endif
                             {{-- edit back toko --}}
                             <a href="/toko/{{ $toko->slug }}/editBack">
                                 <div class="absolute hidden top-6 lg:top-4 group-hover:block right-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#fff" class="w-6 h-6">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#000" class="w-6 h-6">
                                         <path d="M21.731 2.269a2.625 2.625 0 00-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 000-3.712zM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 00-1.32 2.214l-.8 2.685a.75.75 0 00.933.933l2.685-.8a5.25 5.25 0 002.214-1.32l8.4-8.4z" />
                                         <path d="M5.25 5.25a3 3 0 00-3 3v10.5a3 3 0 003 3h10.5a3 3 0 003-3V13.5a.75.75 0 00-1.5 0v5.25a1.5 1.5 0 01-1.5 1.5H5.25a1.5 1.5 0 01-1.5-1.5V8.25a1.5 1.5 0 011.5-1.5h5.25a.75.75 0 000-1.5H5.25z" />
-                                    </svg>                              
+                                    </svg>
                                 </div>
                             </a>
                         </div>
@@ -38,9 +38,9 @@
                         <div class="flex items-center justify-between w-full ">
                             <div class="flex items-center w-full">
                                 @if ($toko->image != null)
-                                    <img src="storage/{{ $toko->image }}" class="w-10 h-10 rounded-full" alt="{{ $toko->name }}">
+                                    <img src="{{ asset('storage/'. $toko->image) }}" class="object-cover w-10 h-10 rounded-full" alt="{{ $toko->name }}">
                                 @else
-                                    <img src="{{ asset('img/toko_default.jpg') }}" alt="Background Toko" class="w-10 h-10 rounded-full">
+                                    <img src="{{ asset('img/toko_default.jpg') }}" alt="Background Toko" class="w-10 h-10 rounded-full object-cover">
                                 @endif
                                 <div class="ml-2">
                                     <h1 class="text-sm lg:text-md">{{ $toko->name }}</h1>
@@ -69,14 +69,14 @@
                 <div class="w-16 h-1 bg-blue-500 lg:w-20"></div>
                 <div class="flex flex-wrap">
 
-                    @foreach ($products as $product)    
+                    @foreach ($products as $product)
                     <div class="w-full mb-4 lg:p-2 xl:w-1/3 lg:w-1/2">
                           <a href="/toko/product/{{ $product->slug }}">
                                 <div class="flex flex-wrap items-center w-full p-4 mb-4 bg-white shadow-md">
                                       <div class="w-full md:w-1/2 lg:w-full">
                                             <div class="relative">
                                                 @if ($product->image != null)
-                                                    <img src="storage/{{ $product->kategori->name }}" class="rounded-md" alt="Product">
+                                                    <img src="{{ asset('storage/'. $product->image) }}" class="rounded-md" alt="Product">
                                                 @else
                                                     <img src="https://source.unsplash.com/900x450/?{{ $product->kategori->name }}" class="rounded-md" alt="Product">
                                                 @endif
@@ -91,7 +91,7 @@
                                             <div class="flex items-center">
                                                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 mr-1">
                                                         <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
-                                                  </svg> 
+                                                  </svg>
                                                   <p class="text-xs">{{ $product->rate }}</p>
                                             </div>
                                             <p class="text-xs lg:text-sm">Terjual {{ $product->terjual }}</p>
@@ -119,7 +119,7 @@
                                 </div>
                             </a>
                         </div>
-                    @endforeach    
+                    @endforeach
                 </div>
                 </div>
             </div>

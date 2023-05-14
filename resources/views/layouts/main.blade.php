@@ -20,5 +20,4 @@
       @include('layouts.footer')
 </body>
 <script src="{{ asset('js/script.js') }}"></script>
-<script src="{{ asset('js/cropImage.js') }}"></script>
 </html>
