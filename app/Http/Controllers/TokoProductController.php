@@ -100,7 +100,7 @@ class TokoProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        $creadentials = $request->validate([
+        $validateData = $request->validate([
             'name' => 'required|max:50',
             'id_kategori' => 'required',
             'harga_awal' => 'required',
@@ -119,7 +119,7 @@ class TokoProductController extends Controller
             $validateData['image'] = $request->file('image')->store('product-images');
         }
 
-        Product::where('id', $product->id)->update($creadentials);
+        Product::where('id', $product->id)->update($validateData);
         return redirect('/toko')->with('succes', 'Product berhasil diedit');
     }
 

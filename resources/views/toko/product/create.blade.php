@@ -61,7 +61,7 @@
             
                   <label class="mt-2 text-sm text-black lg:text-md" for="deskripsi">Deskripsi</label>
                   <input id="deskripsi" type="hidden" name="deskripsi">
-                  <trix-editor input="deskripsi" id="trix" class="w-full h-80 px-4 py-2 text-sm bg-gray-200 rounded-md lg:text-md @error('deskripsi') border-2 border-red-500 @enderror" value="{{ old('deskripsi') }}"></trix-editor>
+                  <trix-editor input="deskripsi" id="trix" class="w-full overflow-y-auto h-80 px-4 py-2 text-sm bg-gray-200 rounded-md lg:text-md @error('deskripsi') border-2 border-red-500 @enderror" value="{{ old('deskripsi') }}"></trix-editor>
                   @error('deskripsi')
                         <div class="w-full text-sm text-red-500 lg:text-md">{{ $message }}</div>
                   @enderror
