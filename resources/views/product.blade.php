@@ -12,10 +12,6 @@
                         <div class="w-auto p-2 px-2 mt-8 text-sm font-semibold text-center bg-red-500 rounded-t-md lg:mt-4 lg:text-md">{{ session('succes') }}</div>
                   @endif
                   <div class="fixed bottom-0 z-[9] flex flex-col w-auto p-4 text-white bg-blue-500 right-9 rounded-t-md">
-                        <h1 class="text-sm lg:text-md xl:text-lg opacity-95">Harga : @currency($product->harga)</h1>
-                        <h1 class="hidden" id="hargaBeli">{{ $product->harga }}</h1>
-                        <h1 class="text-sm lg:text-md opacity-95">Potongan : @currency($product->harga_awal * 2 - $product->harga * 2)</h1>
-                        <h1 class="text-md lg:text-lg xl:text-xl flex">Total : Rp.<p id="totalBeli">{{ $product->harga }}</p></h1>
                         @if (!auth()->check())
                               <div class="mx-auto">
                                     <a href="/login">

@@ -11,11 +11,9 @@ class ProductController extends Controller
 {
     public function index()
     {
-        return view('products',
-        [
-            'title' => 'All Products',
-            'products' => Product::latest()->with('kategori')->filter(request(['search']))->get(),
-        ]);
+        $title = 'All Products';
+        $products = Product::latest()->with('kategori')->filter(request(['search']))->get();
+        return view('products', compact('title', 'products'));
     }
 
     public function show(Product $product)

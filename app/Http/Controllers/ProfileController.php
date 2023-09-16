@@ -12,7 +12,7 @@ class ProfileController extends Controller
 {
     public function edit()
     {
-        return view('profile.edit',
+        return view('profile.index',
         [
             'title' => 'Edit Profile',
             'alamats' => Alamat::where('id_user', Auth::user()->id)->get(),

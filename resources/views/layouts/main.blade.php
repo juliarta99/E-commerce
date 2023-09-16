@@ -16,7 +16,9 @@
 </head>
 <body class="font-poppins">
       @include('layouts.navbar')
-      @yield('content')
+      <div class="container mx-auto">
+          @yield('content')
+      </div>
       @include('layouts.footer')
 </body>
 <script src="{{ asset('js/script.js') }}"></script>

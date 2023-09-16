@@ -3,7 +3,7 @@
 use App\Http\Controllers\AlamatController;
 use App\Http\Controllers\CropImageController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\LoginController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KeranjangController;
 use App\Http\Controllers\ProductController;
@@ -28,12 +28,12 @@ use App\Http\Controllers\VerificationController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // login
-Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
-Route::post('/login', [LoginController::class, 'authenticate'])->name('login')->middleware('guest');
-Route::get('/logout', [LoginController::class, 'logout'])->middleware('auth');
+Route::get('/login', [AuthController::class, 'index'])->name('login')->middleware('guest');
+Route::post('/login', [AuthController::class, 'authenticate'])->name('login')->middleware('guest');
+Route::get('/logout', [AuthController::class, 'logout'])->middleware('auth');
 
-Route::get('/register', [LoginController::class, 'create'])->middleware('guest');
-Route::post('/register', [LoginController::class, 'store'])->middleware('guest');
+Route::get('/register', [AuthController::class, 'create'])->middleware('guest');
+Route::post('/register', [AuthController::class, 'store'])->middleware('guest');
 
 // verification akun
 // Route::get('/email/verify', [VerificationController::class, 'notice'])->middleware('auth')->name('verification.notice');
@@ -49,6 +49,8 @@ Route::get('/editProfile', [ProfileController::class, 'edit'])->middleware('auth
 Route::put('/editProfile', [ProfileController::class, 'update'])->middleware('auth');
 
 // alamat
+Route::get('/alamat', [AlamatController::class, 'index'])->middleware('auth');
+Route::get('/alamat/tambah', [AlamatController::class, 'create'])->middleware('auth');
 Route::post('/alamat', [AlamatController::class, 'store'])->middleware('auth');
 Route::get('/alamat/{alamat:id}/edit', [AlamatController::class, 'edit'])->middleware('auth');
 Route::put('/alamat/{alamat:id}', [AlamatController::class, 'update'])->middleware('auth');

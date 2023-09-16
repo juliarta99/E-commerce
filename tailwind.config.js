@@ -10,6 +10,15 @@ module.exports = {
     fontFamily:{
       'poppins': ['Poppins','ui-monospace', 'SFMono-Regular'],
     },
+    container: {
+      padding: {
+        DEFAULT: '1rem',
+        sm: '2rem',
+        lg: '4rem',
+        xl: '5rem',
+        '2xl': '6rem',
+      },
+    },
   },
   plugins: [
     require('preline/plugin'),

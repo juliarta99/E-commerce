@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Auth\Events\Registered;
 
-class LoginController extends Controller
+class AuthController extends Controller
 {
     public function index()
     {

@@ -8,6 +8,21 @@ use Illuminate\Support\Facades\Auth;
 
 class AlamatController extends Controller
 {
+    public function index()
+    {
+        return view('alamat.index', [
+            'title' => 'Alamat Anda',
+            'alamats' => Alamat::where('id_user', auth()->id())->get()
+        ]);
+    }
+
+    public function create()
+    {
+        return view('alamat.tambah', [
+            'title' => 'Tambah Alamat',
+        ]);
+    }
+    
     public function store(Request $request)
     {
         $validateData = $request->validate([
@@ -26,7 +41,7 @@ class AlamatController extends Controller
         
             // 'id_user' => Auth::user()->id
         Alamat::create($validateData);
-        return redirect('/editProfile')->with('succesTambahAlamat', 'Alamat berhasil ditambahkan');
+        return redirect('/alamat')->with('succesTambahAlamat', 'Alamat berhasil ditambahkan');
     }
 
     /**
@@ -38,10 +53,10 @@ class AlamatController extends Controller
     public function edit(Alamat $alamat)
     {
         if(Auth::user()->id != $alamat->id_user){
-            return redirect('/editProfile');
+            return redirect('/alamat');
         }
         
-        return view('profile.alamat.edit',
+        return view('alamat.edit',
         [
             'title' => 'Edit Alamat',
             'alamat' => $alamat
@@ -70,7 +85,7 @@ class AlamatController extends Controller
         ]);
 
         Alamat::where('id', $alamat->id)->update($creadentials);
-        return redirect('/editProfile')->with('succes', 'Alamat berhasil diedit');
+        return redirect('/alamat')->with('succes', 'Alamat berhasil diedit');
     }
 
     /**
@@ -82,10 +97,10 @@ class AlamatController extends Controller
     public function destroy(Alamat $alamat)
     {
         if(Auth::user()->id != $alamat->id_user){
-            return redirect('/editProfile');
+            return redirect('/alamat');
         }
 
         Alamat::destroy('id', $alamat->id);
-        return redirect('/editProfile')->with('succes', 'Alamat berhasil dihapus');
+        return redirect('/alamat')->with('succes', 'Alamat berhasil dihapus');
     }
 }
