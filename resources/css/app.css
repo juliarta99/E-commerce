@@ -5,28 +5,3 @@
 .trix-button-group.trix-button-group--file-tools {
       @apply hidden;
 }
-
-#sessionSucces{
-      animation: session 5s;
-}
-@keyframes session {
-      0% {
-            overflow: block;
-      }
-      100%{
-            overflow: hidden;
-      }
-}
-#timeSessionSucces{
-      animation: hiddenSession 6s;
-}
-
-@keyframes hiddenSession {
-      0%{
-            width: 100%;
-      }
-      100%{
-            width: 0;
-            opacity: 0;
-      }
-}

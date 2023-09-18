@@ -1,61 +1,64 @@
 @extends('layouts.main')
 @section('content')
-<div class="pt-32 pb-10 px-9 lg:pt-24">
-  <div class="w-full">
-      <form action="keranjang/delete" method="post">
+<div class="pt-32 lg:pt-24">
+  <div class="w-full min-h-screen">
+      <form action="" method="post" id="formKeranjang">
       @csrf
-      @method('delete')
-      <h1 class="text-md lg:text-lg xl:text-xl font-bold">Keranjang</h1>
+      @method('put')
+      <h1 class="text-base lg:text-lg xl:text-xl font-bold">Keranjang</h1>
+            @if (session()->has('succes'))
+                  <div class="px-4 py-2 bg-green-500 w-auto mx-auto my-2 rounded-md">{{ session('succes') }}</div>
+            @endif
+            @if (session()->has('error'))
+                  <div class="px-4 py-2 bg-red-500 w-auto mx-auto my-2 rounded-md">{{ session('error') }}</div>
+            @endif
       @if (count($keranjangs) == 0)
-            <p class="text-sm lg:text-md">Belum ada product dalam keranjang</p>
+            <p class="text-sm lg:text-base">Belum ada product dalam keranjang</p>
       @else
+      <div class="fixed bottom-0 z-[9] flex flex-wrap justify-between items-center w-full left-0 right-0 p-4 lg:px-16 xl:px-20 2xl:px-24 text-white bg-blue-500 rounded-t-md">
+            <p class="text-sm lg:text-base font-semibold">Total : @currency($total)</p>
+            <button onclick="setActionKeranjang('/keranjang/update', 'put')" type="button" class="px-4 duration-500 border-2 border-white rounded-md text-base xl:text-lg hover:text-black hover:bg-white">Perbarui Keranjang</button>
+      </div>
             <div class="w-full mt-3">
-                  <div class="w-full items-center flex">
+                  <div class="w-full">
                         <div class="mr-2">
                               <input type="checkbox" name="checkAllProduct" onclick="checkAll()" id="checkAllProduct" class="">
+                              <label for="checkAllProduct">Check All</label>
                         </div>
-                        <button type="submit" class="p-2 rounded-md bg-blue-500 text-white font-bold text-sm lg:text-md">Hapus Keranjang</button>
+                        <button type="button" onclick="setActionKeranjang('/keranjang/delete', 'delete')" class="p-2 rounded-md bg-blue-500 text-white font-bold text-sm lg:text-base">Hapus Keranjang</button>
                   </div>
-                  @if (session()->has('succes'))
-                        <div class="px-4 py-2 bg-green-500 w-auto mx-auto my-2 rounded-md">{{ session('succes') }}</div>
-                  @endif
-                  @if (session()->has('error'))
-                        <div class="px-4 py-2 bg-red-500 w-auto mx-auto my-2 rounded-md">{{ session('error') }}</div>
-                  @endif
                   @error('checkProducts')
                         <div class="px-4 py-2 bg-red-500 w-auto mx-auto my-2 rounded-md">{{ $message }}</div>
                   @enderror
-                  <div class="grid lg:grid-cols-5 sm:grid-cols-2 grid-cols-1 gap-y-2 gap-x-4">
+                  <div class="grid lg:grid-cols-5 sm:grid-cols-2 grid-cols-1 gap-y-2 gap-x-4 mt-3">
                     @foreach ($keranjangs as $keranjang)
-                    <div class="w-full mb-4">
-                                <label for="checkProduct">
-                                    <input type="checkbox" name="checkProducts[]" id="checkProduct" class="w-4 h-4 mb-2 checkProduct" value="{{ $keranjang->id }}">
-                                    <div class="flex flex-wrap items-center w-full p-4 mb-4 bg-white shadow-md">
-                                          <div class="w-full md:w-1/2 lg:w-full">
+                    <div class="w-full mb-4 relative">
+                              <input type="checkbox" name="checkProducts[]" id="checkProduct{{ $keranjang->id }}" class="w-4 h-4 mb-2 checkProduct absolute top-1 left-1" value="{{ $keranjang->id }}">
+                              <div class="w-full p-4 pl-6 mb-4 bg-white shadow-md">
+                                    <a href="/product/{{ $keranjang->product->slug }}">
+                                          <div class="w-full">
                                                 <div class="relative">
                                                       @if ($keranjang->product->image != null)
-                                                        <img src="{{ asset('storage/'. $keranjang->product->image) }}" class="rounded-md" alt="Product">
+                                                        <img src="{{ asset('storage/'. $keranjang->product->image) }}" class="rounded-md h-52 object-cover w-full" alt="Product">
                                                       @else
                                                         <img src="https://source.unsplash.com/900x450/?{{ $keranjang->product->kategori->name }}" class="rounded-md" alt="Product">
                                                       @endif
-                                                      <p class="absolute top-0 left-0 p-2 text-xs text-white bg-black lg:text-sm rounded-tl-md">{{ $keranjang->product->kategori->name }}</p>
-                                                      <p class="absolute top-0 right-0 p-2 text-xs text-white bg-red-500 rounded-tr-md lg:text-sm">{{$keranjang->product->diskon}}%</p>
+                                                      <p class="absolute top-0 left-0 p-2 text-xs text-white bg-black rounded-tl-md">{{ $keranjang->product->kategori->name }}</p>
+                                                      <p class="absolute top-0 right-0 p-2 text-xs text-white bg-red-500 rounded-tr-md">{{$keranjang->product->diskon}}%</p>
                                                 </div>
                                           </div>
-                                          <div class="w-full px-4 md:w-1/2 lg:w-full">
-                                                <h2 class="text-sm font-bold text-black lg:text-md">{{ $keranjang->product->name }}</h2>
-                                                <h5 class="text-sm font-semibold text-blue-500 lg:text-md">@currency($keranjang->product->harga)</h5>
-                                                <h5 class="text-xs line-through opacity-75 lg:text-sm">@currency($keranjang->product->harga_awal)</h5>
-                                                <div class="flex items-center">
-                                                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 mr-1">
-                                                            <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
-                                                      </svg>
-                                                      <p class="text-xs">{{ $keranjang->product->rate }}</p>
-                                                </div>
-                                                <p class="text-xs lg:text-sm">Terjual {{ $keranjang->product->terjual }}</p>
-                                          </div>
+                                    </a>
+                                    <div class="w-full px-4 mt-2 text-center">
+                                          <h2 class="text-sm font-bold text-black">{{ Str::limit($keranjang->product->name, 15) }}</h2>
+                                          <h5 class="text-sm font-semibold text-blue-500" id="totalHarga{{ $keranjang->id }}">@currency($keranjang->product->harga * $keranjang->kuantitas)</h5>
                                     </div>
-                                </label>
+                                    <div class="flex items-center w-full justify-center my-1">
+                                          <div class="px-2 rounded-md bg-black text-white text-sm lg:text-base mr-2 cursor-pointer" id="kuantitasMin" onclick="kuantitasDecrement({{ $keranjang->id }}, {{ $keranjang->product->harga }})">-</div>
+                                          <input type="hidden" name="idKeranjangs[]" value="{{ $keranjang->id }}" class="w-1/4 text-black text-center rounded-md bg-gray-50">
+                                          <input type="text" name="kuantitass[]" value="{{ $keranjang->kuantitas }}" id="kuantitas{{ $keranjang->id }}" class="w-1/4 text-black text-center rounded-md bg-gray-50">
+                                          <div class="px-2 rounded-md bg-black text-white text-sm lg:text-base ml-2 cursor-pointer" id="kuantitasPlus" onclick="kuantitasIncrement({{ $keranjang->id }}, {{ $keranjang->product->harga }})">+</div>
+                                    </div>
+                              </div>
                     </div>
                     @endforeach
                   </div>

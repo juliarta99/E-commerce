@@ -17,10 +17,10 @@
                         <div class="w-5/6 px-4 py-6 mx-auto lg:w-3/4">
                               <h1 class="text-xl uppercase font-semibold text-center xl:text-3xl lg:text-2xl">Login</h1>
                               @if (session()->has('succes'))
-                                    <div class="w-full text-sm text-center text-green-500 md:text-md">{{ session('succes') }}</div>
+                                    <div class="w-full text-sm text-center text-green-500 md:text-base">{{ session('succes') }}</div>
                               @endif
                               @if ($errors->any())
-                                    <div class="w-full text-sm text-center text-red-500 md:text-md">{{ $errors->first() }}</div>
+                                    <div class="w-full text-sm text-center text-red-500 md:text-base">{{ $errors->first() }}</div>
                               @endif
                               <form action="/login" method="post" class="flex flex-col w-full" autocomplete="off">
                                     @csrf
@@ -30,19 +30,19 @@
                                           Please provide a valid email address.
                                     </p>
                                           @error('email')
-                                              <div class="w-full text-sm text-red-500 md:text-md">{{ $message }}</div>
+                                              <div class="w-full text-sm text-red-500 md:text-base">{{ $message }}</div>
                                           @enderror
                                     <label class="mt-2" for="password">Password</label>
                                     <input type="password" name="password" id="password" class="bg-gray-200 @error('password') border-2 border-red-500 @enderror w-full px-3 py-2 rounded-md" placeholder="password">
                                           @error('password')
-                                                <div class="w-full text-sm text-red-500 md:text-md">{{ $message }}</div>
+                                                <div class="w-full text-sm text-red-500 md:text-base">{{ $message }}</div>
                                           @enderror
                                     
                                     {{-- hidden image --}}
                                     <input type="hidden" name="image" id="image" value="img/profile_default.png">
                                     <div class="w-full mx-auto items-center justify-center text-center flex flex-col">
                                           <button type="submit" class="w-1/2 px-1 py-2 mt-3 font-semibold bg-blue-500 rounded-md xl:w-1/4 lg:w-1/3">Login</button>
-                                          <a href="/register" class="mt-1 text-sm lg:text-md">Belum punya akun?</a>
+                                          <a href="/register" class="mt-1 text-sm lg:text-base">Belum punya akun?</a>
                                     </div>
                               </form>
                               <div class="w-full">

@@ -21,7 +21,7 @@
                                     <label class="mt-2" for="name">Nama</label>
                                     <input type="text" name="name" id="name" class="bg-gray-200 @error('name') border-2 border-red-500 @enderror w-full px-3 py-2 rounded-md" value="{{ old('name') }}" placeholder="name">
                                           @error('name')
-                                              <div class="w-full text-sm text-red-500 md:text-md">{{ $message }}</div>
+                                              <div class="w-full text-sm text-red-500 md:text-base">{{ $message }}</div>
                                           @enderror
                                     <label class="mt-2" for="email">Email</label>
                                     <input type="email" name="email" id="email" class="bg-gray-200 @error('email') border-2 border-red-500 @enderror w-full px-3 py-2 rounded-md peer" value="{{ old('email') }}" placeholder="email">
@@ -29,21 +29,21 @@
                                           Please provide a valid email address.
                                     </p>
                                           @error('email')
-                                              <div class="w-full text-sm text-red-500 md:text-md">{{ $message }}</div>
+                                              <div class="w-full text-sm text-red-500 md:text-base">{{ $message }}</div>
                                           @enderror
                                     <label class="mt-2" for="password">Password</label>
                                     <input type="password" name="password" id="password" class="bg-gray-200 @error('password') border-2 border-red-500 @enderror w-full px-3 py-2 rounded-md" placeholder="password">
                                           @error('password')
-                                              <div class="w-full text-sm text-red-500 md:text-md">{{ $message }}</div>
+                                              <div class="w-full text-sm text-red-500 md:text-base">{{ $message }}</div>
                                           @enderror
                                     <label class="mt-2" for="konfirmasiPassword">Konfirmasi Password</label>
                                     <input type="password" name="konfirmasiPassword" id="konfirmasiPassword" class="bg-gray-200 @error('konfirmasiPassword') border-2 border-red-500 @enderror w-full px-3 py-2 rounded-md" placeholder="Konfirmasi Password">
                                           @error('konfirmasiPassword')
-                                              <div class="w-full text-sm text-red-500 md:text-md">{{ $message }}</div>
+                                              <div class="w-full text-sm text-red-500 md:text-base">{{ $message }}</div>
                                           @enderror
                                     <div class="w-full mx-auto items-center justify-center text-center flex flex-col">
                                           <button type="submit" class="w-1/2 px-1 py-2 mt-3 font-semibold bg-blue-500 rounded-md xl:w-1/4 lg:w-1/3">Register</button>
-                                          <a href="/login" class="mt-1 text-sm lg:text-md">Sudah punya akun?</a>
+                                          <a href="/login" class="mt-1 text-sm lg:text-base">Sudah punya akun?</a>
                                     </div>
                               </form>
                               <div class="w-full">

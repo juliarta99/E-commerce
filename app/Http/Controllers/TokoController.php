@@ -24,7 +24,7 @@ class TokoController extends Controller
     public function create()
     {
         if(Auth::user()->is_toko == true){
-            return redirect('/toko')->with('sudahBuatToko', 'Anda sudah memiliki toko');
+            return redirect('/toko')->with('error', 'Anda sudah memiliki toko');
         }
         
         return view('toko.create', 

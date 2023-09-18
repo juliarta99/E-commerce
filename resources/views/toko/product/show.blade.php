@@ -32,7 +32,7 @@
                                           <img src="{{ asset('img/toko_default.jpg') }}" alt="Background Toko" class="w-10 h-10 rounded-full object-cover">
                                           @endif
                                           <div class="ml-2">
-                                          <h1 class="text-sm lg:text-md">{{ $toko->name }}</h1>
+                                          <h1 class="text-sm lg:text-base">{{ $toko->name }}</h1>
                                           <a href="/toko/{{ $toko->slug }}/edit" class="text-xs text-blue-500 lg:text-sm">edit toko</a>
                                           </div>
                                     </div>
@@ -56,10 +56,10 @@
                               <div class="sticky top-32 mb-4 lg:top-16 z-[1] w-full p-2 lg:p-3 shadow-md bg-white">
                                     <div class="flex justify-center gap-3 text-black">
                                           <a href="#deskripsi">
-                                                <h4 class="text-sm text-black lg:text-md">Deskripsi</h4>
+                                                <h4 class="text-sm text-black lg:text-base">Deskripsi</h4>
                                           </a>
                                           <a href="#ulasan">
-                                                <h4 class="text-sm text-black lg:text-md">Ulasan</h4>
+                                                <h4 class="text-sm text-black lg:text-base">Ulasan</h4>
                                           </a>
                                     </div>
                               </div>
@@ -82,8 +82,8 @@
                                                 <h1 class="text-lg lg:text-xl">Deskripsi</h1>
                                                 <div class="w-24 h-1 mb-2 bg-blue-500"></div>
                                                 {{-- isi deskripsi --}}
-                                                <h4 class="text-xs text-black lg:text-md">Berat satuan : {{ $product->berat }} g</h4>
-                                                <h4 class="text-xs text-black lg:text-md">Kategori : {{ $product->kategori->name }}</h4>
+                                                <h4 class="text-xs text-black lg:text-base">Berat satuan : {{ $product->berat }} g</h4>
+                                                <h4 class="text-xs text-black lg:text-base">Kategori : {{ $product->kategori->name }}</h4>
                                                 <p class="text-sm text-justify">{!! $product->deskripsi !!}</p>
                                           </div>
                                     </div>
@@ -104,35 +104,35 @@
                                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 mr-1">
                                                       <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
                                                 </svg>
-                                                <h6 class="mr-1 text-black text-md">5</h6>
+                                                <h6 class="mr-1 text-black text-base">5</h6>
                                                 <input type="range" maxlength="100" value="20">
                                           </div>
                                           <div class="flex items-center">
                                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 mr-1">
                                                       <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
                                                 </svg>
-                                                <h6 class="mr-1 text-black text-md">4</h6>
+                                                <h6 class="mr-1 text-black text-base">4</h6>
                                                 <input type="range" maxlength="100" value="65">
                                           </div>
                                           <div class="flex items-center">
                                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 mr-1">
                                                       <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
                                                 </svg>
-                                                <h6 class="mr-1 text-black text-md">3</h6>
+                                                <h6 class="mr-1 text-black text-base">3</h6>
                                                 <input type="range" maxlength="100" value="5">
                                           </div>
                                           <div class="flex items-center">
                                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 mr-1">
                                                       <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
                                                 </svg>
-                                                <h6 class="mr-1 text-black text-md">2</h6>
+                                                <h6 class="mr-1 text-black text-base">2</h6>
                                                 <input type="range" maxlength="100" value="10">
                                           </div>
                                           <div class="flex items-center">
                                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 mr-1">
                                                       <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
                                                 </svg>
-                                                <h6 class="mr-1 text-black text-md">1</h6>
+                                                <h6 class="mr-1 text-black text-base">1</h6>
                                                 <input type="range" maxlength="100" value="0">
                                           </div>
                                     </div>
@@ -146,7 +146,7 @@
                                                 <div class="relative flex items-center">
                                                       <img src="{{ asset('img/profile_default.png') }}" class="w-10 h-10 mr-2 rounded-full" alt="">
                                                       <div class="flex flex-col">
-                                                            <p class="text-sm lg:text-md">Nama</p>
+                                                            <p class="text-sm lg:text-base">Nama</p>
                                                             <div class="flex">
                                                                   <div class="mr-1">
                                                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 mr-1">
@@ -183,7 +183,7 @@
                                                 <div class="relative flex items-center">
                                                       <img src="{{ asset('img/profile_default.png') }}" class="w-10 h-10 mr-2 rounded-full" alt="">
                                                       <div class="flex flex-col">
-                                                            <p class="text-sm lg:text-md">Nama</p>
+                                                            <p class="text-sm lg:text-base">Nama</p>
                                                             <div class="flex">
                                                                   <div class="mr-1">
                                                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 mr-1">
@@ -220,7 +220,7 @@
                                                 <div class="relative flex items-center">
                                                       <img src="{{ asset('img/profile_default.png') }}" class="w-10 h-10 mr-2 rounded-full" alt="">
                                                       <div class="flex flex-col">
-                                                            <p class="text-sm lg:text-md">Nama</p>
+                                                            <p class="text-sm lg:text-base">Nama</p>
                                                             <div class="flex">
                                                                   <div class="mr-1">
                                                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 mr-1">
@@ -257,7 +257,7 @@
                                                 <div class="relative flex items-center">
                                                       <img src="{{ asset('img/profile_default.png') }}" class="w-10 h-10 mr-2 rounded-full" alt="">
                                                       <div class="flex flex-col">
-                                                            <p class="text-sm lg:text-md">Nama</p>
+                                                            <p class="text-sm lg:text-base">Nama</p>
                                                             <div class="flex">
                                                                   <div class="mr-1">
                                                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 mr-1">
@@ -294,7 +294,7 @@
                                                 <div class="relative flex items-center">
                                                       <img src="{{ asset('img/profile_default.png') }}" class="w-10 h-10 mr-2 rounded-full" alt="">
                                                       <div class="flex flex-col">
-                                                            <p class="text-sm lg:text-md">Nama</p>
+                                                            <p class="text-sm lg:text-base">Nama</p>
                                                             <div class="flex">
                                                                   <div class="mr-1">
                                                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 mr-1">

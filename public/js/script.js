@@ -31,27 +31,43 @@ function checkAll() {
 
 }
 
-// function kuantitasIncrement() {
-//     // total beli
-//     const hargaBeli = document.getElementById('hargaBeli');
-//     const totalBeli = document.getElementById('totalBeli');
-//     // kuantitas beli
-//     const kuantitas = document.getElementById('kuantitas');
-//     kuantitas.value = parseInt(kuantitas.value) + 1;
-//     totalBeli.innerHTML = parseInt(kuantitas.value) * parseInt(hargaBeli.innerHTML);
-// };
+function setActionKeranjang(url, method)
+{
+      const _method = document.getElementsByName('_method')[0];
+      const form = document.getElementById('formKeranjang');
+      _method.value = method;
+      form.action = url;
+      form.submit();
+}
 
-// function kuantitasDecrement() {
-//     // total beli
-//     const hargaBeli = document.getElementById('hargaBeli');
-//     const totalBeli = document.getElementById('totalBeli');
-//     // kuantitas beli
-//     const kuantitas = document.getElementById('kuantitas');
-//     if(kuantitas.value > 1) {
-//             kuantitas.value = parseInt(kuantitas.value) - 1;
-//             totalBeli.innerHTML = parseInt(kuantitas.value) * parseInt(hargaBeli.innerHTML);
-//       }
-// };
+function formatToCurrency(number) {
+      const formated = new Intl.NumberFormat('id-ID', {
+        style: 'currency',
+        currency: 'IDR'
+      }).format(number);
+
+      return formated.replace(/,00$/, '');
+}
+
+function kuantitasIncrement(id, harga) {
+    // kuantitas beli
+      const kuantitas = document.getElementById('kuantitas' + id);
+      const totalHarga = document.getElementById('totalHarga' + id);
+      kuantitas.value = parseInt(kuantitas.value) + 1;
+      total = parseInt(kuantitas.value) * parseInt(harga);
+      totalHarga.innerHTML = formatToCurrency(total);
+};
+
+function kuantitasDecrement(id, harga) {
+    // kuantitas beli
+      const kuantitas = document.getElementById('kuantitas' + id);
+      const totalHarga = document.getElementById('totalHarga' + id);
+      if(kuantitas.value > 1) {
+            kuantitas.value = parseInt(kuantitas.value) - 1;
+            total = parseInt(kuantitas.value) * parseInt(harga);
+            totalHarga.innerHTML = formatToCurrency(total);
+      }
+};
 
 
 

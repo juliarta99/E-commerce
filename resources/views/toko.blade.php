@@ -24,12 +24,12 @@
                                           <img src="{{ asset('img/toko_default.jpg') }}" alt="Background Toko" class="w-10 h-10 rounded-full object-cover">
                                     @endif
                                     <div class="ml-2">
-                                          <h1 class="text-sm lg:text-md">{{ $toko->name }}</h1>
+                                          <h1 class="text-sm lg:text-base">{{ $toko->name }}</h1>
                                           <div class="flex items-center">
                                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 mr-1">
                                                       <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
                                                 </svg>
-                                                <p class="text-sm lg:text-md">{{ $toko->rate }}</p>
+                                                <p class="text-sm lg:text-base">{{ $toko->rate }}</p>
                                           </div>
                                     </div>
                               </div>
@@ -48,7 +48,7 @@
                   {{-- profile end  --}}
                   {{-- product toko --}}
                   <div class="w-full px-4 py-2 pb-4">
-                        <h1 class="font-bold text-md lg:text-lg">Product</h1>
+                        <h1 class="font-bold text-base lg:text-lg">Product</h1>
                         <div class="w-16 h-1 bg-blue-500 lg:w-20"></div>
                         <div class="flex flex-wrap">
                               @foreach ($products as $product)
@@ -67,8 +67,8 @@
                                                       </div>
                                                 </div>
                                                 <div class="w-full px-4 md:w-1/2 lg:w-full">
-                                                      <h2 class="text-sm font-bold text-black lg:text-md">{{ $product->name }}</h2>
-                                                      <h5 class="text-sm font-semibold text-blue-500 lg:text-md">@currency($product->harga)</h5>
+                                                      <h2 class="text-sm font-bold text-black lg:text-base">{{ $product->name }}</h2>
+                                                      <h5 class="text-sm font-semibold text-blue-500 lg:text-base">@currency($product->harga)</h5>
                                                       <h5 class="text-xs line-through opacity-75 lg:text-sm">@currency($product->harga_awal)</h5>
                                                       <div class="flex items-center">
                                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 mr-1">

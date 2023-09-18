@@ -5,14 +5,11 @@
     <div class="w-full">
         <div class="max-w-2xl mx-auto shadow-lg">
             {{-- session message --}}
-            @if (session()->has('sudahBuatToko'))
-                <div class="w-auto p-2 px-2 mt-8 text-sm font-semibold text-center bg-red-500 rounded-t-md lg:mt-4 lg:text-md" id="sessionSucces">{{ session('sudahBuatToko') }}</div>
-            @endif
-            @if (session()->has('tidakDitemukan'))
-                <div class="w-auto p-2 px-2 mt-8 text-sm font-semibold text-center bg-red-500 rounded-t-md lg:mt-4 lg:text-md" id="sessionSucces">{{ session('tidakDitemukan') }}</div>
+            @if (session()->has('error'))
+                <div class="w-auto p-2 px-2 mt-8 text-sm font-semibold text-center bg-red-500 rounded-t-md lg:mt-4 lg:text-base" id="sessionSucces">{{ session('error') }}</div>
             @endif
             @if (session()->has('succes'))
-                <div class="w-auto p-2 px-2 mt-8 text-sm font-semibold text-center bg-green-500 rounded-t-md lg:mt-4 lg:text-md">{{ session('succes') }}</div>
+                <div class="w-auto p-2 px-2 mt-8 text-sm font-semibold text-center bg-green-500 rounded-t-md lg:mt-4 lg:text-base">{{ session('succes') }}</div>
             @endif
             {{-- profile start --}}
                 <div class="flex flex-wrap">
@@ -43,7 +40,7 @@
                                     <img src="{{ asset('img/toko_default.jpg') }}" alt="Background Toko" class="w-10 h-10 rounded-full object-cover">
                                 @endif
                                 <div class="ml-2">
-                                    <h1 class="text-sm lg:text-md">{{ $toko->name }}</h1>
+                                    <h1 class="text-sm lg:text-base">{{ $toko->name }}</h1>
                                     <a href="/toko/{{ $toko->slug }}/edit" class="text-xs text-blue-500 lg:text-sm">edit toko</a>
                                 </div>
                             </div>
@@ -65,7 +62,7 @@
             {{-- profile end  --}}
             {{-- product toko --}}
             <div class="w-full px-4 py-2 pb-4">
-                <h1 class="font-bold text-md lg:text-lg">Product</h1>
+                <h1 class="font-bold text-base lg:text-lg">Product</h1>
                 <div class="w-16 h-1 bg-blue-500 lg:w-20"></div>
                 <div class="flex flex-wrap">
 
@@ -85,8 +82,8 @@
                                             </div>
                                       </div>
                                       <div class="w-full px-4 md:w-1/2 lg:w-full">
-                                            <h2 class="text-sm font-bold text-black lg:text-md">{{ $product->name }}</h2>
-                                            <h5 class="text-sm font-semibold text-blue-500 lg:text-md">@currency($product->harga)</h5>
+                                            <h2 class="text-sm font-bold text-black lg:text-base">{{ $product->name }}</h2>
+                                            <h5 class="text-sm font-semibold text-blue-500 lg:text-base">@currency($product->harga)</h5>
                                             <h5 class="text-xs line-through opacity-75 lg:text-sm">@currency($product->harga_awal)</h5>
                                             <div class="flex items-center">
                                                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 mr-1">

@@ -10,8 +10,8 @@
 <body>
     <div class="w-full h-screen flex flex-col items-center justify-center">
         <img src="{{ asset('img/404.png') }}" class="h-64 w-64" alt="Error 404">
-        <h1 class="text-md md:text-lg lg:text-xl xl:text-2xl">Error 404</h1>
-        <p class="text-sm lg:text-md text-red-500">Halaman tidak ditemukan</p>
+        <h1 class="text-base md:text-lg lg:text-xl xl:text-2xl">Error 404</h1>
+        <p class="text-sm lg:text-base text-red-500">Halaman tidak ditemukan</p>
     </div>
 </body>
 </html>

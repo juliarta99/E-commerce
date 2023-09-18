@@ -9,7 +9,7 @@
 </head>
 <body>
     <div class="w-full items-center flex justify-center">
-        <p class="text-md font-bold lg:text-lg">In development :~></p>
+        <p class="text-base font-bold lg:text-lg">In development :~></p>
     </div>
 </body>
 </html>

@@ -5,6 +5,7 @@ use App\Models\Keranjang;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\DB;
 
 class KeranjangController extends Controller
 {
@@ -15,11 +16,11 @@ class KeranjangController extends Controller
      */
     public function index()
     {
-        return view('keranjang',
-        [
-            'title' => 'Keranjang',
-            'keranjangs' => Keranjang::where('id_user', Auth::user()->id)->get(),
-        ]);
+        $title = 'Keranjang';
+        $keranjangs = Keranjang::where('id_user', Auth::user()->id)->get();
+        $total = DB::table('keranjangs')->join('products', 'keranjangs.id_product', '=', 'products.id')
+        ->where('id_user', Auth::user()->id)->sum(DB::raw('products.harga * keranjangs.kuantitas'));
+        return view('keranjang', compact('title', 'keranjangs', 'total'));
     }
 
     /**
@@ -38,14 +39,13 @@ class KeranjangController extends Controller
      * @param   \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Keranjang $keranjang)
     {
         if(count(Auth::user()->keranjangs->where('id_product', $request->id_product)) == 1) {
-            return Redirect::back()->with('sudahAda', 'Product sudah ditambahkan di keranjang');
+            return Redirect::back()->with('error', 'Product sudah ditambahkan di keranjang');
         }
         $validateData = $request->validate([
             'id_product' => 'required',
-            'kuantitas' => 'required'
         ]);
         $validateData['id_user'] = Auth::user()->id;
 
@@ -82,9 +82,30 @@ class KeranjangController extends Controller
      * @param  \App\Models\Keranjang  $keranjang
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Keranjang $keranjang)
+    public function update(Request $request)
     {
-        //
+        $request->validate([
+            'idKeranjangs' => 'required',
+            'kuantitass' => 'required'
+        ]);
+        $idKeranjangs = $request->input('idKeranjangs');
+        $kuantitass = $request->input('kuantitass');
+
+        if(count($idKeranjangs) != count($kuantitass)) {
+            return redirect('keranjang')->with('error', 'Terjadi kesalahan pada program! mohon maaf!');
+        }
+
+        for($i = 0; $i < count($idKeranjangs); $i++) {
+            $idKeranjang = $idKeranjangs[$i];
+            $newKuantitas = $kuantitass[$i];
+            $keranjang = Keranjang::find($idKeranjang);
+            if(!$keranjang || $keranjang->id_user != Auth::user()->id) {
+                return redirect('keranjang')->with('error', 'Product tidak berada di keranjang anda');
+            }
+            $keranjang->update(['kuantitas' => $newKuantitas]);
+        }
+        
+        return redirect('keranjang')->with('succes', 'Keranjang berhasil diperbarui!');
     }
 
     /**
@@ -100,11 +121,9 @@ class KeranjangController extends Controller
         ]);
         $checkProducts = $request->input('checkProducts');
         foreach($checkProducts as $checkProduct) {
-            $product = Keranjang::where('id', $checkProduct)->get();
-            foreach($product as $p) {
-                if($p->id_user != Auth::user()->id) {
-                    return redirect('keranjang')->with('error', 'Product tidak berada di keranjang anda');
-                }
+            $keranjang = Keranjang::find($checkProduct);
+            if(!$keranjang || $keranjang->id_user != Auth::user()->id) {
+                return redirect('keranjang')->with('error', 'Product tidak berada di keranjang anda');
             }
             Keranjang::destroy('id', $checkProduct);
         }
