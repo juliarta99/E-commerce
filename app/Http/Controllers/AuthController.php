@@ -16,7 +16,7 @@ class AuthController extends Controller
     {
         return view('login',
         [
-            'title' => 'Login'
+            'title' => 'Login',
         ]);
     }
 
@@ -35,7 +35,7 @@ class AuthController extends Controller
             return redirect()->intended('/');
         }
 
-        return Redirect::back()->withErrors(['error' => 'Email or password not failed']);
+        return back()->withErrors(['error' => 'Email or password not failed']);
     }
 
     public function create()

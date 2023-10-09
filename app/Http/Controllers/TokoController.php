@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\City;
 use Illuminate\Http\Request;
 use App\Models\Toko;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Product;
-use Symfony\Component\HttpFoundation\Test\Constraint\RequestAttributeValueSame;
 
 class TokoController extends Controller
 {
@@ -27,9 +27,11 @@ class TokoController extends Controller
             return redirect('/toko')->with('error', 'Anda sudah memiliki toko');
         }
         
+        $citys = City::orderBy('city_name', 'ASC')->get();
         return view('toko.create', 
         [
             'title' => 'Membuat toko',
+            'citys' => $citys
         ]);
     }
 
@@ -37,7 +39,7 @@ class TokoController extends Controller
     {
         $validateData = $request->validate([
             'name' => 'required|max:50',
-            'alamat' => 'required',
+            'id_city' => 'required',
             'tentang' => 'required',
             'image' => 'file|image|max:1024',
             'id_user' => 'required'
@@ -48,7 +50,6 @@ class TokoController extends Controller
         };
         
         Toko::create($validateData);
-        
         $toko = Toko::where('id', $request->id_user)->get();
         if($toko != null) {
             User::where('id', Auth::user()->id)->update([
@@ -60,10 +61,12 @@ class TokoController extends Controller
 
     public function edit(Toko $toko)
     {
+        $citys = City::orderBy('city_name', 'ASC')->get();
         return view('toko.edit',
         [
             'title' => 'Edit Toko',
-            'toko' => $toko
+            'toko' => $toko,
+            'citys' => $citys
         ]);
     }
 
@@ -72,14 +75,14 @@ class TokoController extends Controller
         $validateData = $request->validate([
             'name' =>  'required|max:50',
             'name' => 'required|max:50',
-            'alamat' => 'required',
+            'id_city' => 'required',
             'tentang' => 'required',
             'image' => 'file|image|max:1024',
         ]);
 
         if($request->file('image')) {
-            if($request->oldImage) {
-                Storage::delete($request->oldImage);
+            if($toko->image) {
+                Storage::disk('public')->delete($toko->image);
             }
             $validateData['image'] = $request->file('image')->store('toko-profile-images');
         };
@@ -104,8 +107,8 @@ class TokoController extends Controller
         ]);
 
         if($request->file('backImage')) {
-            if($request->oldBackImage) {
-                Storage::delete($request->oldBackImage);
+            if($toko->backImage) {
+                Storage::delete($toko->backImage);
             }
             $validateData['backImage'] = $request->file('backImage')->store('back-toko-images');
         }

@@ -31,8 +31,8 @@ class UserController extends Controller
         ]);
 
         if($request->file('image')) {
-            if($request->oldImage) {
-                Storage::delete($request->oldImage);
+            if(Auth::user()->image) {
+                Storage::delete(Auth::user()->image);
             }
             $validateData['image'] = $request->file('image')->store('profile-images');
         }

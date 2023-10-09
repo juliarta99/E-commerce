@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Alamat;
+use App\Models\City;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -12,14 +13,27 @@ class AlamatController extends Controller
     {
         return view('alamat.index', [
             'title' => 'Alamat Anda',
-            'alamats' => Alamat::where('id_user', auth()->id())->get()
+            'alamats' => Alamat::with('city')->where('id_user', auth()->id())->orderBy('id', 'DESC')->get()
         ]);
     }
 
     public function create()
     {
+        $types = [
+            ['value' => 'rumah', 
+            'name' => 'Rumah'],
+            ['value' => 'kantor', 
+            'name' => 'Kantor'],
+            ['value' => 'apartemen', 
+            'name' => 'Apartemen'],
+            ['value' => 'kos', 
+            'name' => 'Kos'],
+        ];
+        $citys = City::orderBy('city_name', 'ASC')->get();
         return view('alamat.tambah', [
             'title' => 'Tambah Alamat',
+            'citys' => $citys,
+            'types' => $types
         ]);
     }
     
@@ -27,11 +41,8 @@ class AlamatController extends Controller
     {
         $validateData = $request->validate([
                 'penerima' => 'required|max:50',
-                'label' => 'required|max:50',
-                'kelurahan' => 'required|max:50',
-                'kecamatan' => 'required|max:50',
-                'kabupaten' => 'required|max:50',
-                'provinsi' => 'required|max:50',
+                'label' => 'required|in:rumah,kantor,apartemen,kos',
+                'id_city' => 'required',
                 'detail' => 'required',
                 'catatan' => 'max:255',
                 'no_hp' => 'required',
@@ -56,10 +67,23 @@ class AlamatController extends Controller
             return redirect('/alamat');
         }
         
+        $types = [
+            ['value' => 'rumah', 
+            'name' => 'Rumah'],
+            ['value' => 'kantor', 
+            'name' => 'Kantor'],
+            ['value' => 'apartemen', 
+            'name' => 'Apartemen'],
+            ['value' => 'kos', 
+            'name' => 'Kos'],
+        ];
+        $citys = City::orderBy('city_name', 'ASC')->get();
         return view('alamat.edit',
         [
             'title' => 'Edit Alamat',
-            'alamat' => $alamat
+            'alamat' => $alamat,
+            'citys' => $citys,
+            'types' => $types
         ]);
     }
 
@@ -74,11 +98,8 @@ class AlamatController extends Controller
     {
         $creadentials = $request->validate([
             'penerima' => 'required|max:50',
-            'label' => 'required|max:50',
-            'kelurahan' => 'required|max:50',
-            'kecamatan' => 'required|max:50',
-            'kabupaten' => 'required|max:50',
-            'provinsi' => 'required|max:50',
+            'label' => 'required|in:rumah,kantor,apartemen,kos',
+            'id_city' => 'required',
             'detail' => 'required',
             'catatan' => 'max:255',
             'no_hp' => 'required',

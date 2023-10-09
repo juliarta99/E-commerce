@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Favorit;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
 
 class FavoritController extends Controller
 {
@@ -42,7 +41,7 @@ class FavoritController extends Controller
     public function store(Request $request)
     {
         if(count(Auth::user()->favorits->where('id_toko', $request->id_toko)) == 1) {
-            return Redirect::back()->with('error', 'Toko sudah ada dalam favorit');
+            return back()->with('error', 'Toko sudah ada dalam favorit');
         }
         $validateData = $request->validate([
             'id_toko' => 'required',
@@ -51,7 +50,7 @@ class FavoritController extends Controller
         $validateData['id_user'] = Auth::user()->id;
 
         Favorit::create($validateData);
-        return Redirect::back()->with('succes', 'Toko berhasil ditambahkan ke dalam toko favorit');
+        return back()->with('succes', 'Toko berhasil ditambahkan ke dalam toko favorit');
     }
 
     /**
@@ -97,6 +96,6 @@ class FavoritController extends Controller
     public function destroy(Request $request)
     {
         Favorit::destroy('id', $request->id_favorit);
-        return Redirect::back()->with('succes', 'Toko berhasil dihapus dari favorit');
+        return back()->with('succes', 'Toko berhasil dihapus dari favorit');
     }
 }

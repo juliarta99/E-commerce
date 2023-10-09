@@ -6,8 +6,9 @@
       <meta http-equiv="X-UA-Compatible" content="ie=edge">
       <title>{{ $title }}</title>
       @vite('resources/css/app.css')
+      <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
 </head>
-<body>
+<body class="font-poppins">
       <div class="flex w-full h-screen">
             <div class="flex  items-center justify-center w-full px-4">
                   <div class="hidden w-1/2 lg:block px-5">

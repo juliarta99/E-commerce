@@ -3,7 +3,6 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\Auth;
 
 return new class extends Migration
 {
@@ -14,15 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('alamats', function (Blueprint $table) {
+        Schema::create('citys', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_user');
-            $table->foreignId('id_city');
-            $table->string('penerima');
-            $table->enum('label', ['rumah', 'kantor', 'apartemen', 'kos']);
-            $table->text('detail');
-            $table->string('catatan')->nullable();
-            $table->string('no_hp');
+            $table->unsignedInteger('city_id')->unique();
+            $table->string('province_name');
+            $table->string('city_name');
+            $table->unsignedInteger('postal_code');
             $table->timestamps();
         });
     }
@@ -34,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('alamats');
+        Schema::dropIfExists('citys');
     }
 };

@@ -19,15 +19,19 @@
                   @enderror
 
                   <label class="mt-2 text-sm text-black lg:text-base" for="image">Profile Image</label>
-                  <input class="image w-full px-4 py-2 text-sm bg-gray-200 rounded-md lg:text-base @error('image') border-2 border-red-500 @enderror" type="file" name="image" id="image" value="{{ old('image') }}">
+                  <input class="image w-full px-4 py-2 text-sm bg-gray-200 rounded-md lg:text-base @error('image') border-2 border-red-500 @enderror" type="file" name="image" id="image" accept="image/*" value="{{ old('image') }}">
                   @error('image')
                         <div class="w-full text-sm text-red-500 lg:text-base">{{ $message }}</div>
                   @enderror
 
-                  <label class="mt-2 text-sm text-black lg:text-base" for="alamat">Alamat</label>
-                  <input class="w-full px-4 py-2 text-sm bg-gray-200 rounded-md lg:text-base @error('alamat') border-2 border-red-500 @enderror" type="alamat" name="alamat" id="alamat" value="{{ old('alamat') }}">
-                  @error('alamat')
-                        <div class="w-full text-sm text-red-500 lg:text-base">{{ $message }}</div>
+                  <label class="mt-2 text-sm text-black lg:text-base" for="id_city">Kota</label>
+                  <select class="w-full px-4 py-2 text-sm bg-gray-200 rounded-md lg:text-base @error('id_city') border-2 border-red-500 @enderror" id="id_city" name="id_city" id="id_city" value="{{ old('id_city') }}">
+                      @foreach ($citys as $city)
+                          <option value={{ $city->id }}>{{ $city->city_name }}, {{ $city->province_name }}, {{ $city->postal_code }}</option>
+                      @endforeach
+                  </select>
+                  @error('id_city')
+                      <div class="w-full text-sm text-red-500 lg:text-base">{{ $message }}</div>
                   @enderror
 
                   <label class="mt-2 text-sm text-black lg:text-base" for="tentang">Tentang</label>

@@ -39,7 +39,7 @@ class KeranjangController extends Controller
      * @param   \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Keranjang $keranjang)
+    public function store(Request $request)
     {
         if(count(Auth::user()->keranjangs->where('id_product', $request->id_product)) == 1) {
             return Redirect::back()->with('error', 'Product sudah ditambahkan di keranjang');
@@ -50,7 +50,7 @@ class KeranjangController extends Controller
         $validateData['id_user'] = Auth::user()->id;
 
         Keranjang::create($validateData);
-        return Redirect::back()->with('succes', 'Product berhasil ditambahkan ke keranjang');
+        return back()->with('succes', 'Product berhasil ditambahkan ke keranjang');
     }
 
     /**

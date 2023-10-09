@@ -3,7 +3,7 @@ function showProfile() {
       const showProfile = document.getElementById('show-profile');
       const showToko = document.getElementById('showToko');
       showProfile.classList.toggle('hidden');
-    showToko.classList.add('hidden');
+      showToko.classList.add('hidden');
 }
 
 // buatToko

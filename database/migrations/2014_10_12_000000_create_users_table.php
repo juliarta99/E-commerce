@@ -26,7 +26,6 @@ return new class extends Migration
             $table->timestamp('no_hp_verified_at')->nullable();
             $table->string('password');
             $table->boolean('is_toko')->default(false);
-            $table->boolean('is_admin')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });

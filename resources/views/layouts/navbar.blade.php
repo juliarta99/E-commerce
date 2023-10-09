@@ -76,7 +76,7 @@
                                     <img src="{{ asset('img/profile_default.png') }}" alt="Profile" class="w-6 h-6 mr-1 rounded-full sm:w-8 sm:h-8 object-cover">
                               @endif
                               <p class="text-xs first-letter:font-semibold sm:text-sm lg:text-base">{{ Auth::user()->name }}</p>
-                              <div id="show-profile" class="absolute hidden p-4 bg-white rounded-md shadow-md translate-y-36 lg:translate-y-24">
+                              <div id="show-profile" class="absolute hidden p-4 w-max bg-white rounded-md shadow-md translate-y-36 lg:translate-y-24">
                                     <div class="mb-1">
                                           <a class="flex items-center" href="/editProfile">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="{{ Request::is('editProfile') ? 'blue' : '#000' }}" class="w-4 h-4">

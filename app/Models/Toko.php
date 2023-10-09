@@ -28,6 +28,11 @@ class Toko extends Model
         return $this->hasMany(Favorit::class, 'id_toko');
     }
 
+    public function city()
+    {
+        return $this->belongsTo(City::class, 'id_city');
+    }
+
     public function sluggable(): array
     {
         return [

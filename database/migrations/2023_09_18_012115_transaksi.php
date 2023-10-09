@@ -13,17 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tokos', function (Blueprint $table) {
+        Schema::create('transaksi', function (Blueprint $table) {
             $table->id();
             $table->foreignId('id_user');
-            $table->foreignId('id_city');
-            $table->string('name');
-            $table->string('slug')->unique();
-            $table->string('image')->nullable();
-            $table->string('backImage')->nullable();
-            $table->text('tentang');
-            $table->double('rate')->default(0.0);
-            $table->boolean('approve')->default(false);
+            $table->string('kd');
+            $table->double('subtotal');
+            $table->double('ongkir');
+            $table->double('total_diskon');
+            $table->double('total_transaksi');
             $table->timestamps();
         });
     }
@@ -35,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tokos');
+        Schema::dropIfExists('transaksi');
     }
 };
