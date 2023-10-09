@@ -5,16 +5,15 @@
             <form action="/toko/create" method="post" enctype="multipart/form-data" class="flex flex-col max-w-md mx-auto mt-5">
                   @csrf
                   <h1 class="font-semibold text-center uppercase text-base lg:text-lg">Buat Toko</h1>
-                  @if (session()->has('succesBuatToko'))
-                  <div id="sessionSucces" class="w-auto mx-auto my-1 overflow-hidden rounded-md">
-                        <div class="px-4 py-2 bg-green-500 ">{{ session('succesBuatToko') }}</div>
-                        <div id="timeSessionSucces" class="h-1 bg-black"></div>
-                  </div>
-                  @endif
-                  <input type="hidden" name="id_user" value="{{ Auth::user()->id }}">
                   <label class="mt-2 text-sm text-black lg:text-base" for="name">Name Toko</label>
-                  <input class="w-full px-4 py-2 text-sm bg-gray-200 rounded-md lg:text-base @error('name') border-2 border-red-500 @enderror" type="text" name="name" id="name" value="{{ old('name', Auth::user()->name) }}">
+                  <input required class="w-full px-4 py-2 text-sm bg-gray-200 rounded-md lg:text-base @error('name') border-2 border-red-500 @enderror" type="text" name="name" id="name" value="{{ old('name', Auth::user()->name) }}">
                   @error('name')
+                        <div class="w-full text-sm text-red-500 lg:text-base">{{ $message }}</div>
+                  @enderror
+
+                  <label class="mt-2 text-sm text-black lg:text-base" for="izin_usaha">Surat Izin Usaha</label>
+                  <input required class="izin_usaha w-full px-4 py-2 text-sm bg-gray-200 rounded-md lg:text-base @error('izin_usaha') border-2 border-red-500 @enderror" type="file" name="izin_usaha" id="izin_usaha" accept="image/*" capture="user" value="{{ old('izin_usaha') }}">
+                  @error('izin_usaha')
                         <div class="w-full text-sm text-red-500 lg:text-base">{{ $message }}</div>
                   @enderror
 
@@ -25,7 +24,7 @@
                   @enderror
 
                   <label class="mt-2 text-sm text-black lg:text-base" for="id_city">Kota</label>
-                  <select class="w-full px-4 py-2 text-sm bg-gray-200 rounded-md lg:text-base @error('id_city') border-2 border-red-500 @enderror" id="id_city" name="id_city" id="id_city" value="{{ old('id_city') }}">
+                  <select required class="w-full px-4 py-2 text-sm bg-gray-200 rounded-md lg:text-base @error('id_city') border-2 border-red-500 @enderror" id="id_city" name="id_city" id="id_city" value="{{ old('id_city') }}">
                       @foreach ($citys as $city)
                           <option value={{ $city->id }}>{{ $city->city_name }}, {{ $city->province_name }}, {{ $city->postal_code }}</option>
                       @endforeach
@@ -35,7 +34,7 @@
                   @enderror
 
                   <label class="mt-2 text-sm text-black lg:text-base" for="tentang">Tentang</label>
-                  <textarea name="tentang" id="tentang" cols="30" rows="5" class="w-full px-4 py-2 text-sm bg-gray-200 rounded-md lg:text-base @error('tentang') border-2 border-red-500 @enderror" value="{{ old('tentang') }}">{{ old('tentang') }}</textarea>
+                  <textarea required name="tentang" id="tentang" cols="30" rows="5" class="w-full px-4 py-2 text-sm bg-gray-200 rounded-md lg:text-base @error('tentang') border-2 border-red-500 @enderror" value="{{ old('tentang') }}">{{ old('tentang') }}</textarea>
                   @error('tentang')
                         <div class="w-full text-sm text-red-500 lg:text-base">{{ $message }}</div>
                   @enderror

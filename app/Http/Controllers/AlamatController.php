@@ -44,8 +44,9 @@ class AlamatController extends Controller
             'no_hp' => 'required',
         ]);
 
+        $validateData['id_user'] = Auth::user()->id;
         Alamat::create($validateData);
-        return back()->with('success', 'Alamat berhasil ditambahkan');
+        return redirect(route('alamat'))->with('success', 'Alamat berhasil ditambahkan');
     }
 
     /**

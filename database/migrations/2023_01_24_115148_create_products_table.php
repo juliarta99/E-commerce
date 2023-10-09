@@ -27,8 +27,6 @@ return new class extends Migration
             $table->text('deskripsi');
             $table->string('image');
             $table->double('rate')->default(0.0);
-            $table->string('kabupaten');
-            $table->string('provinsi');
             $table->bigInteger('terjual')->default(0);
             $table->timestamps();
         });

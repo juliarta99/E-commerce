@@ -9,7 +9,7 @@ class HomeController extends Controller
     public function index()
     {
         $title = 'E-commerce';
-        $products = Product::latest()->with('kategori')
+        $products = Product::latest()->with('kategori', 'toko', 'toko.city')
             ->whereHas('toko', function($query){
                 $query->where('approve', true);
             })

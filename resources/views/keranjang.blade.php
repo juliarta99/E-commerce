@@ -6,8 +6,8 @@
       @csrf
       @method('put')
       <h1 class="text-base lg:text-lg xl:text-xl font-bold">Keranjang</h1>
-            @if (session()->has('succes'))
-                  <div class="px-4 py-2 bg-green-500 w-auto mx-auto my-2 rounded-md">{{ session('succes') }}</div>
+            @if (session()->has('success'))
+                  <div class="px-4 py-2 bg-green-500 w-auto mx-auto my-2 rounded-md">{{ session('success') }}</div>
             @endif
             @if (session()->has('error'))
                   <div class="px-4 py-2 bg-red-500 w-auto mx-auto my-2 rounded-md">{{ session('error') }}</div>
@@ -38,11 +38,7 @@
                                     <a href="/product/{{ $keranjang->product->slug }}">
                                           <div class="w-full">
                                                 <div class="relative">
-                                                      @if ($keranjang->product->image != null)
-                                                        <img src="{{ asset('storage/'. $keranjang->product->image) }}" class="rounded-md h-52 object-cover w-full" alt="Product">
-                                                      @else
-                                                        <img src="https://source.unsplash.com/900x450/?{{ $keranjang->product->kategori->name }}" class="rounded-md" alt="Product">
-                                                      @endif
+                                                      <img src="{{ asset('storage/'. $keranjang->product->image) }}" class="rounded-md h-52 object-cover w-full" alt="Product">
                                                       <p class="absolute top-0 left-0 p-2 text-xs text-white bg-black rounded-tl-md">{{ $keranjang->product->kategori->name }}</p>
                                                       <p class="absolute top-0 right-0 p-2 text-xs text-white bg-red-500 rounded-tr-md">{{$keranjang->product->diskon}}%</p>
                                                 </div>

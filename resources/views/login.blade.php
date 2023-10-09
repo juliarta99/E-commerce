@@ -17,8 +17,8 @@
                   <div class="w-full lg:w-1/2">
                         <div class="w-5/6 px-4 py-6 mx-auto lg:w-3/4">
                               <h1 class="text-xl uppercase font-semibold text-center xl:text-3xl lg:text-2xl">Login</h1>
-                              @if (session()->has('succes'))
-                                    <div class="w-full text-sm text-center text-green-500 md:text-base">{{ session('succes') }}</div>
+                              @if (session()->has('success'))
+                                    <div class="w-full text-sm text-center text-green-500 md:text-base">{{ session('success') }}</div>
                               @endif
                               @if ($errors->any())
                                     <div class="w-full text-sm text-center text-red-500 md:text-base">{{ $errors->first() }}</div>

@@ -2,8 +2,8 @@
 @section('content')
       <div class="pt-32 lg:pt-24">
             <div class="w-full min-h-screen">
-                  @if (session()->has('succes'))
-                        <div class="w-auto p-2 px-2 mt-8 text-sm font-semibold text-center bg-green-500 rounded-t-md lg:mt-4 lg:text-base">{{ session('succes') }}</div>
+                  @if (session()->has('success'))
+                        <div class="w-auto p-2 px-2 mt-8 text-sm font-semibold text-center bg-green-500 rounded-t-md lg:mt-4 lg:text-base">{{ session('success') }}</div>
                   @endif
                   @if (session()->has('error'))
                         <div class="w-auto p-2 px-2 mt-8 text-sm font-semibold text-center bg-red-500 rounded-t-md lg:mt-4 lg:text-base">{{ session('error') }}</div>
@@ -59,11 +59,7 @@
                   <div class="flex flex-wrap">
                         <div class="w-full px-2 md:w-1/2">
                               <div class="relative w-full">
-                                    @if ($product->image != null)
-                                        <img src="{{ asset('storage/'. $product->image) }}" class="rounded-md mx-auto" alt="Product">
-                                    @else
-                                        <img src="https://source.unsplash.com/900x450/?{{ $product->kategori->name }}" class="rounded-md mx-auto" alt="Product">
-                                    @endif
+                                    <img src="{{ asset('storage/'. $product->image) }}" class="rounded-md mx-auto" alt="Product">
                                     <div class="absolute top-0 right-0 p-2 text-white bg-red-500 rounded-tr-sm">{{ $product->diskon }}%</div>
                               </div>
                               <div class="w-full mt-2">

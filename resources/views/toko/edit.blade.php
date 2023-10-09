@@ -8,7 +8,7 @@
                         <h1 class="font-semibold text-center uppercase text-base lg:text-lg">Edit Toko</h1>
 
                         <label class="mt-2 text-sm text-black lg:text-base" for="name">Name Toko</label>
-                        <input class="w-full px-4 py-2 text-sm bg-gray-200 rounded-md lg:text-base @error('name') border-2 border-red-500 @enderror" type="text" name="name" id="name" value="{{ old('name', $toko->name) }}">
+                        <input required class="w-full px-4 py-2 text-sm bg-gray-200 rounded-md lg:text-base @error('name') border-2 border-red-500 @enderror" type="text" name="name" id="name" value="{{ old('name', $toko->name) }}">
                         @error('name')
                               <div class="w-full text-sm text-red-500 lg:text-base">{{ $message }}</div>
                         @enderror
@@ -18,11 +18,9 @@
                         @error('image')
                               <div class="w-full text-sm text-red-500 lg:text-base">{{ $message }}</div>
                         @enderror
-                        {{-- old image --}}
-                        <input type="hidden" name="oldImage" value="{{ $toko->image }}">
                   
                         <label class="mt-2 text-sm text-black lg:text-base" for="id_city">Kota</label>
-                        <select class="w-full px-4 py-2 text-sm bg-gray-200 rounded-md lg:text-base @error('id_city') border-2 border-red-500 @enderror" id="id_city" name="id_city" id="id_city" value="{{ old('id_city', $toko->id_city) }}">
+                        <select required class="w-full px-4 py-2 text-sm bg-gray-200 rounded-md lg:text-base @error('id_city') border-2 border-red-500 @enderror" id="id_city" name="id_city" id="id_city" value="{{ old('id_city', $toko->id_city) }}">
                         @foreach ($citys as $city)
                               <option value={{ $city->id }} @selected($city->id == $toko->id_city)>{{ $city->city_name }}, {{ $city->province_name }}, {{ $city->postal_code }}</option>
                         @endforeach
@@ -32,7 +30,7 @@
                         @enderror
                   
                         <label class="mt-2 text-sm text-black lg:text-base" for="tentang">Tentang</label>
-                        <textarea name="tentang" id="tentang" cols="30" rows="5" class="w-full px-4 py-2 text-sm bg-gray-200 rounded-md lg:text-base @error('tentang') border-2 border-red-500 @enderror" value="{{ old('tentang', $toko->tentang) }}">{{ old('tentang', $toko->tentang) }}</textarea>
+                        <textarea required name="tentang" id="tentang" cols="30" rows="5" class="w-full px-4 py-2 text-sm bg-gray-200 rounded-md lg:text-base @error('tentang') border-2 border-red-500 @enderror" value="{{ old('tentang', $toko->tentang) }}">{{ old('tentang', $toko->tentang) }}</textarea>
                         @error('tentang')
                               <div class="w-full text-sm text-red-500 lg:text-base">{{ $message }}</div>
                         @enderror

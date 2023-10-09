@@ -39,8 +39,6 @@ class TokoProductController extends Controller
             'harga' => 'required',
             'berat' => 'required',
             'image' => 'required|file|image|max:1024',
-            'kabupaten' => 'required',
-            'provinsi' => 'required',
             'deskripsi' => 'required'
         ]);
         $validateData['id_toko'] = Auth::user()->toko->id;
@@ -49,7 +47,7 @@ class TokoProductController extends Controller
         $validateData['image'] = $request->file('image')->store('product-images');
         
         Product::create($validateData);
-        return redirect('/toko')->with('success', 'Product berhasil ditambahkan');
+        return redirect(route('toko'))->with('success', 'Product berhasil ditambahkan');
     }
 
     /**
@@ -61,7 +59,7 @@ class TokoProductController extends Controller
     public function show(Product $product)
     {
         if($product->id_toko != Auth::user()->toko->id){
-            return redirect('/toko')->with('error', 'Product tidak ditemukan');
+            return redirect(route('toko'))->with('error', 'Product tidak ditemukan');
         }
 
         $title = $product->name;
@@ -77,7 +75,7 @@ class TokoProductController extends Controller
     public function edit(Product $product)
     {
         if($product->id_toko != Auth::user()->toko->id){
-            return redirect('/toko')->with('error', 'Product tidak ditemukan');
+            return redirect(route('toko'))->with('error', 'Product tidak ditemukan');
         }
         $title = 'Edit '. $product->name;
         $kategoris = Kategori::all();
@@ -94,7 +92,7 @@ class TokoProductController extends Controller
     public function update(Request $request, Product $product)
     {
         if($product->id_toko != Auth::user()->toko->id){
-            return redirect('/toko')->with('error', 'Terjadi kesalahan!');
+            return redirect(route('toko'))->with('error', 'Terjadi kesalahan!');
         }
         $validateData = $request->validate([
             'name' => 'required|max:50',
@@ -103,8 +101,6 @@ class TokoProductController extends Controller
             'harga' => 'required',
             'berat' => 'required',
             'image' => 'file|image|max:1024',
-            'kabupaten' => 'required',
-            'provinsi' => 'required',
             'deskripsi' => 'required'
         ]);
 
@@ -116,7 +112,7 @@ class TokoProductController extends Controller
         }
 
         Product::where('id', $product->id)->update($validateData);
-        return redirect('/toko')->with('succes', 'Product berhasil diedit');
+        return redirect(route('toko'))->with('succes', 'Product berhasil diedit');
     }
 
     /**
@@ -128,6 +124,6 @@ class TokoProductController extends Controller
     public function destroy(Product $product)
     {
         Product::destroy('id', $product->id);
-        return redirect('/toko')->with('success', 'Product berhasil dihapus');
+        return redirect(route('toko'))->with('success', 'Product berhasil dihapus');
     }
 }

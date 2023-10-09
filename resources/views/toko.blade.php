@@ -57,11 +57,7 @@
                                           <div class="flex flex-wrap items-center w-full p-4 mb-4 bg-white shadow-md">
                                                 <div class="w-full md:w-1/2 lg:w-full">
                                                       <div class="relative">
-                                                            @if ($product->image != null)
                                                             <img src="{{asset('storage/'. $product->image) }}" class="rounded-md" alt="Product">
-                                                            @else
-                                                            <img src="https://source.unsplash.com/900x450/?{{ $product->kategori->name }}" class="rounded-md h-52 object-cover w-full" alt="Product">
-                                                            @endif
                                                             <p class="absolute top-0 left-0 p-2 text-xs text-white bg-black lg:text-sm rounded-tl-md">{{ $product->kategori->name }}</p>
                                                             <p class="absolute top-0 right-0 p-2 text-xs text-white bg-red-500 rounded-tr-md lg:text-sm">{{$product->diskon}}%</p>
                                                       </div>

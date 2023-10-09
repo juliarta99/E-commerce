@@ -14,15 +14,14 @@
                                     <div class="px-4 py-2 bg-green-500 ">{{ session('success') }}</div>
                               </div>
                               @endif
-                              <input type="hidden" name="oldImage" value="{{ Auth::user()->image }}">
                               <label class="text-sm text-black lg:text-base" for="image">Image</label>
-                              <input class="w-full px-4 py-2 text-sm bg-gray-200 rounded-md lg:text-base @error('image') border-2 border-red-500 @enderror" type="file" name="image" id="image" value="{{ old('image', Auth::user()->image) }}">
+                              <input class="w-full px-4 py-2 text-sm bg-gray-200 rounded-md lg:text-base @error('image') border-2 border-red-500 @enderror" type="file" accept="image/*" name="image" id="image" value="{{ old('image', Auth::user()->image) }}">
                               @error('image')
                                     <div class="w-full text-sm text-red-500 lg:text-base">{{ $message }}</div>
                               @enderror
 
                               <label class="mt-2 text-sm text-black lg:text-base" for="name">Name</label>
-                              <input class="w-full px-4 py-2 text-sm bg-gray-200 rounded-md lg:text-base @error('name') border-2 border-red-500 @enderror" type="text" name="name" id="name" value="{{ old('name', Auth::user()->name) }}">
+                              <input required class="w-full px-4 py-2 text-sm bg-gray-200 rounded-md lg:text-base @error('name') border-2 border-red-500 @enderror" type="text" name="name" id="name" value="{{ old('name', Auth::user()->name) }}">
                               @error('name')
                                     <div class="w-full text-sm text-red-500 lg:text-base">{{ $message }}</div>
                               @enderror
@@ -59,7 +58,7 @@
                               @enderror
 
                               <label class="mt-2 text-sm text-black lg:text-base" for="email">Email</label>
-                              <input class="w-full px-4 py-2 text-sm bg-gray-200 rounded-md lg:text-base @error('email') border-2 border-red-500 @enderror" type="email" name="email" id="email" value="{{ old('email', Auth::user()->email)  }}">
+                              <input required class="w-full px-4 py-2 text-sm bg-gray-200 rounded-md lg:text-base @error('email') border-2 border-red-500 @enderror" type="email" name="email" id="email" value="{{ old('email', Auth::user()->email)  }}">
                               @error('email')
                                     <div class="w-full text-sm text-red-500 lg:text-base">{{ $message }}</div>
                               @enderror

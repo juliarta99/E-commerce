@@ -13,11 +13,7 @@
                                     <div class="w-full p-4 mb-4 bg-white shadow-md">
                                           <div class="w-full">
                                                 <div class="relative">
-                                                      @if ($product->image != null)
-                                                            <img src="{{ asset('storage/'. $product->image) }}" class="rounded-md h-52 object-cover w-full" alt="Product">
-                                                      @else
-                                                            <img src="https://source.unsplash.com/900x450/?{{ $product->kategori->name }}" class="rounded-md" alt="Product">
-                                                      @endif
+                                                      <img src="{{ asset('storage/'. $product->image) }}" class="rounded-md h-52 object-cover w-full" alt="Product">
                                                       <p class="absolute top-0 left-0 p-2 text-xs text-white bg-black rounded-tl-md">{{ $product->kategori->name }}</p>
                                                       <p class="absolute top-0 right-0 p-2 text-sm text-white bg-red-500 rounded-tr-md lg:text-base">{{$product->diskon}}%</p>
                                                 </div>
@@ -37,7 +33,7 @@
                                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-3 h-3 mr-1">
                                                                   <path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
                                                             </svg>
-                                                            <p class="text-xs">{{ $product->kabupaten }}, {{ $product->provinsi }}</p>
+                                                            <p class="text-xs">{{ $product->toko->city->city_name }}, {{ $product->toko->city->province_name }}</p>
                                                       </div>
                                                       <p class="pl-2 ml-2 text-xs border-l-2 border-blue-500">Terjual {{ $product->terjual }}</p>
                                                 </div>

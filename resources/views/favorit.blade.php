@@ -1,8 +1,8 @@
 @extends('layouts.main')
 @section('content')
 <div class="pb-10 px-9 pt-36 lg:pt-24">
-    @if (session()->has('succes'))
-        <div class="w-auto p-2 px-2 mt-8 text-sm font-semibold text-center bg-green-500 rounded-t-md lg:mt-4 lg:text-base">{{ session('succes') }}</div>
+    @if (session()->has('success'))
+        <div class="w-auto p-2 px-2 mt-8 text-sm font-semibold text-center bg-green-500 rounded-t-md lg:mt-4 lg:text-base">{{ session('success') }}</div>
     @endif
     @if (session()->has('error'))
         <div class="w-auto p-2 px-2 mt-8 text-sm font-semibold text-center bg-red-500 rounded-t-md lg:mt-4 lg:text-base">{{ session('error') }}</div>

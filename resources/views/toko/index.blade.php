@@ -6,10 +6,10 @@
         <div class="max-w-2xl mx-auto shadow-lg">
             {{-- session message --}}
             @if (session()->has('error'))
-                <div class="w-auto p-2 px-2 mt-8 text-sm font-semibold text-center bg-red-500 rounded-t-md lg:mt-4 lg:text-base" id="sessionSucces">{{ session('error') }}</div>
+                <div class="w-auto p-2 px-2 mt-8 text-sm font-semibold text-center bg-red-500 rounded-t-md lg:mt-4 lg:text-base">{{ session('error') }}</div>
             @endif
-            @if (session()->has('succes'))
-                <div class="w-auto p-2 px-2 mt-8 text-sm font-semibold text-center bg-green-500 rounded-t-md lg:mt-4 lg:text-base">{{ session('succes') }}</div>
+            @if (session()->has('success'))
+                <div class="w-auto p-2 px-2 mt-8 text-sm font-semibold text-center bg-green-500 rounded-t-md lg:mt-4 lg:text-base">{{ session('success') }}</div>
             @endif
             {{-- profile start --}}
                 <div class="flex flex-wrap">
@@ -72,13 +72,9 @@
                                 <div class="flex flex-wrap items-center w-full p-4 mb-4 bg-white shadow-md">
                                       <div class="w-full md:w-1/2 lg:w-full">
                                             <div class="relative">
-                                                @if ($product->image != null)
                                                     <img src="{{ asset('storage/'. $product->image) }}" class="rounded-md h-52 object-cover w-full" alt="Product">
-                                                @else
-                                                    <img src="https://source.unsplash.com/900x450/?{{ $product->kategori->name }}" class="rounded-md" alt="Product">
-                                                @endif
-                                                  <p class="absolute top-0 left-0 p-2 text-xs text-white bg-black rounded-tl-md">{{ $product->kategori->name }}</p>
-                                                  <p class="absolute top-0 right-0 p-2 text-xs text-white bg-red-500 rounded-tr-md">{{$product->diskon}}%</p>
+                                                    <p class="absolute top-0 left-0 p-2 text-xs text-white bg-black rounded-tl-md">{{ $product->kategori->name }}</p>
+                                                    <p class="absolute top-0 right-0 p-2 text-xs text-white bg-red-500 rounded-tr-md">{{$product->diskon}}%</p>
                                             </div>
                                       </div>
                                       <div class="w-full px-4 md:w-1/2 lg:w-full mt-2">

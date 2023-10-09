@@ -20,12 +20,12 @@
                               <form action="/register" method="post" class="flex flex-col w-full">
                                     @csrf
                                     <label class="mt-2" for="name">Nama</label>
-                                    <input type="text" name="name" id="name" class="bg-gray-200 @error('name') border-2 border-red-500 @enderror w-full px-3 py-2 rounded-md" value="{{ old('name') }}" placeholder="name">
+                                    <input required type="text" name="name" id="name" class="bg-gray-200 @error('name') border-2 border-red-500 @enderror w-full px-3 py-2 rounded-md" value="{{ old('name') }}" placeholder="name">
                                           @error('name')
                                               <div class="w-full text-sm text-red-500 md:text-base">{{ $message }}</div>
                                           @enderror
                                     <label class="mt-2" for="email">Email</label>
-                                    <input type="email" name="email" id="email" class="bg-gray-200 @error('email') border-2 border-red-500 @enderror w-full px-3 py-2 rounded-md peer" value="{{ old('email') }}" placeholder="email">
+                                    <input required type="email" name="email" id="email" class="bg-gray-200 @error('email') border-2 border-red-500 @enderror w-full px-3 py-2 rounded-md peer" value="{{ old('email') }}" placeholder="email">
                                     <p class="hidden text-red-500 peer-invalid:block">
                                           Please provide a valid email address.
                                     </p>
@@ -33,12 +33,12 @@
                                               <div class="w-full text-sm text-red-500 md:text-base">{{ $message }}</div>
                                           @enderror
                                     <label class="mt-2" for="password">Password</label>
-                                    <input type="password" name="password" id="password" class="bg-gray-200 @error('password') border-2 border-red-500 @enderror w-full px-3 py-2 rounded-md" placeholder="password">
+                                    <input required type="password" name="password" id="password" class="bg-gray-200 @error('password') border-2 border-red-500 @enderror w-full px-3 py-2 rounded-md" placeholder="password">
                                           @error('password')
                                               <div class="w-full text-sm text-red-500 md:text-base">{{ $message }}</div>
                                           @enderror
                                     <label class="mt-2" for="konfirmasiPassword">Konfirmasi Password</label>
-                                    <input type="password" name="konfirmasiPassword" id="konfirmasiPassword" class="bg-gray-200 @error('konfirmasiPassword') border-2 border-red-500 @enderror w-full px-3 py-2 rounded-md" placeholder="Konfirmasi Password">
+                                    <input required type="password" name="konfirmasiPassword" id="konfirmasiPassword" class="bg-gray-200 @error('konfirmasiPassword') border-2 border-red-500 @enderror w-full px-3 py-2 rounded-md" placeholder="Konfirmasi Password">
                                           @error('konfirmasiPassword')
                                               <div class="w-full text-sm text-red-500 md:text-base">{{ $message }}</div>
                                           @enderror
