@@ -64,7 +64,7 @@ class AuthController extends Controller
 
         auth()->login($user);
 
-        return redirect('/')->with('succes', 'Akun berhasil dibuat!');
+        return redirect('/')->with('success', 'Akun berhasil dibuat!');
     }
 
     public function logout(Request $request)

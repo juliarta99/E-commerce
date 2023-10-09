@@ -25,7 +25,7 @@ return new class extends Migration
             $table->integer('diskon')->default(0);
             $table->integer('berat');
             $table->text('deskripsi');
-            $table->string('image')->nullable();
+            $table->string('image');
             $table->double('rate')->default(0.0);
             $table->string('kabupaten');
             $table->string('provinsi');

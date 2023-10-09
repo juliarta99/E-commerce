@@ -14,25 +14,20 @@ class TokoController extends Controller
 {
     public function index()
     {
-        return view('toko.index',
-        [
-            'title' => 'Toko Saya',
-            'products' => Product::where('id_toko', Auth::user()->toko->id)->get(),
-        ]);
+        $title = 'Toko Saya';
+        $products = Product::where('id_toko', Auth::user()->toko->id)->get();
+        return view('toko.index', compact('title', 'products'));
     }
 
     public function create()
     {
         if(Auth::user()->is_toko == true){
-            return redirect('/toko')->with('error', 'Anda sudah memiliki toko');
+            return redirect(route('toko'))->with('error', 'Anda sudah memiliki toko');
         }
-        
+
+        $title = 'Membuat Toko';
         $citys = City::orderBy('city_name', 'ASC')->get();
-        return view('toko.create', 
-        [
-            'title' => 'Membuat toko',
-            'citys' => $citys
-        ]);
+        return view('toko.create', compact('title', 'citys'));
     }
 
     public function store(Request $request)
@@ -41,10 +36,11 @@ class TokoController extends Controller
             'name' => 'required|max:50',
             'id_city' => 'required',
             'tentang' => 'required',
+            'izin_usaha' => 'required|file|image|max:3000',
             'image' => 'file|image|max:1024',
-            'id_user' => 'required'
         ]);
-
+        $validateData['id_user'] = Auth::user()->id;
+        $validateData['izin_usaha'] = $request->file('izin_usaha')->store('izin-usaha-images');
         if($request->file('image')) {
             $validateData['image'] = $request->file('image')->store('toko-profile-images');
         };
@@ -56,25 +52,20 @@ class TokoController extends Controller
                 'is_toko' => 1,
             ]);
         }
-        return redirect('/toko')->with('succes', 'Toko berhasil dibuat');
+        return redirect(route('toko'))->with('success', 'Toko berhasil dibuat');
     }
 
     public function edit(Toko $toko)
     {
+        $title = 'Edit Toko';
         $citys = City::orderBy('city_name', 'ASC')->get();
-        return view('toko.edit',
-        [
-            'title' => 'Edit Toko',
-            'toko' => $toko,
-            'citys' => $citys
-        ]);
+        return view('toko.edit', compact('title', 'toko', 'citys'));
     }
 
     public function update(Toko $toko, Request $request)
     {
         $validateData = $request->validate([
             'name' =>  'required|max:50',
-            'name' => 'required|max:50',
             'id_city' => 'required',
             'tentang' => 'required',
             'image' => 'file|image|max:1024',
@@ -88,7 +79,7 @@ class TokoController extends Controller
         };
 
         Toko::where('id', $toko->id)->update($validateData);
-        return redirect('/toko')->with('succes', 'Toko berhasil diedit');
+        return redirect(route('toko'))->with('success', 'Toko berhasil diedit');
     }
 
     public function editBack(Toko $toko)
@@ -114,7 +105,7 @@ class TokoController extends Controller
         }
         
         Toko::where('id', $toko->id)->update($validateData);
-        return redirect('/toko')->with('succes', 'Background toko berhasil diganti');
+        return redirect(route('toko'))->with('success', 'Background toko berhasil diganti');
         
     }
 
@@ -122,14 +113,11 @@ class TokoController extends Controller
     {
         if(Auth::user()->is_toko != null) {
             if($toko->id == Auth::user()->toko->id) {
-                return redirect('/toko');
+                return redirect(route('toko'));
             }
         }
-        return view('toko',
-        [
-            'title' => $toko->name,
-            'toko' => $toko,
-            'products' => Product::where('id_toko', $toko->id)->get(),
-        ]);
+        $title = $toko->name;
+        $products = Product::where('id_toko', $toko->id)->get();
+        return view('toko', compact('title', 'toko', 'products'));
     }
 }

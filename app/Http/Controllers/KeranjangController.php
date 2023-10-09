@@ -42,7 +42,7 @@ class KeranjangController extends Controller
     public function store(Request $request)
     {
         if(count(Auth::user()->keranjangs->where('id_product', $request->id_product)) == 1) {
-            return Redirect::back()->with('error', 'Product sudah ditambahkan di keranjang');
+            return back()->with('error', 'Product sudah ditambahkan di keranjang');
         }
         $validateData = $request->validate([
             'id_product' => 'required',
@@ -50,7 +50,7 @@ class KeranjangController extends Controller
         $validateData['id_user'] = Auth::user()->id;
 
         Keranjang::create($validateData);
-        return back()->with('succes', 'Product berhasil ditambahkan ke keranjang');
+        return back()->with('success', 'Product berhasil ditambahkan ke keranjang');
     }
 
     /**
@@ -92,7 +92,7 @@ class KeranjangController extends Controller
         $kuantitass = $request->input('kuantitass');
 
         if(count($idKeranjangs) != count($kuantitass)) {
-            return redirect('keranjang')->with('error', 'Terjadi kesalahan pada program! mohon maaf!');
+            return back()->with('error', 'Terjadi kesalahan pada program! mohon maaf!');
         }
 
         for($i = 0; $i < count($idKeranjangs); $i++) {
@@ -100,12 +100,12 @@ class KeranjangController extends Controller
             $newKuantitas = $kuantitass[$i];
             $keranjang = Keranjang::find($idKeranjang);
             if(!$keranjang || $keranjang->id_user != Auth::user()->id) {
-                return redirect('keranjang')->with('error', 'Product tidak berada di keranjang anda');
+                return back()->with('error', 'Product tidak berada di keranjang anda');
             }
             $keranjang->update(['kuantitas' => $newKuantitas]);
         }
         
-        return redirect('keranjang')->with('succes', 'Keranjang berhasil diperbarui!');
+        return back()->with('success', 'Keranjang berhasil diperbarui!');
     }
 
     /**
@@ -123,10 +123,10 @@ class KeranjangController extends Controller
         foreach($checkProducts as $checkProduct) {
             $keranjang = Keranjang::find($checkProduct);
             if(!$keranjang || $keranjang->id_user != Auth::user()->id) {
-                return redirect('keranjang')->with('error', 'Product tidak berada di keranjang anda');
+                return back()->with('error', 'Product tidak berada di keranjang anda');
             }
             Keranjang::destroy('id', $checkProduct);
         }
-        return redirect('keranjang')->with('succes', 'Product berhasil dihapus dari keranjang');
+        return back()->with('success', 'Product berhasil dihapus dari keranjang');
     }
 }

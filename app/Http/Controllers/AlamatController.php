@@ -11,14 +11,14 @@ class AlamatController extends Controller
 {
     public function index()
     {
-        return view('alamat.index', [
-            'title' => 'Alamat Anda',
-            'alamats' => Alamat::with('city')->where('id_user', auth()->id())->orderBy('id', 'DESC')->get()
-        ]);
+        $title = 'Alamat Anda';
+        $alamats = Alamat::with('city')->where('id_user', auth()->id())->orderBy('id', 'DESC')->get();
+        return view('alamat.index', compact('title', 'alamats'));
     }
 
     public function create()
     {
+        $title = 'Tambah Alamat';
         $types = [
             ['value' => 'rumah', 
             'name' => 'Rumah'],
@@ -30,29 +30,22 @@ class AlamatController extends Controller
             'name' => 'Kos'],
         ];
         $citys = City::orderBy('city_name', 'ASC')->get();
-        return view('alamat.tambah', [
-            'title' => 'Tambah Alamat',
-            'citys' => $citys,
-            'types' => $types
-        ]);
+        return view('alamat.tambah', compact('title', 'types', 'citys'));
     }
     
     public function store(Request $request)
     {
         $validateData = $request->validate([
-                'penerima' => 'required|max:50',
-                'label' => 'required|in:rumah,kantor,apartemen,kos',
-                'id_city' => 'required',
-                'detail' => 'required',
-                'catatan' => 'max:255',
-                'no_hp' => 'required',
-                'id_user' => 'required'
-            ]);
+            'penerima' => 'required|max:50',
+            'label' => 'required|in:rumah,kantor,apartemen,kos',
+            'id_city' => 'required',
+            'detail' => 'required',
+            'catatan' => 'max:255',
+            'no_hp' => 'required',
+        ]);
 
-        
-            // 'id_user' => Auth::user()->id
         Alamat::create($validateData);
-        return redirect('/alamat')->with('succesTambahAlamat', 'Alamat berhasil ditambahkan');
+        return back()->with('success', 'Alamat berhasil ditambahkan');
     }
 
     /**

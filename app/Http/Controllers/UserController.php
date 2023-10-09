@@ -12,11 +12,9 @@ class UserController extends Controller
 {
     public function edit()
     {
-        return view('profile.index',
-        [
-            'title' => 'Edit Profile',
-            'alamats' => Alamat::where('id_user', Auth::user()->id)->get(),
-        ]);
+        $title = 'Edit Profile';
+        $alamats = Alamat::where('id_user', Auth::user()->id)->get();
+        return view('profile.index', compact('title', 'alamats'));
     }
 
     public function update(Request $request)
@@ -38,6 +36,6 @@ class UserController extends Controller
         }
 
         User::where('id', Auth::user()->id)->update($validateData);
-        return redirect('/editProfile')->with('success', 'Profile berhasil diubah');
+        return back()->with('success', 'Profile berhasil diubah');
     }
 }

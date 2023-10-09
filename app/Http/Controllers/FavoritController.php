@@ -46,11 +46,10 @@ class FavoritController extends Controller
         $validateData = $request->validate([
             'id_toko' => 'required',
         ]);
-        
         $validateData['id_user'] = Auth::user()->id;
 
         Favorit::create($validateData);
-        return back()->with('succes', 'Toko berhasil ditambahkan ke dalam toko favorit');
+        return back()->with('success', 'Toko berhasil ditambahkan ke dalam toko favorit');
     }
 
     /**
@@ -96,6 +95,6 @@ class FavoritController extends Controller
     public function destroy(Request $request)
     {
         Favorit::destroy('id', $request->id_favorit);
-        return back()->with('succes', 'Toko berhasil dihapus dari favorit');
+        return back()->with('success', 'Toko berhasil dihapus dari favorit');
     }
 }

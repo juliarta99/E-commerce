@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('id_city');
             $table->string('name');
             $table->string('slug')->unique();
+            $table->string('izin_usaha');
             $table->string('image')->nullable();
             $table->string('backImage')->nullable();
             $table->text('tentang');
