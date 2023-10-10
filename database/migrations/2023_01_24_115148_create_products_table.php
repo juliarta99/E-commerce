@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('id_toko');
             $table->string('slug')->unique();
             $table->string('name');
+            $table->integer('stok')->default(0);
             $table->integer('harga');
             $table->integer('harga_awal');
             $table->integer('potongan')->default(0);

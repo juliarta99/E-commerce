@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AlamatController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -11,7 +12,6 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FavoritController;
 use App\Http\Controllers\TokoProductController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\VerificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,15 +28,33 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/products', [ProductController::class, 'index'])->name('home.products');
 Route::get('/product/{product:slug}', [ProductController::class, 'show'])->name('home.products.search');
 
-Route::middleware('guest')->group(function () {
+Route::middleware('guest')->group(function() {
     Route::get('/login', [AuthController::class, 'index'])->name('login');
-    Route::post('/login', [AuthController::class, 'authenticate'])->name('login.create');
+    Route::post('/login', [AuthController::class, 'authenticate'])->name('login.authenticate');
     
     Route::get('/register', [AuthController::class, 'create'])->name('register');
     Route::post('/register', [AuthController::class, 'store'])->name('register.create');
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware('guest:admin')->group(function() {
+    Route::get('/dashboard/login', [AdminController::class, 'login'])->name('dashboard.login');
+    Route::post('/dashboard/login', [AdminController::class, 'authenticate'])->name('dashboard.authenticate');
+});
+
+Route::middleware('is_toko')->group(function() {
+    Route::get('/toko', [TokoController::class, 'index'])->name('toko');
+    Route::get('/toko/{toko:slug}/edit', [TokoController::class, 'edit'])->name('toko.edit');
+    Route::put('/toko/{toko:slug}', [TokoController::class, 'update'])->name('toko.update');
+    Route::get('/toko/{toko:slug}/editBack', [TokoController::class, 'editBack'])->name('toko.editBack');
+    Route::put('/toko/{toko:slug}/editBack', [TokoController::class, 'updateBack'])->name('toko.updateBack');
+    Route::resource('/toko/product', TokoProductController::class);
+});
+
+Route::middleware('is_admin')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+});
+
+Route::middleware('auth')->group(function() {
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('/editProfile', [UserController::class, 'edit'])->name('user.edit');
     Route::put('/editProfile', [UserController::class, 'update'])->name('user.update');
@@ -60,19 +78,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/{toko:slug}', [TokoController::class, 'show'])->name('toko.show');
     Route::get('/toko/create', [TokoController::class, 'create'])->name('toko.create');
     Route::post('/toko/create', [TokoController::class, 'store'])->name('toko.store');
-});
-
-Route::middleware('is_admin')->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-});
-
-Route::middleware('is_toko')->group(function () {
-    Route::get('/toko', [TokoController::class, 'index'])->name('toko');
-    Route::get('/toko/{toko:slug}/edit', [TokoController::class, 'edit'])->name('toko.edit');
-    Route::put('/toko/{toko:slug}', [TokoController::class, 'update'])->name('toko.update');
-    Route::get('/toko/{toko:slug}/editBack', [TokoController::class, 'editBack'])->name('toko.editBack');
-    Route::put('/toko/{toko:slug}/editBack', [TokoController::class, 'updateBack'])->name('toko.updateBack');
-    Route::resource('/toko/product', TokoProductController::class);
 });
 
 // verification akun

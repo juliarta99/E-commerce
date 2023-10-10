@@ -9,7 +9,6 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Alamat;
 use App\Models\Toko;
-use App\Models\Comment;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Cviebrock\EloquentSluggable\Sluggable;
 
@@ -67,13 +66,13 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Alamat::class, 'id_user');
     }
 
-    public function comments()
-    {
-        return $this->hasMany(Comment::class, 'id_user');
-    }
-
     public function favorits()
     {
         return $this->hasMany(Favorit::class, 'id_user');
+    }
+
+    public function transaksis()
+    {
+        return $this->hasMany(Transaksi::class, 'id_user');
     }
 }

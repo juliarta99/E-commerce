@@ -36,15 +36,11 @@ class Product extends Model
         return $this->belongsTo(Toko::class, 'id_toko');
     }
 
-    public function comments()
-    {
-        return $this->hasMany(Comment::class, 'id_product');
-    }
-
     public function sluggable(): array
     {
         return [
             'slug' => [
+                'onUpdate' => true,
                 'source' => 'name'
             ]
         ];

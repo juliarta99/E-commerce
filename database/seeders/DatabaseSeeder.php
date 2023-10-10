@@ -4,9 +4,12 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Admin;
 use App\Models\Kategori;
 use Illuminate\Database\Seeder;
 use App\Models\City;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 
 class DatabaseSeeder extends Seeder
@@ -33,6 +36,16 @@ class DatabaseSeeder extends Seeder
             'name' => 'clothes',
             'slug' => 'clothes'
         ]);
+        User::create([
+            'name' => 'Juliarta',
+            'email' => 'juli@gmail.com',
+            'password' => Hash::make('3+Juli09')
+        ]);
+        Admin::create([
+            'username' => 'juliarta99',
+            'password' => Hash::make('3+Juli09')
+        ]);
+        
         $citys = Http::withHeaders([
             'key' => 'e6cfadb803301e9908ad6edc670b5783'
         ])->get('https://api.rajaongkir.com/starter/city');

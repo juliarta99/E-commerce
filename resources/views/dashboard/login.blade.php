@@ -23,14 +23,11 @@
                               @if ($errors->any())
                                     <div class="w-full text-sm text-center text-red-500 md:text-base">{{ $errors->first() }}</div>
                               @endif
-                              <form action="/login" method="post" class="flex flex-col w-full" autocomplete="off">
+                              <form action={{ route('dashboard.authenticate') }} method="post" class="flex flex-col w-full" autocomplete="off">
                                     @csrf
-                                    <label class="mt-2" for="email">Email</label>
-                                    <input type="email" name="email" id="email" class="bg-gray-200 @error('email') border-2 border-red-500 @enderror w-full px-3 py-2 rounded-md peer" value="{{ old('email') }}" placeholder="email">
-                                    <p class="hidden text-red-500 peer-invalid:block">
-                                          Please provide a valid email address.
-                                    </p>
-                                          @error('email')
+                                    <label class="mt-2" for="username">Username</label>
+                                    <input type="text" name="username" id="username" class="bg-gray-200 @error('username') border-2 border-red-500 @enderror w-full px-3 py-2 rounded-md" value="{{ old('username') }}" placeholder="username">
+                                          @error('username')
                                               <div class="w-full text-sm text-red-500 md:text-base">{{ $message }}</div>
                                           @enderror
                                     <label class="mt-2" for="password">Password</label>
@@ -38,24 +35,10 @@
                                           @error('password')
                                                 <div class="w-full text-sm text-red-500 md:text-base">{{ $message }}</div>
                                           @enderror
-                                    
                                     <div class="w-full mx-auto items-center justify-center text-center flex flex-col">
                                           <button type="submit" class="w-1/2 px-1 py-2 mt-3 font-semibold bg-blue-500 rounded-md xl:w-1/4 lg:w-1/3">Login</button>
-                                          <a href="/register" class="mt-1 text-sm lg:text-base">Belum punya akun?</a>
                                     </div>
                               </form>
-                              <div class="w-full">
-                                    <div class="w-full h-1 bg-gray-200 mt-2"></div>
-                                    <p class="text-xs md:text-sm mt-2 text-center mb-2">Atau registrasi dengan</p>
-                                    <div class="w-full flex items-center justify-center">
-                                          <div class="rounded-full bg-gray-200 p-2">
-                                                <img src="{{ asset('img/google-logo.png') }}" class="w-6 h-6" alt="">
-                                          </div>
-                                          <div class="rounded-full bg-gray-200 ml-2 p-2">
-                                                <img src="{{ asset('img/Facebook_logo.png') }}" class="w-6 h-6" alt="">
-                                          </div>
-                                    </div>
-                              </div>
                         </div>
                   </div>
             </div>

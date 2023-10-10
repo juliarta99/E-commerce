@@ -12,6 +12,12 @@
                         <div class="w-full text-sm text-red-500 lg:text-base">{{ $message }}</div>
                   @enderror
 
+                  <label class="mt-2 text-sm text-black lg:text-base" for="stok">Stok</label>
+                  <input required class="w-full px-4 py-2 text-sm bg-gray-200 rounded-md lg:text-base @error('stok') border-2 border-red-500 @enderror" type="text" name="stok" id="stok" value="{{ old('stok') }}">
+                  @error('stok')
+                        <div class="w-full text-sm text-red-500 lg:text-base">{{ $message }}</div>
+                  @enderror
+
                   <label class="mt-2 text-sm text-black lg:text-base" for="id_kategori">Kategori</label>
                   <select required name="id_kategori" class="w-full px-4 py-2 text-sm bg-gray-200 rounded-md lg:text-base @error('id_kategori') border-2 border-red-500 @enderror" id="id_kategori">
                         @foreach ($kategoris as $kategori)

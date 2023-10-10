@@ -7,7 +7,6 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Auth\Events\Registered;
 
 class AuthController extends Controller
@@ -51,7 +50,7 @@ class AuthController extends Controller
         $request->validate(
             [
                 'name' => 'required|max:50',
-                'email' => 'required|email',
+                'email' => 'required|email|unique:users',
                 'password' => ['required', Password::min(8)->numbers()->symbols()],
                 'konfirmasiPassword' => 'required|same:password'
             ]

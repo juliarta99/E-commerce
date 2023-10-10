@@ -34,6 +34,7 @@ class TokoProductController extends Controller
     {
         $validateData = $request->validate([
             'name' => 'required',
+            'stok' => 'required|numeric',
             'id_kategori' => 'required',
             'harga_awal' => 'required',
             'harga' => 'required',
@@ -96,6 +97,7 @@ class TokoProductController extends Controller
         }
         $validateData = $request->validate([
             'name' => 'required|max:50',
+            'stok' => 'required|numeric',
             'id_kategori' => 'required',
             'harga_awal' => 'required',
             'harga' => 'required',

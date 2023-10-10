@@ -43,7 +43,7 @@
                                                                         </svg>
                                                                         <p class="text-xs">{{ $product->toko->city->city_name }}, {{ $product->toko->city->province_name }}</p>
                                                                   </div>
-                                                                  <p class="pl-2 ml-2 text-xs border-l-2 border-blue-500">Terjual {{ $product->terjual }}</p>
+                                                                  <p class="pl-2 ml-2 text-xs border-l-2 border-blue-500">Stok {{ $product->stok }}</p>
                                                             </div>
                                                       </div>
                                                 </div>

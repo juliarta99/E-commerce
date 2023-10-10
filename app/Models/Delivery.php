@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Comment extends Model
+class Delivery extends Model
 {
     use HasFactory;
-
+    protected $table = 'deliverys';
     protected $guarded = ['id'];
 
-    public function transaksi()
+    public function transaksi() 
     {
-        return $this->belongsTo(DetailTransaksi::class, 'id_transaksi');
+        return $this->belongsTo(Transaksi::class, 'id_transaksi');
     }
 }
