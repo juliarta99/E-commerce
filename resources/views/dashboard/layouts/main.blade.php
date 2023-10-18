@@ -10,14 +10,18 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.0/dist/trix.css">
     <script type="text/javascript" src="https://unpkg.com/trix@2.0.0/dist/trix.umd.min.js"></script>
-    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.js"></script> --}}
 </head>
-<body class="font-poppins">
-      @include('layouts.navbar')
-      <div class="container mx-auto">
-          @yield('content')
-      </div>
-      @include('layouts.footer')
+<body class="font-poppins bg-slate-700">
+    <div class="flex h-screen w-full overflow-hidden">
+        @include('dashboard.layouts.navbar')
+        <div class="w-full overflow-y-auto overflow-x-hidden">
+            @include('dashboard.layouts.header')
+            <div class="container mx-auto py-2 min-h-screen">
+                @yield('content')
+            </div>
+            @include('dashboard.layouts.footer')
+        </div>
+    </div>
 </body>
 <script src="{{ asset('js/script.js') }}"></script>
 </html>

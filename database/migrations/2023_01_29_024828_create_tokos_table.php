@@ -23,7 +23,6 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->string('backImage')->nullable();
             $table->text('tentang');
-            $table->double('rate')->default(0.0);
             $table->boolean('approve')->default(false);
             $table->timestamps();
         });

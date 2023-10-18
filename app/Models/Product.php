@@ -36,6 +36,11 @@ class Product extends Model
         return $this->belongsTo(Toko::class, 'id_toko');
     }
 
+    public function transaksis()
+    {
+        return $this->hasMany(DetailTransaksi::class, 'id_product');
+    }
+
     public function sluggable(): array
     {
         return [

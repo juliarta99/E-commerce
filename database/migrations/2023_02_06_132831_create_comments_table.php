@@ -15,11 +15,10 @@ return new class extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_product');
-            $table->foreignId('id_user');
+            $table->foreignId('id_transaksi');
+            $table->string('image')->nullable();
             $table->text('body');
-            $table->text('excerpt');
-            $table->integer('rate');
+            $table->enum('rate', [0,1,2,3,4,5]);
             $table->timestamps();
         });
     }

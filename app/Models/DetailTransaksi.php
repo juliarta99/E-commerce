@@ -19,4 +19,9 @@ class DetailTransaksi extends Model
     {
         return $this->belongsTo(Product::class, 'id_product');
     }
+
+    public function comment()
+    {
+        return $this->hasOne(Comment::class, 'id_transaksi');
+    }
 }

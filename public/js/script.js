@@ -70,7 +70,20 @@ function kuantitasDecrement(id, harga) {
 };
 
 
-
+// dashboard
+const humbergerBar = document.getElementById('humberger-bar');
+const humbergerX = document.getElementById('humberger-x');
+const sidebar = document.getElementById('sidebar');
+function showSidebar() {
+      sidebar.classList.remove('hidden');
+      humbergerBar.classList.add('hidden');
+      humbergerX.classList.remove('hidden');
+}
+function hideSidebar() {
+      sidebar.classList.add('hidden');
+      humbergerBar.classList.remove('hidden');
+      humbergerX.classList.add('hidden');
+}
 
 // // edit profile
 // const btnBiodata = document.getElementById('buttonBiodata');

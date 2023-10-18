@@ -27,7 +27,6 @@ return new class extends Migration
             $table->integer('berat');
             $table->text('deskripsi');
             $table->string('image');
-            $table->double('rate')->default(0.0);
             $table->bigInteger('terjual')->default(0);
             $table->timestamps();
         });
