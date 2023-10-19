@@ -2,7 +2,7 @@
 @section('content')
 <div class="pb-10 px-9 pt-36 lg:pt-24">
       <div class="w-full">
-            <form action="/toko/create" method="post" enctype="multipart/form-data" class="flex flex-col max-w-md mx-auto mt-5">
+            <form action="/toko/create" onsubmit="return confirm('Apakah anda yakin ingin membuat toko?')" method="post" enctype="multipart/form-data" class="flex flex-col max-w-md mx-auto mt-5">
                   @csrf
                   <h1 class="font-semibold text-center uppercase text-base lg:text-lg">Buat Toko</h1>
                   <label class="mt-2 text-sm text-black lg:text-base" for="name">Name Toko</label>

@@ -2,7 +2,7 @@
 @section('content')
 <div class="pb-10 px-9 pt-36 lg:pt-24">
       <div class="w-full">
-            <form action="/toko/product" method="post" enctype="multipart/form-data" class="flex flex-col max-w-md mx-auto mt-5">
+            <form action="/toko/product" onsubmit="return confirm('Apakah anda yakin ingin menambahkan produk ini?')" method="post" enctype="multipart/form-data" class="flex flex-col max-w-md mx-auto mt-5">
                   @csrf
                   <h1 class="font-semibold text-center uppercase text-base lg:text-lg">Tambah Product</h1>
                   

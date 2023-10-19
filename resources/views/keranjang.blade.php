@@ -2,7 +2,7 @@
 @section('content')
 <div class="pt-32 lg:pt-24">
   <div class="w-full min-h-screen">
-      <form action="" method="post" id="formKeranjang">
+      <form action="" onsubmit="return confirm('Apakah anda yakin?')" method="post" id="formKeranjang">
       @csrf
       @method('put')
       <h1 class="text-base lg:text-lg xl:text-xl font-bold">Keranjang</h1>

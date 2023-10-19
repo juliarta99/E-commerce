@@ -1,7 +1,7 @@
 @extends('layouts.main')
 @section('content')
 <div class="pb-10 px-9 pt-36 lg:pt-24">
-    <form action="/alamat/{{ $alamat->id }}" method="post" class="flex flex-col max-w-md mx-auto mt-5">
+    <form action="/alamat/{{ $alamat->id }}" onsubmit="return confirm('Apakah anda yakin ingin mengedit alamat ini?')" method="post" class="flex flex-col max-w-md mx-auto mt-5">
           @csrf
           @method('put')
           <h1 class="font-semibold text-center uppercase text-base lg:text-l">Edit Alamat</h1>

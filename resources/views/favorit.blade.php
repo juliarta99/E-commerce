@@ -35,7 +35,7 @@
                             </div>
                         </div>
                 </a>
-                        <form action="/favorit/delete" method="post" class="">
+                        <form action="/favorit/delete" onsubmit="return confirm('Apakah anda yakin ingin menghapus toko {{ $favorit->toko->name }} dari daftar favorit anda?')" method="post" class="">
                             @csrf
                             @method('delete')
                             <input type="hidden" name="id_favorit" value="{{ $favorit->id }}">

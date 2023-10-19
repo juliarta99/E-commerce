@@ -5,6 +5,9 @@
                   @if (session()->has('success'))
                         <div class="w-auto p-2 px-2 mt-8 text-sm font-semibold text-center bg-green-500 rounded-t-md lg:mt-4 lg:text-base">{{ session('success') }}</div>
                   @endif
+                  @if (session()->has('error'))
+                        <div class="w-auto p-2 px-2 mt-8 text-sm font-semibold text-center bg-red-500 rounded-t-md lg:mt-4 lg:text-base">{{ session('error') }}</div>
+                  @endif
                   <div class="w-full">
                         <div class="flex flex-wrap">
                               <img src="img/banner-e-commerce.png" class="w-full h-32 object-cover rounded-md md:h-40 lg:h-52 xl:h-64" alt="ImageScroll">

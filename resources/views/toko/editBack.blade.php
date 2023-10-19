@@ -2,7 +2,7 @@
 @section('content')
 <div class="pb-10 pt-28 px-9 lg:pt-20">
       <div class="w-full">
-            <form action="/toko/{{ $toko->slug }}/editBack" method="post" enctype="multipart/form-data" class="max-w-md p-4 mx-auto">
+            <form action="/toko/{{ $toko->slug }}/editBack" onclick="return confirm('Apakah anda yakin ingin mengedit background toko?')" method="post" enctype="multipart/form-data" class="max-w-md p-4 mx-auto">
                   @csrf
                   @method('put')
                   <h1>Ubah Background Toko</h1>

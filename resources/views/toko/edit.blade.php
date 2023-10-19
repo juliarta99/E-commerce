@@ -2,7 +2,7 @@
 @section('content')
       <div class="pb-10 px-9 pt-36 lg:pt-24">
             <div class="w-full">
-                  <form action="/toko/{{ $toko->slug }}" method="post" enctype="multipart/form-data" class="flex flex-col max-w-md mx-auto mt-5">
+                  <form action="/toko/{{ $toko->slug }}" onsubmit="return confirm('Apakah anda yakin ingin mengedit toko?')" method="post" enctype="multipart/form-data" class="flex flex-col max-w-md mx-auto mt-5">
                         @csrf
                         @method('put')
                         <h1 class="font-semibold text-center uppercase text-base lg:text-lg">Edit Toko</h1>

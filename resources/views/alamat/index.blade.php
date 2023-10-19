@@ -61,7 +61,7 @@
                                                             </svg>
                                                       </div>
                                                 </a>
-                                                <form action="/alamat/{{ $alamat->id }}" method="post">
+                                                <form action="/alamat/{{ $alamat->id }}" onsubmit="return confirm('Apakah anda yakin ingin menghapus alamat {{ $alamat->detail }} ? ')" method="post">
                                                       @csrf
                                                       @method('delete')
                                                       <button type="submit">

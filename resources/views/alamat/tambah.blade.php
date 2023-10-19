@@ -1,7 +1,7 @@
 @extends('layouts.main')
 @section('content')
 <div id="formTambahAlamat" class="pb-10 px-9 pt-36 lg:pt-24">
-    <form action="/alamat" method="post" class="flex flex-col max-w-md mx-auto mt-5">
+    <form action="/alamat" onsubmit="return confirm('Apakah anda yakin ingin menambahkan alamat ini?')" method="post" class="flex flex-col max-w-md mx-auto mt-5">
             @csrf
             <h1 class="font-semibold text-center uppercase text-base lg:text-l">Form Tambah Alamat</h1>
             <label class="text-sm text-black lg:text-base" for="penerima">Penerima</label>

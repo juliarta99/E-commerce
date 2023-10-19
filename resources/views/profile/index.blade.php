@@ -5,7 +5,7 @@
             <div id="biodata" class="w-full">
                   {{-- form ubah --}}
                   <div id="formUbahBiodata">
-                        <form action="/editProfile" method="post" enctype="multipart/form-data" class="flex flex-col max-w-md mx-auto mt-5">
+                        <form action="/editProfile" onsubmit="return confirm('Apakah anda yakin ingin mengubah profile anda?')" method="post" enctype="multipart/form-data" class="flex flex-col max-w-md mx-auto mt-5">
                               @csrf
                               @method('put')
                               <h1 class="font-semibold text-center uppercase text-base lg:text-lg">Ubah Biodata Diri</h1>
