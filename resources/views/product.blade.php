@@ -19,17 +19,15 @@
                                     </a>
                         @else
                             @if (Auth::user()->is_toko == 1 && Auth::user()->toko->id == $product->toko->id )
-                              <div class="mx-auto">
-                                    <a href="/toko/product/{{ $product->slug }}" class="mr-2">
-                                          <button class="px-4 border-2 border-white duration-500 bg-black rounded-md text-base xl:text-lg hover:text-black hover:bg-white">Lihat Product</button>
-                                    </a>
-                              </div>
+                              <a href="/toko" class="mr-2">
+                                    <button class="px-4 border-2 border-white duration-500 bg-black rounded-md text-base xl:text-lg hover:text-black hover:bg-white">Buka Toko</button>
+                              </a>
                             @else
                                 @if(count(Auth::user()->keranjangs->where('id_product', $product->id)) == 0)
                                     <form action="/keranjang/create" class="mr-4" method="post">
                                         @csrf
                                         <input type="hidden" name="id_product" value="{{ $product->id }}">
-                                        <button class="px-4 h-full duration-500 h-100 bg-black rounded-md text-base xl:text-lg hover:text-black hover:bg-white hover:fill-black fill-white" type="submit">
+                                        <button class="p-4 h-full duration-500 h-100 bg-black rounded-md text-base xl:text-lg hover:text-black hover:bg-white hover:fill-black fill-white" type="submit">
                                           <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 576 512">
                                                 <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96zM252 160c0 11 9 20 20 20h44v44c0 11 9 20 20 20s20-9 20-20V180h44c11 0 20-9 20-20s-9-20-20-20H356V96c0-11-9-20-20-20s-20 9-20 20v44H272c-11 0-20 9-20 20z"/>
                                           </svg>
@@ -42,9 +40,9 @@
                                 @endif
                             @endif
                         @endif
-                        <a href="">
+                        {{-- <a href="">
                               <button class="px-4 duration-500 border-2 border-white rounded-md text-base xl:text-lg hover:text-black hover:bg-white">Beli</button>
-                        </a>
+                        </a> --}}
                   </div>
                   <div class="sticky top-32 mb-4 lg:top-16 z-[1] w-full p-2 lg:p-3 shadow-md bg-white">
                         <div class="flex justify-center gap-3 text-black">
@@ -83,9 +81,9 @@
                                     <div class="flex items-center">
                                                 <div class="mr-3">
                                                       @if ($product->toko->image != null)
-                                                            <img src="{{ asset('storage/'. $product->toko->image) }}" class="w-10 h-10 rounded-full lg:w-12 lg:h-12" alt="{{ $product->toko->name }}">
+                                                            <img src="{{ asset('storage/'. $product->toko->image) }}" class="w-10 h-10 rounded-full object-cover lg:w-12 lg:h-12" alt="{{ $product->toko->name }}">
                                                       @else
-                                                            <img src="{{ asset('img/toko_default.jpg') }}" alt="Background Toko" class="w-10 h-10 rounded-full lg:w-12 lg:h-12">
+                                                            <img src="{{ asset('img/toko_default.jpg') }}" alt="Background Toko" class="w-10 h-10 rounded-full object-cover lg:w-12 lg:h-12">
                                                       @endif
                                                 </div>
                                                 <div class="mr-2">

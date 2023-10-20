@@ -9,7 +9,7 @@ class ProductController extends Controller
     public function index()
     {
         $title = 'All Products';
-        $products = Product::latest()->with('kategori', 'toko', 'toko.city')
+        $products = Product::latest()->with('kategori', 'toko', 'toko.city', 'transaksis', 'transaksis.comment')
                 ->whereHas('toko', function($query){
                     $query->where('approve', true);
                 })

@@ -32,6 +32,9 @@ class TokoProductController extends Controller
      */
     public function store(Request $request)
     {
+        if(Auth::user()->toko->approve == 0) {
+            return redirect(route('home'))->with('error', 'Toko belum disetujui untuk berjualan!');
+        }
         $validateData = $request->validate([
             'name' => 'required',
             'stok' => 'required|numeric',

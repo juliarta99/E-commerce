@@ -40,7 +40,7 @@ class Product extends Model
     {
         return $this->hasMany(DetailTransaksi::class, 'id_product');
     }
-
+    
     public function sluggable(): array
     {
         return [

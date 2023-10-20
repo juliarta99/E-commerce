@@ -2,11 +2,11 @@
 @section('content')
 <div class="pb-10 pt-28 px-9 lg:pt-20">
       <div class="w-full">
-            <form action="/toko/{{ $toko->slug }}/editBack" onclick="return confirm('Apakah anda yakin ingin mengedit background toko?')" method="post" enctype="multipart/form-data" class="max-w-md p-4 mx-auto">
+            <form action="/toko/{{ $toko->slug }}/editBack" onsubmit="return confirm('Apakah anda yakin ingin mengedit background toko?')" method="post" enctype="multipart/form-data" class="max-w-md p-4 mx-auto">
                   @csrf
                   @method('put')
                   <h1>Ubah Background Toko</h1>
-                  <input required type="file" name="backImage" class="w-full px-4 py-2 text-sm bg-gray-200 rounded-md lg:text-base @error('backImage') border-2 border-red-500 @enderror" value="{{ old('backImage', $toko->backImage) }}">
+                  <input required type="file" name="backImage" accept="image/*" class="w-full px-4 py-2 text-sm bg-gray-200 rounded-md lg:text-base @error('backImage') border-2 border-red-500 @enderror" value="{{ old('backImage', $toko->backImage) }}">
                   @error('backImage')
                         <div class="w-full text-sm text-red-500 lg:text-base">{{ $message }}</div>
                   @enderror

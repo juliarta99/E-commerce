@@ -10,11 +10,10 @@ use Laravel\Sanctum\HasApiTokens;
 use App\Models\Alamat;
 use App\Models\Toko;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Cviebrock\EloquentSluggable\Sluggable;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable, Sluggable;
+    use HasApiTokens, HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -41,15 +40,6 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    public function sluggable(): array
-    {
-        return [
-            'username' => [
-                'source' => 'name'
-            ]
-        ];
-    }
 
     public function toko()
     {
