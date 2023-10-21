@@ -11,7 +11,7 @@
                   <div class="fixed bottom-0 z-[9] flex flex-wrap w-full justify-center left-0 right-0 p-4 text-white bg-blue-500 rounded-t-md">
                         @if (!auth()->check())
                                     <a href="/login">
-                                          <button class="px-4 h-full duration-500 h-100 bg-black rounded-md text-base xl:text-lg hover:text-black hover:bg-white hover:fill-black fill-white" type="submit">
+                                          <button class="p-4 h-full duration-500 h-100 bg-black rounded-md text-base xl:text-lg hover:text-black hover:bg-white hover:fill-black fill-white" type="submit">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 576 512">
                                                       <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96zM252 160c0 11 9 20 20 20h44v44c0 11 9 20 20 20s20-9 20-20V180h44c11 0 20-9 20-20s-9-20-20-20H356V96c0-11-9-20-20-20s-20 9-20 20v44H272c-11 0-20 9-20 20z"/>
                                                 </svg>
@@ -71,31 +71,33 @@
                                     {{-- isi deskripsi --}}
                                     <h4 class="text-xs text-black">Berat satuan : {{ $product->berat }} g</h4>
                                     <h4 class="text-xs text-black">Kategori : {{ $product->kategori->name }}</h4>
-                                    <p class="text-justify">{!! $product->deskripsi !!}</p>
+                                    <div class="text-justify text-xs md:text-sm">
+                                          <p>{!! $product->deskripsi !!}</p>
+                                    </div>
                               </div>
                         </div>
                   </div>
                   <div class="w-full px-5 py-2 my-3 border-2 border-black rounded-md border-opacity-5">
                         <div class="flex items-center">
                               <div class="flex justify-between w-full items-center">
-                                    <div class="flex items-center">
-                                                <div class="mr-3">
-                                                      @if ($product->toko->image != null)
-                                                            <img src="{{ asset('storage/'. $product->toko->image) }}" class="w-10 h-10 rounded-full object-cover lg:w-12 lg:h-12" alt="{{ $product->toko->name }}">
-                                                      @else
-                                                            <img src="{{ asset('img/toko_default.jpg') }}" alt="Background Toko" class="w-10 h-10 rounded-full object-cover lg:w-12 lg:h-12">
-                                                      @endif
+                                    <a href="{{ route('toko.show', $product->toko->slug) }}" class="flex items-center">
+                                          <div class="mr-3">
+                                                @if ($product->toko->image != null)
+                                                      <img src="{{ asset('storage/'. $product->toko->image) }}" class="w-10 h-10 rounded-full object-cover lg:w-12 lg:h-12" alt="{{ $product->toko->name }}">
+                                                @else
+                                                      <img src="{{ asset('img/toko_default.jpg') }}" alt="Background Toko" class="w-10 h-10 rounded-full object-cover lg:w-12 lg:h-12">
+                                                @endif
+                                          </div>
+                                          <div class="mr-2">
+                                                <h6 class="text-sm">{{ $product->toko->name }}</h6>
+                                                <div class="flex items-center">
+                                                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 mr-1">
+                                                            <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
+                                                      </svg>
+                                                      <p class="text-sm">{{ $product->toko->rate }}</p>
                                                 </div>
-                                                <div class="mr-2">
-                                                      <h6 class="text-sm">{{ $product->toko->name }}</h6>
-                                                      <div class="flex items-center">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 mr-1">
-                                                                  <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
-                                                            </svg>
-                                                            <p class="text-sm">{{ $product->toko->rate }}</p>
-                                                      </div>
-                                                </div>
-                                    </div>
+                                          </div>
+                                    </a>
                                     @if (!auth()->check())
                                           <a href="/login">
                                                 <button class="px-4 py-2 bg-blue-500 text-sm rounded-md">Tambah ke favorit</button>

@@ -12,6 +12,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DashboardTokoController;
 use App\Http\Controllers\FavoritController;
 use App\Http\Controllers\TokoProductController;
+use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -89,6 +90,9 @@ Route::middleware('auth')->group(function() {
     Route::get('/{toko:slug}', [TokoController::class, 'show'])->name('toko.show');
     Route::get('/toko/create', [TokoController::class, 'create'])->name('toko.create');
     Route::post('/toko/create', [TokoController::class, 'store'])->name('toko.store');
+
+    Route::get('/checkout/lokasi', [TransaksiController::class, 'index'])->name('checkout.lokasi');
+    Route::post('/checkout/bayar', [TransaksiController::class, 'checkout'])->name('checkout.bayar');
 });
 
 // verification akun

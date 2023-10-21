@@ -2,6 +2,9 @@
 @section('content')
 <div class="pb-10 px-9 pt-36 lg:pt-24">
       <div class="w-full">
+            @if (session()->has('error'))
+                  <div class="w-auto p-2 px-2 mt-8 text-sm font-semibold text-center bg-red-500 rounded-t-md lg:mt-4 lg:text-base">{{ session('error') }}</div>
+            @endif
             <form action="/toko/product" onsubmit="return confirm('Apakah anda yakin ingin menambahkan produk ini?')" method="post" enctype="multipart/form-data" class="flex flex-col max-w-md mx-auto mt-5">
                   @csrf
                   <h1 class="font-semibold text-center uppercase text-base lg:text-lg">Tambah Product</h1>
@@ -54,11 +57,11 @@
             
                   <label class="mt-2 text-sm text-black lg:text-base" for="deskripsi">Deskripsi</label>
                   <input required id="deskripsi" type="hidden" name="deskripsi">
-                  <trix-editor input="deskripsi" id="trix" class="w-full overflow-y-auto h-80 px-4 py-2 text-sm bg-gray-200 rounded-md lg:text-base @error('deskripsi') border-2 border-red-500 @enderror" value="{{ old('deskripsi') }}"></trix-editor>
+                  <trix-editor input="deskripsi" id="trix" class="w-full overflow-y-auto h-80 px-4 py-2 text-sm bg-gray-200 rounded-md lg:text-base @error('deskripsi') border-2 border-red-500 @enderror" value="{{ old('deskripsi') }}">{!! old('deskripsi') !!}</trix-editor>
                   @error('deskripsi')
                         <div class="w-full text-sm text-red-500 lg:text-base">{{ $message }}</div>
                   @enderror
-            
+      
                   <button class="w-auto p-2 px-4 mx-auto mt-3 text-xs text-white bg-blue-500 rounded-md sm:text-sm">Simpan</button>
             </form>
       </div>

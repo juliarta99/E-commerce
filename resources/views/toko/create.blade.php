@@ -24,9 +24,9 @@
                   @enderror
 
                   <label class="mt-2 text-sm text-black lg:text-base" for="id_city">Kota</label>
-                  <select required class="w-full px-4 py-2 text-sm bg-gray-200 rounded-md lg:text-base @error('id_city') border-2 border-red-500 @enderror" id="id_city" name="id_city" id="id_city" value="{{ old('id_city') }}">
+                  <select required class="w-full px-4 py-2 text-sm bg-gray-200 rounded-md lg:text-base @error('id_city') border-2 border-red-500 @enderror" id="id_city" name="id_city" id="id_city">
                       @foreach ($citys as $city)
-                          <option value={{ $city->id }}>{{ $city->city_name }}, {{ $city->province_name }}, {{ $city->postal_code }}</option>
+                          <option value={{ $city->id }} @selected($city->id == old('id_city'))>{{ $city->city_name }}, {{ $city->province_name }}, {{ $city->postal_code }}</option>
                       @endforeach
                   </select>
                   @error('id_city')

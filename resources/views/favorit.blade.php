@@ -19,9 +19,9 @@
                         <div class="mr-2 flex items-center">
                             <div class="mr-2">
                                 @if ($favorit->toko->image != null)
-                                    <img src="storage/{{ $favorit->toko->image }}" class="w-10 h-10 rounded-full lg:w-12 lg:h-12" alt="{{ $favorit->toko->name }}">
+                                    <img src="storage/{{ $favorit->toko->image }}" class="w-10 h-10 rounded-full object-cover lg:w-12 lg:h-12" alt="{{ $favorit->toko->name }}">
                                 @else
-                                    <img src="{{ asset('img/toko_default.jpg') }}" alt="Background Toko" class="w-10 h-10 rounded-full lg:w-12 lg:h-12">
+                                    <img src="{{ asset('img/toko_default.jpg') }}" alt="Background Toko" class="w-10 h-10 rounded-full object-cover lg:w-12 lg:h-12">
                                 @endif
                             </div>
                             <div class="mr-3">

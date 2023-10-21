@@ -18,6 +18,7 @@
       <div class="fixed bottom-0 z-[9] flex flex-wrap justify-between items-center w-full left-0 right-0 p-4 lg:px-16 xl:px-20 2xl:px-24 text-white bg-blue-500 rounded-t-md">
             <p class="text-sm lg:text-base font-semibold">Total : @currency($total)</p>
             <button onclick="setActionKeranjang('/keranjang/update', 'put')" type="button" class="px-4 duration-500 border-2 border-white rounded-md text-base xl:text-lg hover:text-black hover:bg-white">Perbarui Keranjang</button>
+            <button onclick="setActionKeranjang('/checkout/lokasi', 'get')" type="button" class="px-4 duration-500 border-2 border-white rounded-md text-base xl:text-lg hover:text-black hover:bg-white">Checkout</button>
       </div>
             <div class="w-full mt-3">
                   <div class="w-full">

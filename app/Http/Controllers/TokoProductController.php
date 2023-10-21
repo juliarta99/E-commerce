@@ -39,9 +39,9 @@ class TokoProductController extends Controller
             'name' => 'required',
             'stok' => 'required|numeric',
             'id_kategori' => 'required',
-            'harga_awal' => 'required',
-            'harga' => 'required',
-            'berat' => 'required',
+            'harga_awal' => 'required|numeric',
+            'harga' => 'required|numeric|max:harga_awal',
+            'berat' => 'required|numeric',
             'image' => 'required|file|image|max:1024',
             'deskripsi' => 'required'
         ]);
@@ -102,9 +102,9 @@ class TokoProductController extends Controller
             'name' => 'required|max:50',
             'stok' => 'required|numeric',
             'id_kategori' => 'required',
-            'harga_awal' => 'required',
-            'harga' => 'required',
-            'berat' => 'required',
+            'harga_awal' => 'required|numeric',
+            'harga' => 'required|numeric|max:harga_awal',
+            'berat' => 'required|numeric',
             'image' => 'file|image|max:1024',
             'deskripsi' => 'required'
         ]);

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Transaksi;
 use App\Http\Requests\StoreTransaksiRequest;
 use App\Http\Requests\UpdateTransaksiRequest;
+use Illuminate\Support\Facades\Http;
 
 class TransaksiController extends Controller
 {
@@ -15,9 +16,18 @@ class TransaksiController extends Controller
      */
     public function index()
     {
-        //
+        return view('transaksi.index');
     }
 
+    public function checkout()
+    {
+        $ongkir = Http::withHeaders([
+            'key' => 'e6cfadb803301e9908ad6edc670b5783'
+        ])->post('https://api.rajaongkir.com/starter/cost', [
+            
+        ]);
+        return view('transaksi.checkout');
+    }
     /**
      * Show the form for creating a new resource.
      *

@@ -2,6 +2,9 @@
 @section('content')
 <div class="pb-10 px-9 pt-36 lg:pt-24">
       <div class="w-full">
+            @if (session()->has('error'))
+                  <div class="w-auto p-2 px-2 mt-8 text-sm font-semibold text-center bg-red-500 rounded-t-md lg:mt-4 lg:text-base">{{ session('error') }}</div>
+            @endif
             <form action="/toko/product/{{ $product->slug }}" onsubmit="return confirm('Apakah anda yakin ingin mengedit produk {{ $product->name }}?')" method="post" enctype="multipart/form-data" class="flex flex-col max-w-md mx-auto mt-5">
                   @csrf
                   @method('put')
