@@ -92,6 +92,7 @@ Route::middleware('auth')->group(function() {
     Route::post('/toko/create', [TokoController::class, 'store'])->name('toko.store');
 
     Route::get('/checkout/lokasi', [TransaksiController::class, 'index'])->name('checkout.lokasi');
+    Route::post('/checkout/ongkir', [TransaksiController::class, 'ongkir'])->name('checkout.ongkir');
     Route::post('/checkout/bayar', [TransaksiController::class, 'checkout'])->name('checkout.bayar');
 });
 

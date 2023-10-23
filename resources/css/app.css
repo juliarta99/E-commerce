@@ -5,3 +5,7 @@
 .trix-button-group.trix-button-group--file-tools {
       @apply hidden;
 }
+
+input[type="radio"]:checked + label {
+      background-color: #93c5fd;
+}

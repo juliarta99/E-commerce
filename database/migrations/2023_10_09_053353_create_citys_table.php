@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('citys', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('city_id')->unique();
+            $table->string('city_id')->unique();
             $table->string('province_name');
             $table->string('city_name');
             $table->unsignedInteger('postal_code');
