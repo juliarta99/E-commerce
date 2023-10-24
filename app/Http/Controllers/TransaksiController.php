@@ -6,7 +6,11 @@ use App\Models\Transaksi;
 use App\Http\Requests\StoreTransaksiRequest;
 use App\Http\Requests\UpdateTransaksiRequest;
 use App\Models\Alamat;
+use App\Models\Delivery;
+use App\Models\DetailTransaksi;
+use App\Models\Keranjang;
 use App\Models\Toko;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
@@ -28,9 +32,12 @@ class TransaksiController extends Controller
         $alamat = Alamat::find($request->tujuan);
         $ongkirs = collect([]);
         $beratProducts = collect([]);
+        $keranjangs = Keranjang::where('id_user', Auth::user()->id)->whereHas('product.toko', function ($query) {
+            $query->orderBy('name', 'ASC');
+        })->get();
 
         $tokoId = null;
-        foreach (Auth::user()->keranjangs as $keranjang) {
+        foreach ($keranjangs as $keranjang) {
             if ($tokoId !== $keranjang->product->toko->id) {
                 $beratProducts->push(['id_toko' => $keranjang->product->toko->id,
                                     'berat' => $keranjang->product->berat * $keranjang->kuantitas]);
@@ -73,9 +80,12 @@ class TransaksiController extends Controller
         $alamat = Alamat::with('city')->find($request->tujuan);
         $kurir = $request->kurir;
         $ongkirs = collect([]);
-        
+        $keranjangs = Keranjang::where('id_user', Auth::user()->id)->whereHas('product.toko', function ($query) {
+            $query->orderBy('name', 'ASC');
+        })->get();
+
         $tokoId = null;
-        foreach (Auth::user()->keranjangs as $keranjang) {
+        foreach ($keranjangs as $keranjang) {
             if ($tokoId !== $keranjang->product->toko->id) {
                 $ongkirs->push([
                     'id_toko' => $keranjang->product->toko->id,
@@ -88,24 +98,86 @@ class TransaksiController extends Controller
         return view('transaksi.checkout', compact('ongkirs', 'alamat', 'kurir'));
     }
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\StoreTransaksiRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreTransaksiRequest $request)
+    public function store(Request $request)
     {
-        //
+        $alamat = Alamat::with('city')->find($request->tujuan);
+        $ongkirs = collect([]);
+        $keranjangs = Keranjang::where('id_user', Auth::user()->id)->whereHas('product.toko', function ($query) {
+                            $query->orderBy('name', 'ASC');
+                        })->get();
+
+        $tokoId = null;
+        foreach ($keranjangs as $keranjang) {
+            if ($tokoId != $keranjang->product->toko->id) {
+                $ongkirs->push([
+                    'id_toko' => $keranjang->product->toko->id,
+                    'ongkir' => json_decode($request['ongkir-'.$keranjang->product->toko->id])
+                ]);
+            }
+            $tokoId = $keranjang->product->toko->id;
+        }
+        
+        
+        $now = Carbon::now();
+        $kd_transaksi = $now->year.$now->month.$now->day.uniqid();
+        $subtotal = $keranjangs->sum(function ($keranjang) {
+            return $keranjang->kuantitas * $keranjang->product->harga_awal;
+        });
+        $total_beli = $keranjangs->sum(function ($keranjang) {
+            return $keranjang->kuantitas * $keranjang->product->harga;
+        });
+        $total_ongkir = $ongkirs->sum(function ($ongkir) {
+            return $ongkir['ongkir']->cost[0]->value;
+        });
+        $total_transaksi = $total_beli + $total_ongkir;
+
+        $transaksi = Transaksi::create([
+            'kd' => $kd_transaksi,
+            'id_user' => Auth::user()->id,
+            'subtotal' => $subtotal,
+            'total_ongkir' => $total_ongkir,
+            'total_transaksi' => $total_transaksi,
+        ]);
+
+        $prevToko = null;
+        foreach($keranjangs as $keranjang) {
+            DetailTransaksi::create([
+                'id_transaksi' => $transaksi->id,
+                'id_product' => $keranjang->product->id,
+                'product_name' => $keranjang->product->name,
+                'harga_awal' => $keranjang->product->harga_awal,
+                'harga' => $keranjang->product->harga,
+                'kuantitas' => $keranjang->kuantitas
+            ]);
+
+            $ongkir = $ongkirs->where('id_toko', $keranjang->product->toko->id)->first();
+            if($ongkir && $ongkir['id_toko'] != $prevToko) {
+                Delivery::create([
+                    'id_transaksi' => $transaksi->id,
+                    'id_toko' => $keranjang->product->toko->id,
+                    'origin_province' => $keranjang->product->toko->city->province_name,
+                    'origin_city' => $keranjang->product->toko->city->city_name,
+                    'origin_postal_code' => $keranjang->product->toko->city->postal_code,
+                    'destination_province' => $alamat->city->province_name,
+                    'destination_city' => $alamat->city->city_name,
+                    'destination_postal_code' => $alamat->city->postal_code,
+                    'destination_detail' => $alamat->detail,
+                    'catatan' => $alamat->catatan,
+                    'kurir' => $request->kurir,
+                    'service' => $ongkir['ongkir']->service,
+                    'estimation' => $ongkir['ongkir']->cost[0]->etd,
+                    'cost' => $ongkir['ongkir']->cost[0]->value,
+                ]);
+                $prevToko = $keranjang->product->toko->id;
+            }
+
+            $keranjang->delete();
+        }
     }
 
     /**

@@ -11,15 +11,18 @@
 </head>
 <body class="font-poppins">
     <div class="container mx-auto py-5 min-h-screen">
-        <form action="{{ route('checkout.bayar') }}" onsubmit="return confirm('Apakah anda yakin ingin melanjutkan transaksi ini?')" method="post">
+        <form action="{{ route('transaksi.create') }}" onsubmit="return confirm('Apakah anda yakin ingin membuat transaksi ini lalu melakukan pembayaran?')" method="post">
         @csrf
             <div class="">
                 <h1 class="text-lg md:text-xl lg:text-2xl font-bold">Periksa Kembali dan Bayar</h1>
+                <p>Kurir : {{ $kurir }}</p>
                 <div class="flex-col">
                     @php
                         $prevToko = null;
                     @endphp
-                    @foreach (Auth::user()->keranjangs as $keranjang)
+                    @foreach (Auth::user()->keranjangs()->whereHas('product.toko', function ($query) {
+                        $query->orderBy('name', 'ASC');
+                    })->get() as $keranjang)
                         <div class="bg-gray-50 p-4 items-center rounded-md  
                             @if ($keranjang->product->toko->id != $prevToko)
                                 mt-3
@@ -43,7 +46,7 @@
                                     <input type="hidden" name="tujuan" value={{ $alamat->id }}>
                                     <input type="hidden" name="kurir" value={{ $kurir }}>
                                     <div class="flex gap-2">
-                                        <input required type="hidden" name="ongkir-{{ $ongkir['id_toko'] }}" id="ongkir-{{ $ongkir['id_toko']. '-' .$ongkir['ongkir']->service }}" value="{{ json_encode($ongkir['ongkir']) }}">
+                                        <input required type="hidden" name="ongkir-{{ $ongkir['id_toko'] }}" value="{{ json_encode($ongkir['ongkir']) }}">
                                         <div class="w-full bg-blue-100 p-2 rounded-md flex justify-between">
                                             <div class="">
                                                 <h3>{{ $ongkir['ongkir']->service }}</h3>
@@ -95,7 +98,7 @@
                     <p class="text-sm">Ongkir : @currency($ongkir)</p>
                     <p class="font-bold">Total : @currency($totalBeli + $ongkir)</p>
                 </div>
-                <button class="mt-2 text-xs md:text-sm px-2 py-1 md:px-4 md:py-2 border-2 hover:border-blue-500 hover:bg-white bg-blue-500 transition-all rounded-lg">Bayar</button>
+                <button class="mt-2 text-xs md:text-sm px-2 py-1 md:px-4 md:py-2 border-2 hover:border-blue-500 hover:bg-white bg-blue-500 transition-all rounded-lg">Buat Transaksi</button>
             </div>
         </form>
     </div>

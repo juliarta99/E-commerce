@@ -94,6 +94,8 @@ Route::middleware('auth')->group(function() {
     Route::get('/checkout/lokasi', [TransaksiController::class, 'index'])->name('checkout.lokasi');
     Route::post('/checkout/ongkir', [TransaksiController::class, 'ongkir'])->name('checkout.ongkir');
     Route::post('/checkout/bayar', [TransaksiController::class, 'checkout'])->name('checkout.bayar');
+    
+    Route::post('/transaksi', [TransaksiController::class, 'store'])->name('transaksi.create');
 });
 
 // verification akun

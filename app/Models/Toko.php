@@ -33,6 +33,11 @@ class Toko extends Model
         return $this->belongsTo(City::class, 'id_city');
     }
 
+    public function deliverys()
+    {
+        return $this->hasMany(Delivery::class, 'id_toko');
+    }
+
     public function sluggable(): array
     {
         return [

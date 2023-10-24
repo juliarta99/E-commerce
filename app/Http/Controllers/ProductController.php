@@ -13,6 +13,7 @@ class ProductController extends Controller
                 ->whereHas('toko', function($query){
                     $query->where('approve', true);
                 })
+                ->where('stok', '>', 0)
                 ->filter(request(['search']))->get();
         return view('products', compact('title', 'products'));
     }

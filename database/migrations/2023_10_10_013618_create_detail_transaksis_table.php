@@ -20,9 +20,7 @@ return new class extends Migration
             $table->string('product_name');
             $table->double('harga_awal');
             $table->double('harga');
-            $table->double('diskon');
             $table->integer('kuantitas');
-            $table->double('total');
             $table->timestamps();
         });
     }

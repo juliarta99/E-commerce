@@ -15,4 +15,9 @@ class Delivery extends Model
     {
         return $this->belongsTo(Transaksi::class, 'id_transaksi');
     }
+
+    public function toko()
+    {
+        return $this->belongsTo(Toko::class, 'id_toko');
+    }
 }

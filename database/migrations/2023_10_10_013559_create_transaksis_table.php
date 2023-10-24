@@ -15,12 +15,13 @@ return new class extends Migration
     {
         Schema::create('transaksis', function (Blueprint $table) {
             $table->id();
+            $table->string('kd', 25)->unique();
             $table->foreignId('id_user');
             $table->double('subtotal');
-            $table->double('total_diskon');
             $table->double('total_ongkir');
             $table->double('total_transaksi');
-            $table->string('status');
+            $table->dateTime('date_done')->nullable();
+            $table->string('status')->default('pending');
             $table->timestamps();
         });
     }

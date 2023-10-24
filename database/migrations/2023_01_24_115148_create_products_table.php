@@ -20,9 +20,9 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->string('name');
             $table->integer('stok')->default(0);
-            $table->integer('harga');
-            $table->integer('harga_awal');
-            $table->integer('potongan')->default(0);
+            $table->double('harga');
+            $table->double('harga_awal');
+            $table->double('potongan')->default(0);
             $table->integer('diskon')->default(0);
             $table->integer('berat');
             $table->text('deskripsi');

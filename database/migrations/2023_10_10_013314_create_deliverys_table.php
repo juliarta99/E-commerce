@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('deliverys', function (Blueprint $table) {
             $table->id();
             $table->foreignId('id_transaksi');
+            $table->foreignId('id_toko');
             $table->string('no_resi')->nullable();
             $table->string('origin_province');
             $table->string('origin_city');
@@ -24,12 +25,13 @@ return new class extends Migration
             $table->string('destination_city');
             $table->integer('destination_postal_code');
             $table->string('destination_detail');
-            $table->string('catatan');
+            $table->string('catatan')->nullable();
             $table->string('kurir');
             $table->string('service');
             $table->string('estimation');
             $table->double('cost');
-            $table->string('status');
+            $table->dateTime('date_done')->nullable();
+            $table->string('status')->default('authorize');
             $table->timestamps();
         });
     }

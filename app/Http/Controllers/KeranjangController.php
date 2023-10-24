@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Keranjang;
+use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -17,7 +18,7 @@ class KeranjangController extends Controller
     public function index()
     {
         $title = 'Keranjang';
-        $keranjangs = Keranjang::where('id_user', Auth::user()->id)->get();
+        $keranjangs = Keranjang::where('id_user', Auth::user()->id)->orderBy('created_at', 'DESC')->get();
         $total = DB::table('keranjangs')->join('products', 'keranjangs.id_product', '=', 'products.id')
         ->where('id_user', Auth::user()->id)->sum(DB::raw('products.harga * keranjangs.kuantitas'));
         return view('keranjang', compact('title', 'keranjangs', 'total'));
@@ -43,6 +44,9 @@ class KeranjangController extends Controller
     {
         if(count(Auth::user()->keranjangs->where('id_product', $request->id_product)) == 1) {
             return back()->with('error', 'Product sudah ditambahkan di keranjang');
+        }
+        if(Product::find($request->id_product)->stok == 0) {
+            return back()->with('error', 'Product tidak memiliki stok!');
         }
         $validateData = $request->validate([
             'id_product' => 'required',
@@ -102,9 +106,19 @@ class KeranjangController extends Controller
             if(!$keranjang || $keranjang->id_user != Auth::user()->id) {
                 return back()->with('error', 'Product tidak berada di keranjang anda');
             }
-            $keranjang->update(['kuantitas' => $newKuantitas]);
+            if($newKuantitas > $keranjang->product->stok) {
+                if($keranjang->kuantitas > $keranjang->product->stok) {
+                    $keranjang->update(['kuantitas' => $keranjang->product->stok]);
+                }
+                return back()->with('error', "Kuantitas melebihi stok yang tersedia! \nPerhatikan stok yang tersedia!");
+            }
+            
+            if($newKuantitas <= 0) {
+                $keranjang->update(['kuantitas' => 1]);
+            } else {
+                $keranjang->update(['kuantitas' => $newKuantitas]);
+            }
         }
-        
         return back()->with('success', 'Keranjang berhasil diperbarui!');
     }
 

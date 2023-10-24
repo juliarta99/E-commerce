@@ -49,13 +49,17 @@ function formatToCurrency(number) {
       return formated.replace(/,00$/, '');
 }
 
-function kuantitasIncrement(id, harga) {
+function kuantitasIncrement(id, harga, max) {
     // kuantitas beli
       const kuantitas = document.getElementById('kuantitas' + id);
       const totalHarga = document.getElementById('totalHarga' + id);
-      kuantitas.value = parseInt(kuantitas.value) + 1;
-      total = parseInt(kuantitas.value) * parseInt(harga);
-      totalHarga.innerHTML = formatToCurrency(total);
+      if(kuantitas.value < max) {
+            kuantitas.value = parseInt(kuantitas.value) + 1;
+            total = parseInt(kuantitas.value) * parseInt(harga);
+            totalHarga.innerHTML = formatToCurrency(total);
+      } else {
+            alert("Stok hanya tersedia " + max + "!");
+      }
 };
 
 function kuantitasDecrement(id, harga) {

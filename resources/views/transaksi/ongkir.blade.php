@@ -15,11 +15,14 @@
         @csrf
             <div class="">
                 <h1 class="text-lg md:text-xl lg:text-2xl font-bold">Pilih Service Pengiriman</h1>
+                <p>Kurir : {{ $ongkirs[0]['results']['code'] }}</p>
                 <div class="flex-col">
                     @php
                         $prevToko = null;
                     @endphp
-                    @foreach (Auth::user()->keranjangs as $keranjang)
+                    @foreach (Auth::user()->keranjangs()->whereHas('product.toko', function ($query) {
+                        $query->orderBy('name', 'ASC');
+                    })->get() as $keranjang)
                         <div class="bg-gray-50 p-4 items-center rounded-md  
                             @if ($keranjang->product->toko->id != $prevToko)
                                 mt-3
