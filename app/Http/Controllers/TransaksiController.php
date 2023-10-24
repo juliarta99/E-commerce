@@ -67,6 +67,26 @@ class TransaksiController extends Controller
 
         return view('transaksi.ongkir', compact('ongkirs', 'alamat'));
     }
+
+    public function checkout(Request $request)
+    {
+        $alamat = Alamat::with('city')->find($request->tujuan);
+        $kurir = $request->kurir;
+        $ongkirs = collect([]);
+        
+        $tokoId = null;
+        foreach (Auth::user()->keranjangs as $keranjang) {
+            if ($tokoId !== $keranjang->product->toko->id) {
+                $ongkirs->push([
+                    'id_toko' => $keranjang->product->toko->id,
+                    'ongkir' => json_decode($request['ongkir-'.$keranjang->product->toko->id])
+                ]);
+            }
+            $tokoId = $keranjang->product->toko->id;
+        }
+
+        return view('transaksi.checkout', compact('ongkirs', 'alamat', 'kurir'));
+    }
     /**
      * Show the form for creating a new resource.
      *
