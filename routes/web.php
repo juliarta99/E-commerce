@@ -87,15 +87,17 @@ Route::middleware('auth')->group(function() {
     Route::post('/favorit/create', [FavoritController::class, 'store'])->name('favorit.create');
     Route::delete('/favorit/delete', [FavoritController::class, 'destroy'])->name('favorit.delete');
     
-    Route::get('/{toko:slug}', [TokoController::class, 'show'])->name('toko.show');
-    Route::get('/toko/create', [TokoController::class, 'create'])->name('toko.create');
-    Route::post('/toko/create', [TokoController::class, 'store'])->name('toko.store');
+    Route::get('/transaksi', [TransaksiController::class, 'index'])->name('transaksi');
+    Route::get('/transaksi/{transaksi}', [TransaksiController::class, 'show'])->name('transaksi.show');
+    Route::post('/transaksi', [TransaksiController::class, 'store'])->name('transaksi.create');
 
-    Route::get('/checkout/lokasi', [TransaksiController::class, 'index'])->name('checkout.lokasi');
+    Route::get('/checkout/lokasi', [TransaksiController::class, 'lokasi'])->name('checkout.lokasi');
     Route::post('/checkout/ongkir', [TransaksiController::class, 'ongkir'])->name('checkout.ongkir');
     Route::post('/checkout/bayar', [TransaksiController::class, 'checkout'])->name('checkout.bayar');
     
-    Route::post('/transaksi', [TransaksiController::class, 'store'])->name('transaksi.create');
+    Route::get('/{toko:slug}', [TokoController::class, 'show'])->name('toko.show');
+    Route::get('/toko/create', [TokoController::class, 'create'])->name('toko.create');
+    Route::post('/toko/create', [TokoController::class, 'store'])->name('toko.store');
 });
 
 // verification akun

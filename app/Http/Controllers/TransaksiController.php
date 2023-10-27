@@ -24,7 +24,14 @@ class TransaksiController extends Controller
      */
     public function index()
     {
-        return view('transaksi.index');
+        $title = 'Transaksi Anda';
+        $transaksis = Transaksi::where('id_user', Auth::user()->id)->with('deliverys')->get();
+        return view('transaksi.index', compact('title', 'transaksis'));
+    }
+
+    public function lokasi()
+    {
+        return view('transaksi.lokasi');
     }
 
     public function ongkir(Request $request)
@@ -113,6 +120,9 @@ class TransaksiController extends Controller
 
         $tokoId = null;
         foreach ($keranjangs as $keranjang) {
+            if($keranjang->kuantitas > $keranjang->product->stok) {
+                return redirect()->route('keranjang')->with('error', "Terjadi kesalahan pada saat menambahkan transaksi!\nMohon periksa kembali kuantitas keranjang apakah lebih dari stok yang tersedia!");
+            }
             if ($tokoId != $keranjang->product->toko->id) {
                 $ongkirs->push([
                     'id_toko' => $keranjang->product->toko->id,
@@ -121,7 +131,6 @@ class TransaksiController extends Controller
             }
             $tokoId = $keranjang->product->toko->id;
         }
-        
         
         $now = Carbon::now();
         $kd_transaksi = $now->year.$now->month.$now->day.uniqid();
@@ -188,7 +197,8 @@ class TransaksiController extends Controller
      */
     public function show(Transaksi $transaksi)
     {
-        //
+        $title = 'Transaksi '.$transaksi->kd;
+        return view('transaksi.show', compact('title', 'transaksi'));
     }
 
     /**

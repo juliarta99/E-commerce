@@ -15,7 +15,7 @@ class Transaksi extends Model
         return $this->belongsTo(User::class, 'id_user');
     }
 
-    public function delivery()
+    public function deliverys()
     {
         return $this->hasMany(Delivery::class, 'id_transaksi');
     }
@@ -23,5 +23,10 @@ class Transaksi extends Model
     public function details()
     {
         return $this->hasMany(DetailTransaksi::class, 'id_transaksi');
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'kd';
     }
 }
