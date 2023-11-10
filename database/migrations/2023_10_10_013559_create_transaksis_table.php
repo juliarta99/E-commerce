@@ -20,6 +20,7 @@ return new class extends Migration
             $table->double('subtotal');
             $table->double('total_ongkir');
             $table->double('total_transaksi');
+            $table->string('snap')->nullable();
             $table->dateTime('date_done')->nullable();
             $table->string('status')->default('pending');
             $table->timestamps();

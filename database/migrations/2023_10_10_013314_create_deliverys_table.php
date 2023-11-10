@@ -31,7 +31,7 @@ return new class extends Migration
             $table->string('estimation');
             $table->double('cost');
             $table->dateTime('date_done')->nullable();
-            $table->string('status')->default('authorize');
+            $table->string('status')->default('pending');
             $table->timestamps();
         });
     }

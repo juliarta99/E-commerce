@@ -4,12 +4,17 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AlamatController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardCommentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KeranjangController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TokoController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DashboardDeliveryController;
+use App\Http\Controllers\DashboardKategoriController;
+use App\Http\Controllers\DashboardProductController;
 use App\Http\Controllers\DashboardTokoController;
+use App\Http\Controllers\DashboardTransaksiController;
 use App\Http\Controllers\FavoritController;
 use App\Http\Controllers\TokoProductController;
 use App\Http\Controllers\TransaksiController;
@@ -27,8 +32,8 @@ use App\Http\Controllers\UserController;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/products', [ProductController::class, 'index'])->name('home.products');
-Route::get('/product/{product:slug}', [ProductController::class, 'show'])->name('home.products.search');
+Route::get('/products', [ProductController::class, 'index'])->name('product');
+Route::get('/product/{product:slug}', [ProductController::class, 'show'])->name('product.show');
 
 Route::middleware('guest')->group(function() {
     Route::get('/login', [AuthController::class, 'index'])->name('login');
@@ -56,13 +61,13 @@ Route::middleware('is_admin')->group(function () {
     Route::prefix('dashboard')->group(function() {
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
         Route::get('/toko', [DashboardTokoController::class, 'index'])->name('dashboard.toko');
-        Route::get('/toko/approve', [DashboardTokoController::class, 'approve'])->name('dashboard.toko.approve');
-        Route::put('/toko/approve', [DashboardTokoController::class, 'approveToko'])->name('dashboard.toko.approveToko');
-        Route::get('/transaksi', [DashboardTransaksiController::class, 'index'])->name('dashboard.toko');
-        Route::get('/pengiriman', [DashboardPengirimanController::class, 'index'])->name('dashboard.transaksi');
+        Route::put('/toko/approve/{toko:slug}', [DashboardTokoController::class, 'approve'])->name('dashboard.toko.approve');
+        Route::put('/toko/not-approve/{toko:slug}', [DashboardTokoController::class, 'notApprove'])->name('dashboard.toko.notApprove');
+        Route::get('/transaksi', [DashboardTransaksiController::class, 'index'])->name('dashboard.transaksi');
+        Route::get('/delivery', [DashboardDeliveryController::class, 'index'])->name('dashboard.delivery');
         Route::get('/product', [DashboardProductController::class, 'index'])->name('dashboard.product');
         Route::get('/kategori', [DashboardKategoriController::class, 'index'])->name('dashboard.kategori');
-        Route::get('/ulasan', [DashboardUlasanController::class, 'index'])->name('dashboard.ulasan');
+        Route::get('/comment', [DashboardCommentController::class, 'index'])->name('dashboard.comment');
     });
 });
 
@@ -90,6 +95,7 @@ Route::middleware('auth')->group(function() {
     Route::get('/transaksi', [TransaksiController::class, 'index'])->name('transaksi');
     Route::get('/transaksi/{transaksi}', [TransaksiController::class, 'show'])->name('transaksi.show');
     Route::post('/transaksi', [TransaksiController::class, 'store'])->name('transaksi.create');
+    Route::get('/invoice/{transaksi}', [TransaksiController::class, 'invoice'])->name('transaksi.invoice');
 
     Route::get('/checkout/lokasi', [TransaksiController::class, 'lokasi'])->name('checkout.lokasi');
     Route::post('/checkout/ongkir', [TransaksiController::class, 'ongkir'])->name('checkout.ongkir');

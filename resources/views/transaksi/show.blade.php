@@ -8,6 +8,7 @@
     @vite('resources/css/app.css')
     @vite('resources/js/app.js')
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+    <script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ config('midtrans.client_key') }}"></script>
 </head>
 <body class="font-poppins">
     <div class="container mx-auto py-5 min-h-screen">
@@ -83,7 +84,27 @@
                     <p class="font-bold">Total : @currency($transaksi->total_transaksi)</p>
                 </div>
             </div>
+            <button id="pay-button" class="mt-2 text-xs md:text-sm px-2 py-1 md:px-4 md:py-2 border-2 hover:border-blue-500 hover:bg-white bg-blue-500 transition-all rounded-lg">Bayar</button>
     </div>
+    <script type="text/javascript">
+      var payButton = document.getElementById('pay-button');
+      payButton.addEventListener('click', function () {
+        window.snap.pay("{{ $transaksi->snap }}", {
+          onSuccess: function(result){
+            window.location.href = "{{ route('transaksi.invoice', $transaksi->id) }}"
+          },
+          onPending: function(result){
+            alert("Wating your payment!");
+          },
+          onError: function(result){
+            alert("Payment failed!");
+          },
+          onClose: function(){
+            alert('You closed the popup without finishing the payment');
+          }
+        })
+      });
+    </script>
     @include('layouts.footer')
 </body>
 </html>

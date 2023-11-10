@@ -8,7 +8,7 @@ module.exports = {
   theme: {
     extend: {},
     fontFamily:{
-      'poppins': ['Poppins','ui-monospace', 'SFMono-Regular'],
+      'poppins': ['Poppins','sans-serif', 'SFMono-Regular'],
     },
     container: {
       padding: {

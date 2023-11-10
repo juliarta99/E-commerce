@@ -11,9 +11,13 @@ use App\Models\DetailTransaksi;
 use App\Models\Keranjang;
 use App\Models\Toko;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
+use Midtrans\Config;
+use Midtrans\Snap;
+use Midtrans\Transaction;
 
 class TransaksiController extends Controller
 {
@@ -187,6 +191,49 @@ class TransaksiController extends Controller
 
             $keranjang->delete();
         }
+
+        Config::$serverKey = config('midtrans.server_key');
+        Config::$isProduction = config('midtrans.is_production');
+        Config::$isSanitized = true;
+        Config::$is3ds = true;
+        $params = [
+            'transaction_details' => [
+                'order_id' => $transaksi->kd,
+                'gross_amount' => $transaksi->total_transaksi,
+            ],
+            'customer_details' => [
+                'first_name' => $transaksi->user->name,
+                'last_name' => '',
+                'email' => $transaksi->user->email,
+                'phone' => $transaksi->user->no_hp,
+            ],
+            "item_details" => []
+        ];
+        foreach ($transaksi->details as $detail) {
+            $item = [
+                'id' => $detail->product->slug,
+                'price' => $detail->product->harga,
+                'quantity' => $detail->kuantitas,
+                'name' => $detail->product->name,
+                'category' => $detail->product->kategori->name,
+                'merchant_name' => $detail->product->toko->name,
+                'url' => route('product.show', $detail->product->slug),
+            ];
+        
+            $params['item_details'][] = $item;
+        }
+        $shippingCost = [
+            'id' => 'shipping-cost',
+            'price' => $transaksi->total_ongkir,
+            'quantity' => 1,
+            'name' => 'Shipping Cost'
+        ];
+        $params['item_details'][] = $shippingCost;
+
+        $snapToken = Snap::getSnapToken($params);
+        $transaksi->update('snap', $snapToken);
+
+        return redirect()->route('transaksi')->with('success', 'Transaksi berhasil ditambahkan!');
     }
 
     /**
@@ -201,6 +248,24 @@ class TransaksiController extends Controller
         return view('transaksi.show', compact('title', 'transaksi'));
     }
 
+    public function invoice(Transaksi $transaksi)
+    {
+        return view('transaksi.invoice', compact('transaksi'));
+    }
+
+    public function handler(Request $request)
+    {
+        $signature = hash('sha512', $request->order_id.$request->status_code.$request->gross_amount.config('midtrans.server_key'));
+        if($signature == $request->signature_key){
+            if($request->transaction_status == "capture"){
+                $transaksi = Transaksi::where('kd', $request->kd)->first();
+                $transaksi->update([
+                    'date_done' => Carbon::now(),
+                    'status' => 'success'
+                ]);
+            }
+        }
+    }
     /**
      * Show the form for editing the specified resource.
      *

@@ -3,20 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Models\Toko;
-use Illuminate\Http\Request;
 
 class DashboardTokoController extends Controller
 {
-    public function approve()
+    public function index()
     {
-        $title = 'Dashboard | Toko Approve';
-        $tokos  = Toko::where('approve', 0)->with('city')->get();
-        return view('dashboard.toko.approve', compact('tokos', 'title'));
+        $title = 'All Shop';
+        $tokos = Toko::all();
+        return view('dashboard.toko.index', compact('title', 'tokos'));
     }
 
-    public function approveToko(Request $request)
+    public function approve(Toko $toko)
     {
-        Toko::where('slug', $request->slug)->update(['approve' => 1]);
+        $toko->update(['approve' => 1]);
         return back()->with('success', 'Toko berhasil disetujui untuk berjualan!');
+    }
+
+    public function notApprove(Toko $toko)
+    {
+        $toko->update(['approve' => 0]);
+        return back()->with('success', 'Toko sekarang telah dilarang untuk berjualan!');
     }
 }

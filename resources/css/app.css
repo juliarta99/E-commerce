@@ -19,3 +19,17 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
+
+.dt-button,
+.paginate_button.current{
+  color: rgb(241 245 249) !important;
+  background-color:#1d4ed8 !important;
+  border-radius: 5px !important;
+}
+.paginate_button{
+  color: #666 !important;
+  background-color: #2563eb !important;
+}
+.paginate_button.disabled{
+  background-color: #ddd !important;
+}
