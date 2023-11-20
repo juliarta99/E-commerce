@@ -100,6 +100,9 @@ Route::middleware('auth')->group(function() {
     Route::get('/checkout/lokasi', [TransaksiController::class, 'lokasi'])->name('checkout.lokasi');
     Route::post('/checkout/ongkir', [TransaksiController::class, 'ongkir'])->name('checkout.ongkir');
     Route::post('/checkout/bayar', [TransaksiController::class, 'checkout'])->name('checkout.bayar');
+
+    Route::get('/comment/create/{detailId}', [DashboardCommentController::class, 'create'])->name('comment.show');
+    Route::post('/comment/create/{detailId}', [DashboardCommentController::class, 'store'])->name('comment.create');
     
     Route::get('/{toko:slug}', [TokoController::class, 'show'])->name('toko.show');
     Route::get('/toko/create', [TokoController::class, 'create'])->name('toko.create');

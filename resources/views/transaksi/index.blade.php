@@ -31,7 +31,7 @@
                     <p class="text-sm">Ongkir : @currency($transaksi->total_ongkir)</p>
                     <p class="text-sm font-bold">Total Transaksi : @currency($transaksi->total_transaksi)</p>
                     <a href="{{ route('transaksi.show', $transaksi->kd) }}">
-                        <button class="mt-2 text-xs md:text-sm px-2 py-1 md:px-4 md:py-2 border-2 hover:border-blue-500 hover:bg-white bg-blue-500 transition-all rounded-lg">Lihat {{ $transaksi->status == 'pending' ? ' dan Bayar' : '' }}</button>
+                        <button class="mt-2 text-xs md:text-sm px-2 py-1 md:px-4 md:py-2 border-2 hover:border-blue-500 hover:bg-white bg-blue-500 transition-all rounded-lg">{{ $transaksi->status == 'pending' ? 'Lihat dan Bayar' : 'Lihat'  }}</button>
                     </a>
                 </div>
             @endforeach

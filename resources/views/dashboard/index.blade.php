@@ -1,6 +1,6 @@
 @extends('dashboard.layouts.main')
 @section('content')
-<div class="w-full">
+<div class="w-full text-black">
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
         <div class="rounded-md bg-slate-200 py-2 md:py-4 px-4 md:px-6 border-b-4 border-green-500">
             <div class="flex gap-3 md:gap-5 items-center h-full">

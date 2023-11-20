@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Keranjang;
 use App\Models\Toko;
 
 class DashboardTokoController extends Controller
@@ -22,6 +23,9 @@ class DashboardTokoController extends Controller
     public function notApprove(Toko $toko)
     {
         $toko->update(['approve' => 0]);
+        Keranjang::whereHas('product.toko', function($query) use ($toko){
+            $query->where('id_toko', $toko->id);
+        })->delete();
         return back()->with('success', 'Toko sekarang telah dilarang untuk berjualan!');
     }
 }
