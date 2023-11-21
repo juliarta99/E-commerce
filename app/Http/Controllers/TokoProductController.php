@@ -40,11 +40,14 @@ class TokoProductController extends Controller
             'stok' => 'required|numeric',
             'id_kategori' => 'required',
             'harga_awal' => 'required|numeric',
-            'harga' => 'required|numeric|max:harga_awal',
+            'harga' => 'required|numeric',
             'berat' => 'required|numeric',
             'image' => 'required|file|image|max:1024',
             'deskripsi' => 'required'
         ]);
+        if($request->harga > $request->harga_awal){
+            return back()->withErrors(['harga' => 'The price cannot be greater than the initial price!']);
+        }
         $validateData['id_toko'] = Auth::user()->toko->id;
         $validateData['potongan'] = $request->harga_awal - $request->harga;
         $validateData['diskon'] = $validateData['potongan'] / $request->harga_awal * 100;
@@ -103,12 +106,17 @@ class TokoProductController extends Controller
             'stok' => 'required|numeric',
             'id_kategori' => 'required',
             'harga_awal' => 'required|numeric',
-            'harga' => 'required|numeric|max:harga_awal',
+            'harga' => 'required|numeric',
             'berat' => 'required|numeric',
             'image' => 'file|image|max:1024',
             'deskripsi' => 'required'
         ]);
-
+        if($request->harga > $request->harga_awal){
+            return back()->withErrors(['harga' => 'The price cannot be greater than the initial price!']);
+        }
+        $validateData['potongan'] = $request->harga_awal - $request->harga;
+        $validateData['diskon'] = $validateData['potongan'] / $request->harga_awal * 100;
+        
         if($request->file('image')) {
             if($product->image) {
                 Storage::delete($product->image);

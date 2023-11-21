@@ -15,7 +15,7 @@ class TokoController extends Controller
     public function index()
     {
         $title = 'Toko Saya';
-        $products = Product::where('id_toko', Auth::user()->toko->id)->with('transaksis', 'transaksis.comment')->get();
+        $products = Product::where('id_toko', Auth::user()->toko->id)->with('transaksis', 'transaksis.comment')->orderBy('id', 'DESC')->get();
         return view('toko.index', compact('title', 'products'));
     }
 
