@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth scroll-pt-44">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,7 +17,7 @@
 </head>
 <body class="font-poppins">
       @include('layouts.navbar')
-      <div class="container mx-auto">
+      <div class="container mx-auto min-h-screen">
           @yield('content')
       </div>
       @include('layouts.footer')

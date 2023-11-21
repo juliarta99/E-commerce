@@ -10,7 +10,7 @@
                   @foreach ($products as $product)
                         <div class="w-full mb-4">
                               <a href="/product/{{ $product->slug }}">
-                                    <div class="w-full p-4 mb-4 bg-white shadow-md">
+                                    <div class="w-full p-4 mb-4 bg-white shadow-md rounded-md">
                                           <div class="w-full">
                                                 <div class="relative">
                                                       <img src="{{ asset('storage/'. $product->image) }}" class="rounded-md h-52 object-cover w-full" alt="Product">

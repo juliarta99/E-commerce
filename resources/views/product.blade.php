@@ -21,7 +21,7 @@
                         @auth
                               @if (Auth::user()->is_toko == 1 && Auth::user()->toko->id == $product->toko->id )
                               <a href="/toko" class="mr-2">
-                                    <button class="px-4 border-2 border-white duration-500 bg-black rounded-md text-base xl:text-lg hover:text-black hover:bg-white">Buka Toko</button>
+                                    <button class="px-4 border-2 border-white duration-500 bg-black rounded-md text-base xl:text-lg hover:text-black hover:bg-white">Lihat Toko</button>
                               </a>
                               @else
                               @if(count(Auth::user()->keranjangs->where('id_product', $product->id)) == 0)
@@ -79,13 +79,13 @@
                                     {{-- isi deskripsi --}}
                                     <h4 class="text-xs text-black">Berat satuan : {{ $product->berat }} g</h4>
                                     <h4 class="text-xs text-black">Kategori : {{ $product->kategori->name }}</h4>
-                                    <div class="text-justify text-xs md:text-sm">
+                                    <div class="text-justify text-xs md:text-sm mt-3">
                                           <p>{!! $product->deskripsi !!}</p>
                                     </div>
                               </div>
                         </div>
                   </div>
-                  <div class="w-full px-5 py-2 my-3 border-2 border-black rounded-md border-opacity-5">
+                  <div class="w-full px-5 py-2 my-10 border-2 border-black rounded-md border-opacity-5">
                         <div class="flex items-center">
                               <div class="flex justify-between w-full items-center">
                                     <a href="{{ route('toko.show', $product->toko->slug) }}" class="flex items-center">

@@ -20,6 +20,13 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
+.text-xs h1{
+  font-size: .75rem;
+}
+.text-sm h1{
+  font-size: .875rem;
+}
+
 .dt-button,
 .paginate_button.current{
   color: rgb(241 245 249) !important;
