@@ -85,14 +85,15 @@
                                     </button>
                                 </a>
                             @else
-                                <p class="text-blue-500 text-xs lg:text-sm">Ulasan telah diberikan!</p>
+                                @if ($delivery->status == 'success')
+                                    <p class="text-blue-500 text-xs lg:text-sm">Ulasan telah diberikan!</p>
+                                @endif
                             @endif
                         </div>
                     @endforeach
                 </div>
                 <div class="mt-5">
                     <p class="text-sm">Subtotal untuk produk : @currency($transaksi->subtotal)</p>
-                    <p class="text-sm">Anda Hemat : @currency($transaksi->subtotal - $transaksi->total_transaksi)</p>
                     <p class="text-sm">Total Ongkir : @currency($transaksi->total_ongkir)</p>
                     <p class="font-bold">Total : @currency($transaksi->total_transaksi)</p>
                 </div>

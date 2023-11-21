@@ -231,7 +231,7 @@ class TransaksiController extends Controller
         $params['item_details'][] = $shippingCost;
 
         $snapToken = Snap::getSnapToken($params);
-        $transaksi->update('snap', $snapToken);
+        Transaksi::find($transaksi->id)->update(['snap' => $snapToken]);
 
         return redirect()->route('transaksi')->with('success', 'Transaksi berhasil ditambahkan!');
     }

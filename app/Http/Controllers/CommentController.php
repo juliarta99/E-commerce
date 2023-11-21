@@ -3,85 +3,89 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use App\Models\DetailTransaksi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function create($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        $validataData = $request->validate([
-            ''
+        $title = 'Add Comment';
+        $detail = DetailTransaksi::with('product', 'transaksi', 'transaksi.deliverys')->find($id);
+        $delivery = $detail->transaksi->deliverys->where('id_toko', $detail->product->toko->id)->first();
+        if($detail->transaksi->id_user != Auth::user()->id || $delivery->status != "success"){
+            return redirect()->route('transaksi')->with('error', 'Terjadi kesalahan!');
+        } else if(Comment::where('id_transaksi', $id)->exists()){
+            return redirect()->route('transaksi')->with('error', 'Anda telah membuat ulasan untuk transaksi tersebut!');
+        }
+        $rates = collect([
+            ['value' => 0],
+            ['value' => 0.5],
+            ['value' => 1],
+            ['value' => 1.5],
+            ['value' => 2],
+            ['value' => 2.5],
+            ['value' => 3],
+            ['value' => 3.5],
+            ['value' => 4],
+            ['value' => 4.5],
+            ['value' => 5],
         ]);
+        return view('comment.create', compact('title', 'detail', 'rates'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Comment  $comment
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Comment $comment)
+    public function store($id, Request $request)
     {
-        //
+        $detail = DetailTransaksi::with('transaksi')->find($id);
+        $delivery = $detail->transaksi->deliverys->where('id_toko', $detail->product->toko->id)->first();
+        if($detail->transaksi->id_user != Auth::user()->id || $delivery->status != "success"){
+            return redirect()->route('transaksi')->with('error', 'Terjadi kesalahan!');
+        } else if(Comment::where('id_transaksi', $id)->exists()){
+            return redirect()->route('transaksi')->with('error', 'Anda telah membuat ulasan untuk transaksi tersebut!');
+        }
+        
+        $validateData = $request->validate([
+            'image' => 'nullable|file|image|max:1024',
+            'body' => 'nullable|string',
+            'rate' => 'required'
+        ]);
+        if($request->file('image')) {
+            $validateData['image'] = $request->file('image')->store('comment-images');
+        } else {
+            $validateData['image'] = null;
+        };
+
+        Comment::create([
+            'id_transaksi' => $id,
+            'image' => $validateData['image'],
+            'body' => $validateData['body'],
+            'rate' => $validateData['rate']
+        ]);
+        return redirect()->route('transaksi')->with('success', 'Ulasan berhasil ditambahkan');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Comment  $comment
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Comment $comment)
     {
-        //
+        if($comment->transaksi->transaksi->id_user != Auth::user()->id){
+            return redirect()->route('transaksi')->with('error', 'Terjadi kesalahan!');
+        }
+        return view('comment.edit', compact('title', 'comment'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Comment  $comment
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Comment $comment)
+    public function update(Comment $comment, Request $request)
     {
-        //
-    }
+        if($comment->transaksi->transaksi->id_user != Auth::user()->id){
+            return redirect()->route('transaksi')->with('error', 'Terjadi kesalahan!');
+        }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Comment  $comment
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Comment $comment)
-    {
-        //
+        $validateData = $request->validate([
+            'image' => 'nullable|file|image|max:1024',
+            'body' => 'nullable|string',
+            'rate' => 'required'
+        ]);
+        if($request->file('image')) {
+            $validateData['image'] = $request->file('image')->store('comment-images');
+        }
     }
 }

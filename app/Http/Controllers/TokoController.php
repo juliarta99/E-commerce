@@ -111,7 +111,7 @@ class TokoController extends Controller
 
     public function show(Toko $toko)
     {
-        if(Auth::user()->is_toko != null) {
+        if(auth()->check() && Auth::user()->is_toko != null) {
             if($toko->id == Auth::user()->toko->id) {
                 return redirect(route('toko'));
             }
