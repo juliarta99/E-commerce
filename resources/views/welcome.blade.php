@@ -20,13 +20,13 @@
                               </ul>
                         </div>
                   </section>
-                  <div class="w-full mt-8">
+                  <div class="w-full my-8">
                         <a href="/products">
                               <h1 class="text-2xl font-bold text-black lg:text-3xl xl:text-4xl">Product</h1>
                         </a>
                         <div class="grid lg:grid-cols-5 sm:grid-cols-2 grid-cols-1 gap-y-2 gap-x-4">
                               @foreach ($products as $product)
-                                    <div class="w-full mb-4">
+                                    <div class="w-full mb-1">
                                           <a href="/product/{{ $product->slug }}">
                                                 <div class="w-full p-4 mb-4 bg-white shadow-md">
                                                       <div class="w-full">
@@ -62,6 +62,11 @@
                                           </a>
                                     </div>
                               @endforeach
+                        </div>
+                        <div class="flex justify-center">
+                              <a href="/products" class="max-w-max">
+                                    <button class="text-xs mx-auto md:text-sm px-2 py-1 md:px-4 md:py-2 border-2 hover:border-blue-500 hover:bg-white bg-blue-500 transition-all rounded-lg">See More</button>
+                              </a>
                         </div>
                   </div>
             </div>

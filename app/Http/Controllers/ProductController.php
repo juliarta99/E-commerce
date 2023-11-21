@@ -14,7 +14,7 @@ class ProductController extends Controller
                     $query->where('approve', true);
                 })
                 ->where('stok', '>', 0)
-                ->filter(request(['search']))->get();
+                ->filter(request(['search']))->paginate(10);
         return view('products', compact('title', 'products'));
     }
 

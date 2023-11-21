@@ -2,7 +2,7 @@
 @section('content')
 <div class="pt-36 lg:pt-24">
       <div class="w-full">
-            <h1 class="text-2xl font-bold text-black lg:text-3xl xl:text-4xl">Product</h1>
+            <h1 class="text-2xl font-bold text-black lg:text-3xl xl:text-4xl mb-3">All Product</h1>
             <div class="grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-y-2 gap-x-4">
                   @if (count($products) == 0)
                         <p class="text-sm md:text-base font-semibold text-red-500">Product tidak ditemukan</p>
@@ -44,6 +44,9 @@
                               </a>
                         </div>
                   @endforeach
+            </div>
+            <div class="flex justify-center mb-10">
+                  {{ $products->links() }}
             </div>
       </div>
 </div>
