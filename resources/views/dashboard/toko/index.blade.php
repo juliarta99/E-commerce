@@ -1,5 +1,6 @@
 @extends('dashboard.layouts.main')
 @section('content')
+    <h1 class="text-xl lg:text-2xl font-bold mb-3">Toko</h1>
     @if (session()->has('error'))
         <div class="w-auto p-2 px-2 mt-8 text-sm font-semibold text-center bg-red-500 rounded-t-md lg:mt-4 lg:text-base">{{ session('error') }}</div>
     @endif

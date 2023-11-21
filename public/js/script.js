@@ -75,18 +75,29 @@ function kuantitasDecrement(id, harga) {
 
 
 // dashboard
-const humbergerBar = document.getElementById('humberger-bar');
-const humbergerX = document.getElementById('humberger-x');
-const sidebar = document.getElementById('sidebar');
 function showSidebar() {
+      const humbergerBar = document.getElementById('humberger-bar');
+      const humbergerX = document.getElementById('humberger-x');
+      const sidebar = document.getElementById('sidebar');
       sidebar.classList.remove('hidden');
       humbergerBar.classList.add('hidden');
       humbergerX.classList.remove('hidden');
 }
 function hideSidebar() {
+      const humbergerBar = document.getElementById('humberger-bar');
+      const humbergerX = document.getElementById('humberger-x');
+      const sidebar = document.getElementById('sidebar');
       sidebar.classList.add('hidden');
       humbergerBar.classList.remove('hidden');
       humbergerX.classList.add('hidden');
+}
+function showModal() {
+      const modal = document.getElementById('modal');
+      modal.classList.remove('hidden')
+}
+function closeModal() {
+      const modal = document.getElementById('modal');
+      modal.classList.add('hidden')
 }
 
 // // edit profile

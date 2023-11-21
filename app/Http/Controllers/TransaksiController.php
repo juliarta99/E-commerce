@@ -137,7 +137,7 @@ class TransaksiController extends Controller
         }
         
         $now = Carbon::now();
-        $kd_transaksi = $now->year.$now->month.$now->day.uniqid();
+        $kd_transaksi = $now->year.$now->month.$now->day.strtoupper(uniqid());
         $subtotal = $keranjangs->sum(function ($keranjang) {
             return $keranjang->kuantitas * $keranjang->product->harga_awal;
         });

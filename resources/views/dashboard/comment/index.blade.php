@@ -1,5 +1,6 @@
 @extends('dashboard.layouts.main')
 @section('content')
+    <h1 class="text-xl lg:text-2xl font-bold mb-3">Comment</h1>
     <table id="table" class="bg-slate-900" style="width:100%;">
         <thead>
             <tr>
