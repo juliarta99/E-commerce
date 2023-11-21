@@ -32,6 +32,9 @@ use App\Http\Controllers\UserController;
 |
 */
 
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/products', [ProductController::class, 'index'])->name('products');
+Route::get('/product/{product:slug}', [ProductController::class, 'show'])->name('product.single.show');
 
 Route::middleware('guest')->group(function() {
     Route::get('/login', [AuthController::class, 'index'])->name('login');
@@ -41,10 +44,6 @@ Route::middleware('guest')->group(function() {
     Route::post('/register', [AuthController::class, 'store'])->name('register.create');
 });
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/products', [ProductController::class, 'index'])->name('products');
-Route::get('/product/{product:slug}', [ProductController::class, 'show'])->name('product.single.show');
-Route::get('/{toko:slug}', [TokoController::class, 'show'])->name('toko.show');
 
 Route::middleware('guest:admin')->group(function() {
     Route::get('/dashboard/login', [AdminController::class, 'login'])->name('dashboard.login');
@@ -113,6 +112,7 @@ Route::middleware('auth')->group(function() {
     Route::get('/toko/create', [TokoController::class, 'create'])->name('toko.create');
     Route::post('/toko/create', [TokoController::class, 'store'])->name('toko.store');
 });
+Route::get('/{toko:slug}', [TokoController::class, 'show'])->name('toko.show');
 
 // verification akun
 // Route::get('/email/verify', [VerificationController::class, 'notice'])->name('verification.notice');

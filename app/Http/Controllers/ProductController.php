@@ -30,7 +30,7 @@ class ProductController extends Controller
                 $q->where('rate', "5");
             })->count();
             $c4 = Product::where('id', $product->id)->whereHas('transaksis.comment', function($q) {
-                $q->where('rate', '>=', "4")->orWhere('rate', '<', "5");
+                $q->where('rate', '>=', "4")->where('rate', '<', "5");
             })->count();
             $c3 = Product::where('id', $product->id)->whereHas('transaksis.comment', function($q) {
                 $q->where('rate', '>=', "3")->where('rate', '<', "4");

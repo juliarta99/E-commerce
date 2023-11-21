@@ -8,11 +8,18 @@
                   @if (session()->has('error'))
                         <div class="w-auto p-2 px-2 mt-8 text-sm font-semibold text-center bg-red-500 rounded-t-md lg:mt-4 lg:text-base">{{ session('error') }}</div>
                   @endif
-                  <div class="w-full">
-                        <div class="flex flex-wrap">
-                              <img src="img/banner-e-commerce.png" class="w-full h-32 object-cover rounded-md md:h-40 lg:h-52 xl:h-64" alt="ImageScroll">
+                  <section id="image-carousel" class="splide" aria-label="Carousel Image">
+                        <div class="splide__track">
+                              <ul class="splide__list">
+                                    <li class="splide__slide" data-splide-interval="6000">
+                                          <img src="{{ asset('img/banner-e-commerce.png') }}" class="w-full h-32 object-cover rounded-md md:h-40 lg:h-52 xl:h-64" alt="">
+                                    </li>
+                                    <li class="splide__slide" data-splide-interval="6000">
+                                          <img src="{{ asset('img/banner-e-commerce.webp') }}" class="w-full h-32 object-cover rounded-md md:h-40 lg:h-52 xl:h-64" alt="">
+                                    </li>
+                              </ul>
                         </div>
-                  </div>
+                  </section>
                   <div class="w-full mt-8">
                         <a href="/products">
                               <h1 class="text-2xl font-bold text-black lg:text-3xl xl:text-4xl">Product</h1>
@@ -59,4 +66,12 @@
                   </div>
             </div>
       </div>
+      <script>
+            const splide = new Splide( '#image-carousel',{
+                  autoplay:'play',
+                  type: 'loop',
+                  pagination: ''
+            });
+            splide.mount();
+      </script>
 @endsection
