@@ -108,4 +108,16 @@ class CommentController extends Controller
         Comment::where('id', $comment->id)->update($validateData);
         return redirect()->route('product.single.show', $comment->transaksi->product->slug)->with('success', 'Comment berhasil diperbaharui');
     }
+
+    public function destroy(Comment $comment)
+    {
+        if($comment->transaksi->transaksi->id_user != Auth::user()->id){
+            return redirect()->route('transaksi')->with('error', 'Terjadi kesalahan!');
+        }
+        if($comment->image){
+            Storage::delete($comment->image);
+        }
+        $comment->delete();
+        return redirect()->route('product.single.show', $comment->transaksi->product->slug)->with('success', 'Comment berhasil dihapus');
+    }
 }

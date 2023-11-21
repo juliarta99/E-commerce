@@ -51,7 +51,9 @@ class ProductController extends Controller
             $products = Product::where('id_toko', $product->toko->id)->with('transaksis', 'transaksis.comment')->get();
             $avgToko = $products->flatMap(function ($product) {
                 return $product->transaksis->flatMap(function ($transaksi) {
-                    return [$transaksi->comment->rate];
+                    if($transaksi->comment){
+                        return [$transaksi->comment->rate];
+                    }
                 });
             })->avg();
         }
