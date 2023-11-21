@@ -232,7 +232,9 @@
                                                       </div>
                                                       <div class="w-full pl-12">
                                                             @if ($transaksi->comment->image)
-                                                                  <img src="{{ asset('storage/'.$transaksi->comment->image) }}" class="max-w-xs max-h-36 mt-2 rounded-md hover:scale-95 transition-all object-cover" alt="">
+                                                                  <a href={{ asset('storage/'.$transaksi->comment->image) }} data-fancybox data-caption="By {{ $transaksi->transaksi->user->name }}">
+                                                                        <img src="{{ asset('storage/'.$transaksi->comment->image) }}" class="max-w-xs max-h-36 mt-2 rounded-md hover:scale-95 transition-all object-cover" alt="">
+                                                                  </a>
                                                             @endif
                                                             <p class="text-xs text-justify text-black lg:text-sm">{{ $transaksi->comment->body }}</p>
                                                       </div>
