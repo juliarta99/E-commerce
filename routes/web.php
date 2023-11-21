@@ -42,8 +42,8 @@ Route::middleware('guest')->group(function() {
 });
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/products', [ProductController::class, 'index'])->name('product');
-Route::get('/product/{product:slug}', [ProductController::class, 'show'])->name('product.show');
+Route::get('/products', [ProductController::class, 'index'])->name('products');
+Route::get('/product/{product:slug}', [ProductController::class, 'show'])->name('product.single.show');
 Route::get('/{toko:slug}', [TokoController::class, 'show'])->name('toko.show');
 
 Route::middleware('guest:admin')->group(function() {

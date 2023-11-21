@@ -227,7 +227,10 @@
                                                                               </div>
                                                                         @endif
                                                                   @endauth
-                                                                        <p class="text-xs lg:text-sm opacity-80">{{ date('j F Y, H:i',strtotime($transaksi->comment->created_at)) }}</p>
+                                                                  @if ($transaksi->comment->created_at != $transaksi->comment->updated_at)
+                                                                        <p class="text-xs lg:text-sm opacity-80 text-end">(edited)</p>
+                                                                  @endif
+                                                                  <p class="text-xs lg:text-sm opacity-80 text-end">{{ date('j F Y, H:i',strtotime($transaksi->comment->created_at)) }}</p>
                                                             </div>
                                                       </div>
                                                       <div class="w-full pl-12">

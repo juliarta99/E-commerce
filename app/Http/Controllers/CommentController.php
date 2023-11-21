@@ -6,6 +6,7 @@ use App\Models\Comment;
 use App\Models\DetailTransaksi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class CommentController extends Controller
 {
@@ -62,7 +63,7 @@ class CommentController extends Controller
             'body' => $validateData['body'],
             'rate' => $validateData['rate']
         ]);
-        return redirect()->route('transaksi')->with('success', 'Ulasan berhasil ditambahkan');
+        return redirect()->route('product.single.show', $detail->product->slug)->with('success', 'Ulasan berhasil ditambahkan');
     }
 
     public function edit(Comment $comment)
@@ -70,7 +71,21 @@ class CommentController extends Controller
         if($comment->transaksi->transaksi->id_user != Auth::user()->id){
             return redirect()->route('transaksi')->with('error', 'Terjadi kesalahan!');
         }
-        return view('comment.edit', compact('title', 'comment'));
+        $title = "Edit Comment";
+        $rates = collect([
+            ['value' => 0],
+            ['value' => 0.5],
+            ['value' => 1],
+            ['value' => 1.5],
+            ['value' => 2],
+            ['value' => 2.5],
+            ['value' => 3],
+            ['value' => 3.5],
+            ['value' => 4],
+            ['value' => 4.5],
+            ['value' => 5],
+        ]);
+        return view('comment.edit', compact('title', 'comment', 'rates'));
     }
 
     public function update(Comment $comment, Request $request)
@@ -85,7 +100,12 @@ class CommentController extends Controller
             'rate' => 'required'
         ]);
         if($request->file('image')) {
+            if($comment->image) {
+                Storage::delete($comment->image);
+            }
             $validateData['image'] = $request->file('image')->store('comment-images');
         }
+        Comment::where('id', $comment->id)->update($validateData);
+        return redirect()->route('product.single.show', $comment->transaksi->product->slug)->with('success', 'Comment berhasil diperbaharui');
     }
 }
