@@ -32,10 +32,6 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/products', [ProductController::class, 'index'])->name('product');
-Route::get('/product/{product:slug}', [ProductController::class, 'show'])->name('product.show');
-Route::get('/{toko:slug}', [TokoController::class, 'show'])->name('toko.show');
 
 Route::middleware('guest')->group(function() {
     Route::get('/login', [AuthController::class, 'index'])->name('login');
@@ -44,6 +40,11 @@ Route::middleware('guest')->group(function() {
     Route::get('/register', [AuthController::class, 'create'])->name('register');
     Route::post('/register', [AuthController::class, 'store'])->name('register.create');
 });
+
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/products', [ProductController::class, 'index'])->name('product');
+Route::get('/product/{product:slug}', [ProductController::class, 'show'])->name('product.show');
+Route::get('/{toko:slug}', [TokoController::class, 'show'])->name('toko.show');
 
 Route::middleware('guest:admin')->group(function() {
     Route::get('/dashboard/login', [AdminController::class, 'login'])->name('dashboard.login');

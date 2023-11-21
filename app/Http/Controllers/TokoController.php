@@ -118,6 +118,15 @@ class TokoController extends Controller
         }
         $title = $toko->name;
         $products = Product::where('id_toko', $toko->id)->get();
-        return view('toko', compact('title', 'toko', 'products'));
+        $avgToko=0;
+        if(Product::where('id_toko', $toko->id)->with('transaksis.comment')->whereHas('transaksis.comment')->exists()){
+            $products = Product::where('id_toko', $toko->id)->with('transaksis', 'transaksis.comment')->get();
+            $avgToko = $products->flatMap(function ($product) {
+                return $product->transaksis->flatMap(function ($transaksi) {
+                    return [$transaksi->comment->rate];
+                });
+            })->avg();
+        }
+        return view('toko', compact('title', 'toko', 'products', 'avgToko'));
     }
 }
