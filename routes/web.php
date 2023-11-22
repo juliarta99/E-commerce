@@ -57,6 +57,7 @@ Route::middleware('is_toko')->group(function() {
     Route::get('/toko/{toko:slug}/editBack', [TokoController::class, 'editBack'])->name('toko.editBack');
     Route::put('/toko/{toko:slug}/editBack', [TokoController::class, 'updateBack'])->name('toko.updateBack');
     Route::resource('/toko/product', TokoProductController::class);
+    Route::put('/toko/product/show/{product}', [TokoProductController::class, 'updateShow'])->name('toko.product.updateShow');
 });
 
 Route::middleware('is_admin')->group(function () {
@@ -69,7 +70,9 @@ Route::middleware('is_admin')->group(function () {
 
         Route::get('/transaksi', [DashboardTransaksiController::class, 'index'])->name('dashboard.transaksi');
         Route::get('/delivery', [DashboardDeliveryController::class, 'index'])->name('dashboard.delivery');
+        
         Route::get('/product', [DashboardProductController::class, 'index'])->name('dashboard.product');
+        Route::put('/product/show/{product}', [DashboardProductController::class, 'updateShow'])->name('dashboard.product.updateShow');
         
         Route::get('/comment', [DashboardCommentController::class, 'index'])->name('dashboard.comment');
         Route::get('/comment/{comment}', [DashboardCommentController::class, 'show'])->name('dashboard.comment.show');

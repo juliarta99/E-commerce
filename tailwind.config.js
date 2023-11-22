@@ -6,7 +6,11 @@ module.exports = {
     "./node_modules/preline/dist/*.js",
   ],
   theme: {
-    extend: {},
+    extend: {
+      gridTemplateColumns: {
+        '1-2' : '1fr 2fr'
+      }
+    },
     fontFamily:{
       'poppins': ['Poppins','sans-serif', 'SFMono-Regular'],
     },

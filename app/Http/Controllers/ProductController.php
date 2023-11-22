@@ -13,13 +13,16 @@ class ProductController extends Controller
                 ->whereHas('toko', function($query){
                     $query->where('approve', true);
                 })
-                ->where('stok', '>', 0)
+                ->where('stok', '>', 0)->where('show', 1)
                 ->filter(request(['search']))->paginate(10);
         return view('products', compact('title', 'products'));
     }
 
     public function show(Product $product)
     {   
+        if(!$product->show) {
+            return redirect()->route('home')->with('error', 'Terjadi kesalahan!');
+        }
         $title = $product->name;
         $cComment=0;$c5=0;$c4=0;$c3=0;$c2=0;$c1=0;$c0=0;
         if(Product::where('id', $product->id)->with('transaksis.comment')->whereHas('transaksis.comment')->exists()){

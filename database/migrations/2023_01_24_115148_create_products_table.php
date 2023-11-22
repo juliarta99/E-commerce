@@ -28,6 +28,7 @@ return new class extends Migration
             $table->text('deskripsi');
             $table->string('image');
             $table->bigInteger('terjual')->default(0);
+            $table->boolean('show')->default(1);
             $table->timestamps();
         });
     }

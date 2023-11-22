@@ -18,7 +18,13 @@ class KeranjangController extends Controller
     public function index()
     {
         $title = 'Keranjang';
-        $keranjangs = Keranjang::where('id_user', Auth::user()->id)->orderBy('created_at', 'DESC')->get();
+        Keranjang::whereHas('product', function ($query) {
+            $query->where('show', 0);
+        })->where('id_user', Auth::user()->id)->delete();
+                
+        $keranjangs = Keranjang::where('id_user', Auth::user()->id)->whereHas('product', function($product){
+            $product->where('show', 1);
+        })->orderBy('created_at', 'DESC')->get();
         $total = DB::table('keranjangs')->join('products', 'keranjangs.id_product', '=', 'products.id')
         ->where('id_user', Auth::user()->id)->sum(DB::raw('products.harga * keranjangs.kuantitas'));
         return view('keranjang', compact('title', 'keranjangs', 'total'));
@@ -45,8 +51,9 @@ class KeranjangController extends Controller
         if(count(Auth::user()->keranjangs->where('id_product', $request->id_product)) == 1) {
             return back()->with('error', 'Product sudah ditambahkan di keranjang');
         }
-        if(Product::find($request->id_product)->stok == 0) {
-            return back()->with('error', 'Product tidak memiliki stok!');
+        $product = Product::find($request->id_product);
+        if($product->stok == 0 || $product->show == 0) {
+            return back()->with('error', 'Terjadi kesalahan!');
         }
         $validateData = $request->validate([
             'id_product' => 'required',

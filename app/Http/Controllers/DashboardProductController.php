@@ -13,4 +13,10 @@ class DashboardProductController extends Controller
         $products = Product::all();
         return view('dashboard.product.index', compact('title', 'products'));
     }
+
+    public function updateShow(Product $product)
+    {
+        $product->update(['show' => !$product->show]);
+        return redirect()->route('dashboard.product')->with('success', 'Product berhasil di perbaharui!');
+    }
 }

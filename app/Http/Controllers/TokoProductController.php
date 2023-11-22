@@ -46,7 +46,7 @@ class TokoProductController extends Controller
             'deskripsi' => 'required'
         ]);
         if($request->harga > $request->harga_awal){
-            return back()->withErrors(['harga' => 'The price cannot be greater than the initial price!']);
+            return back()->withInput()->withErrors(['harga' => 'The price cannot be greater than the initial price!']);
         }
         $validateData['id_toko'] = Auth::user()->toko->id;
         $validateData['potongan'] = $request->harga_awal - $request->harga;
@@ -112,7 +112,7 @@ class TokoProductController extends Controller
             'deskripsi' => 'required'
         ]);
         if($request->harga > $request->harga_awal){
-            return back()->withErrors(['harga' => 'The price cannot be greater than the initial price!']);
+            return back()->withInput()->withErrors(['harga' => 'The price cannot be greater than the initial price!']);
         }
         $validateData['potongan'] = $request->harga_awal - $request->harga;
         $validateData['diskon'] = $validateData['potongan'] / $request->harga_awal * 100;
@@ -123,11 +123,19 @@ class TokoProductController extends Controller
             }
             $validateData['image'] = $request->file('image')->store('product-images');
         }
-        $validateData['slug'] = null;
-        Product::where('id', $product->id)->update($validateData);
-        return redirect(route('toko'))->with('succes', 'Product berhasil diedit');
+        $product->slug = null;
+        $product->update($validateData);
+        return redirect(route('toko'))->with('success', 'Product berhasil diedit');
     }
 
+    public function updateShow(Product $product)
+    {
+        if($product->id_toko != Auth::user()->toko->id){
+            return redirect()->route('toko')->with('error', 'Terjadi kesalahan!');
+        }
+        $product->update(['show' => !$product->show]);
+        return redirect()->route('toko')->with('success', 'Product berhasil di perbaharui!');
+    }
     /**
      * Remove the specified resource from storage.
      *
@@ -136,7 +144,10 @@ class TokoProductController extends Controller
      */
     public function destroy(Product $product)
     {
+        if(count($product->transaksis) > 0) {
+            return redirect()->route('toko')->with('error', 'Terjadi kesalahan!');
+        }
         Product::destroy('id', $product->id);
-        return redirect(route('toko'))->with('success', 'Product berhasil dihapus');
+        return redirect()->route('toko')->with('success', 'Product berhasil dihapus!');
     }
 }
