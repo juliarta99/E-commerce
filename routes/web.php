@@ -70,6 +70,8 @@ Route::middleware('is_admin')->group(function () {
         Route::get('/product', [DashboardProductController::class, 'index'])->name('dashboard.product');
         Route::get('/kategori', [DashboardKategoriController::class, 'index'])->name('dashboard.kategori');
         Route::get('/comment', [DashboardCommentController::class, 'index'])->name('dashboard.comment');
+        Route::get('/comment/{comment}', [DashboardCommentController::class, 'show'])->name('dashboard.comment.show');
+        Route::delete('/comment/{comment}', [DashboardCommentController::class, 'destroy'])->name('dashboard.comment.delete');
         
         Route::post('/kategori/create', [DashboardKategoriController::class, 'store'])->name('kategori.create');
         Route::get('/kategori/edit/{kategori}', [DashboardKategoriController::class, 'edit'])->name('kategori.edit');
