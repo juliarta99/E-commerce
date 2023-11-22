@@ -63,11 +63,13 @@
                                     </div>
                               @endforeach
                         </div>
-                        <div class="flex justify-center">
-                              <a href="/products" class="max-w-max">
-                                    <button class="text-xs mx-auto md:text-sm px-2 py-1 md:px-4 md:py-2 border-2 hover:border-blue-500 hover:bg-white bg-blue-500 transition-all rounded-lg">See More</button>
-                              </a>
-                        </div>
+                        @if($products->total() > 5)
+                              <div class="flex justify-center">
+                                    <a href="/products" class="max-w-max">
+                                          <button class="text-xs mx-auto md:text-sm px-2 py-1 md:px-4 md:py-2 border-2 hover:border-blue-500 hover:bg-white bg-blue-500 transition-all rounded-lg">See More</button>
+                                    </a>
+                              </div>
+                        @endif
                   </div>
             </div>
       </div>

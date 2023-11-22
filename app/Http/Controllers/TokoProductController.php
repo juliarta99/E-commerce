@@ -123,7 +123,7 @@ class TokoProductController extends Controller
             }
             $validateData['image'] = $request->file('image')->store('product-images');
         }
-
+        $validateData['slug'] = null;
         Product::where('id', $product->id)->update($validateData);
         return redirect(route('toko'))->with('succes', 'Product berhasil diedit');
     }

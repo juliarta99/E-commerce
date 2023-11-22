@@ -34,7 +34,7 @@ class AuthController extends Controller
             return redirect()->intended('/');
         }
 
-        return back()->withErrors(['error' => 'Email or password not failed']);
+        return back()->withInput()->withErrors(['error' => 'Email or password not failed']);
     }
 
     public function create()

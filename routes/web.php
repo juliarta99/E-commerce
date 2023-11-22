@@ -72,6 +72,9 @@ Route::middleware('is_admin')->group(function () {
         Route::get('/comment', [DashboardCommentController::class, 'index'])->name('dashboard.comment');
         
         Route::post('/kategori/create', [DashboardKategoriController::class, 'store'])->name('kategori.create');
+        Route::get('/kategori/edit/{kategori}', [DashboardKategoriController::class, 'edit'])->name('kategori.edit');
+        Route::put('/kategori/update/{kategori}', [DashboardKategoriController::class, 'update'])->name('kategori.update');
+        Route::delete('/kategori/delete/{kategori}', [DashboardKategoriController::class, 'destroy'])->name('kategori.delete');
     });
 });
 

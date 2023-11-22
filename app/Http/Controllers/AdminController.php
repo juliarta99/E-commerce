@@ -30,6 +30,6 @@ class AdminController extends Controller
             return redirect()->intended(route('dashboard'));
         }
 
-        return back()->withErrors(['error' => 'Username or password not failed']);
+        return back()->withInput()->withErrors(['error' => 'Username or password not failed']);
     }
 }
