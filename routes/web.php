@@ -63,16 +63,19 @@ Route::middleware('is_admin')->group(function () {
     Route::prefix('dashboard')->group(function() {
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
         Route::get('/toko', [DashboardTokoController::class, 'index'])->name('dashboard.toko');
+        Route::get('/toko/{toko}', [DashboardTokoController::class, 'show'])->name('dashboard.toko.show');
         Route::put('/toko/approve/{toko:slug}', [DashboardTokoController::class, 'approve'])->name('dashboard.toko.approve');
         Route::put('/toko/not-approve/{toko:slug}', [DashboardTokoController::class, 'notApprove'])->name('dashboard.toko.notApprove');
+
         Route::get('/transaksi', [DashboardTransaksiController::class, 'index'])->name('dashboard.transaksi');
         Route::get('/delivery', [DashboardDeliveryController::class, 'index'])->name('dashboard.delivery');
         Route::get('/product', [DashboardProductController::class, 'index'])->name('dashboard.product');
-        Route::get('/kategori', [DashboardKategoriController::class, 'index'])->name('dashboard.kategori');
+        
         Route::get('/comment', [DashboardCommentController::class, 'index'])->name('dashboard.comment');
         Route::get('/comment/{comment}', [DashboardCommentController::class, 'show'])->name('dashboard.comment.show');
         Route::delete('/comment/{comment}', [DashboardCommentController::class, 'destroy'])->name('dashboard.comment.delete');
-        
+
+        Route::get('/kategori', [DashboardKategoriController::class, 'index'])->name('dashboard.kategori');
         Route::post('/kategori/create', [DashboardKategoriController::class, 'store'])->name('kategori.create');
         Route::get('/kategori/edit/{kategori}', [DashboardKategoriController::class, 'edit'])->name('kategori.edit');
         Route::put('/kategori/update/{kategori}', [DashboardKategoriController::class, 'update'])->name('kategori.update');

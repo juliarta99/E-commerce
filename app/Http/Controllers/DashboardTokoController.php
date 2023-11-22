@@ -14,6 +14,12 @@ class DashboardTokoController extends Controller
         return view('dashboard.toko.index', compact('title', 'tokos'));
     }
 
+    public function show(Toko $toko)
+    {
+        $title = "Toko $toko->name";
+        return view('dashboard.toko.show', compact('title', 'toko'));
+    }
+
     public function approve(Toko $toko)
     {
         $toko->update(['approve' => 1]);
