@@ -94,9 +94,10 @@
                         })  
                     @endphp
                     <p class="text-sm">Subtotal : @currency($subtotal)</p>
+                    <p class="text-sm">Total beli : @currency($totalBeli)</p>
                     <p class="text-sm">Hemat : @currency($hemat)</p>
                     <p class="text-sm">Ongkir : @currency($ongkir)</p>
-                    <p class="font-bold">Total : @currency($totalBeli + $ongkir)</p>
+                    <p class="font-bold">Total transaksi : @currency($totalBeli + $ongkir)</p>
                 </div>
                 <button class="mt-2 text-xs md:text-sm px-2 py-1 md:px-4 md:py-2 border-2 hover:border-blue-500 hover:bg-white bg-blue-500 transition-all rounded-lg">Buat Transaksi</button>
             </div>

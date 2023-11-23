@@ -29,7 +29,7 @@ class TransaksiController extends Controller
     public function index()
     {
         $title = 'Transaksi Anda';
-        $transaksis = Transaksi::where('id_user', Auth::user()->id)->with('deliverys')->get();
+        $transaksis = Transaksi::where('id_user', Auth::user()->id)->with('deliverys')->orderBy('created_at', 'desc')->get();
         return view('transaksi.index', compact('title', 'transaksis'));
     }
 
@@ -249,19 +249,14 @@ class TransaksiController extends Controller
         return view('transaksi.show', compact('title', 'transaksi'));
     }
 
-    public function invoice(Transaksi $transaksi)
-    {
-        return view('transaksi.invoice', compact('transaksi'));
-    }
-
     public function handler(Request $request)
     {
         $signature = hash('sha512', $request->order_id.$request->status_code.$request->gross_amount.config('midtrans.server_key'));
         if($signature == $request->signature_key){
             if($request->transaction_status == "capture"){
-                $transaksi = Transaksi::where('kd', $request->kd)->first();
+                $transaksi = Transaksi::where('kd', $request->order_id)->first();
                 $transaksi->update([
-                    'date_done' => Carbon::now(),
+                    'date_done' => $request->transaction_time,
                     'status' => 'success'
                 ]);
             }

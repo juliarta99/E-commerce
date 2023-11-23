@@ -22,7 +22,11 @@
                     <p>Catatan : {{ $transaksi->deliverys[0]->catatan }}</p>
                 @endif
                 <p>Kurir : <span class="uppercase">{{ $transaksi->deliverys[0]->kurir }}</span></p>
-                <p>Pembayaran : <span class="capitalize p-2 rounded-full {{ $transaksi->status == 'success' ? 'bg-green-500' : ($transaksi->status == 'cancel' ? 'bg-red-500' : 'bg-yellow-500') }}">{{ $transaksi->status }}</span></p>
+                <p>Pembayaran : <span class="capitalize p-2 rounded-full {{ $transaksi->status == 'success' ? 'bg-green-500' : ($transaksi->status == 'cancel' ? 'bg-red-500' : 'bg-yellow-500') }}">{{ $transaksi->status }}</span> 
+                    @if ($transaksi->date_done)
+                        ({{ date('d F Y, h:i:s A', strtotime($transaksi->date_done)) }})
+                    @endif
+                </p>
                 <div class="flex-col mt-5">
                     @php
                         $prevToko = null;
@@ -45,13 +49,16 @@
                             @php
                                 $delivery = $transaksi->deliverys->where('id_toko', $detail->product->toko->id)->first();
                             @endphp
-                            @if ($delivery->id_toko != $prevToko)
+                                @if ($delivery->id_toko != $prevToko)
                                     <p class="text-sm font-bold mb-1">Pengiriman</p>
                                     <div class="flex gap-2">
                                         <div class="w-full  {{ $delivery->status == 'success' ? 'bg-green-500' : ($delivery->status == 'cancel' ? 'bg-red-500' : 'bg-yellow-500') }} p-2 rounded-md flex justify-between">
                                             <div class="">
                                                 <h3>{{ $delivery->service }}</h3>
                                                 <p class="text-sm opacity-75 capitalize">status : {{ $delivery->status }}</p>
+                                                @if ($delivery->no_resi)
+                                                    <a href="" class="text-sm text-white">Lihat detail</a>
+                                                @endif
                                             </div>
                                             <div class="text-end">
                                                 <p class="text-sm font-bold">@currency($delivery->cost)</p>
@@ -118,7 +125,7 @@
       payButton.addEventListener('click', function () {
         window.snap.pay("{{ $transaksi->snap }}", {
           onSuccess: function(result){
-            window.location.href = "{{ route('transaksi.invoice', $transaksi->id) }}"
+            window.location.href = "{{ route('transaksi.show', $transaksi->kd) }}"
           },
           onPending: function(result){
             alert("Wating your payment!");
