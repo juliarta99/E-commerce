@@ -14,6 +14,12 @@ class DashboardProductController extends Controller
         return view('dashboard.product.index', compact('title', 'products'));
     }
 
+    public function show(Product $product)
+    {
+        $title = "Product - $product->name";
+        return view('dashboard.product.show', compact('title', 'product'));
+    }
+
     public function updateShow(Product $product)
     {
         $product->update(['show' => !$product->show]);

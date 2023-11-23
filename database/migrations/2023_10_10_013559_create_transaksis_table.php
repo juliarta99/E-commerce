@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('kd', 25)->unique();
             $table->foreignId('id_user');
             $table->double('subtotal');
+            $table->double('total_beli');
             $table->double('total_ongkir');
             $table->double('total_transaksi');
             $table->string('snap')->nullable();

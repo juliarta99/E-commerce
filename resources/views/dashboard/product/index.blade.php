@@ -24,7 +24,12 @@
                     <td>{{ $product->kategori->name }}</td>
                     <td>@currency($product->harga)</td>
                     <td>{{ $product->stok }}</td>
-                    <td>
+                    <td class="flex gap-2">
+                        <a href="{{ route('dashboard.product.show', $product->slug) }}">
+                            <button class="p-2 rounded-md bg-blue-500">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 fill-white" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
+                            </button>
+                        </a>
                         <form action="{{ route('dashboard.product.updateShow', $product->slug) }}" onsubmit="return confirm('Apakah anda yakin?')" method="post">
                             @csrf
                             @method('put')

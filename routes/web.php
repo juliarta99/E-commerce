@@ -69,9 +69,13 @@ Route::middleware('is_admin')->group(function () {
         Route::put('/toko/not-approve/{toko:slug}', [DashboardTokoController::class, 'notApprove'])->name('dashboard.toko.notApprove');
 
         Route::get('/transaksi', [DashboardTransaksiController::class, 'index'])->name('dashboard.transaksi');
+        Route::get('/transaksi/{transaksi}', [DashboardTransaksiController::class, 'show'])->name('dashboard.transaksi.show');
+        
         Route::get('/delivery', [DashboardDeliveryController::class, 'index'])->name('dashboard.delivery');
+        Route::get('/delivery/{delivery}', [DashboardDeliveryController::class, 'show'])->name('dashboard.delivery.show');
         
         Route::get('/product', [DashboardProductController::class, 'index'])->name('dashboard.product');
+        Route::get('/product/{product}', [DashboardProductController::class, 'show'])->name('dashboard.product.show');
         Route::put('/product/show/{product}', [DashboardProductController::class, 'updateShow'])->name('dashboard.product.updateShow');
         
         Route::get('/comment', [DashboardCommentController::class, 'index'])->name('dashboard.comment');

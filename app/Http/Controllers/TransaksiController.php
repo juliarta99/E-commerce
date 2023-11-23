@@ -153,6 +153,7 @@ class TransaksiController extends Controller
             'kd' => $kd_transaksi,
             'id_user' => Auth::user()->id,
             'subtotal' => $subtotal,
+            'total_beli' => $total_beli,
             'total_ongkir' => $total_ongkir,
             'total_transaksi' => $total_transaksi,
         ]);

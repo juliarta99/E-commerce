@@ -13,4 +13,10 @@ class DashboardTransaksiController extends Controller
         $transaksis = Transaksi::all();
         return view('dashboard.transaksi.index', compact('title', 'transaksis'));
     }
+
+    public function show(Transaksi $transaksi)
+    {
+        $title = "Transaksi $transaksi->kd";
+        return view('dashboard.transaksi.show', compact('title', 'transaksi'));
+    }
 }

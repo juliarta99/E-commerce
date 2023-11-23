@@ -67,15 +67,24 @@
 
                             <div class="flex justify-between relative">
                                 <div class="">
-                                    <img src="{{ asset('storage/'.$detail->product->image) }}" class="w-20 h-20 object-cover" alt="">
-                                    <p class="text-xs">@currency($detail->product->harga)</p>
-                                    <h3>{{ $detail->product->name }}</h3>
+                                    @if ($detail->product->show)
+                                        <a href="{{ route('product.single.show', $detail->product->slug) }}">
+                                    @endif
+                                            <img src="{{ asset('storage/'.$detail->product->image) }}" class="w-20 h-20 object-cover" alt="">
+                                            <p class="text-xs">@currency($detail->harga)</p>
+                                            <h3>{{ $detail->product_name }}</h3>
+                                        @if (!$detail->product->show)
+                                            <p class="text-xs text-red-500">Product tidak dijual lagi!</p>
+                                        @endif
+                                    @if ($detail->product->show)
+                                        </a>
+                                    @endif
                                 </div>
                                 <div class="">
                                     <p class="text-end text-xs">{{ $detail->kuantitas }}x</p>
-                                    <p class="font-bold">@currency($detail->kuantitas * $detail->product->harga)</p>
+                                    <p class="font-bold">@currency($detail->kuantitas * $detail->harga)</p>
                                 </div>
-                                <p class="absolute bg-red-500 p-2 top-0 left-0 text-xs md:text-md">{{ $detail->product->diskon }}%</p>
+                                <p class="absolute bg-red-500 p-2 top-0 left-0 text-xs md:text-md">{{ floor(($detail->harga_awal - $detail->harga) / $detail->harga_awal * 100) }}%</p>
                             </div>
                             @if ($delivery->status == 'success' && Comment::where('id_transaksi', $detail->id)->doesntExist())
                                 <a href="{{ route('comment.show', $detail->id) }}">
@@ -93,7 +102,9 @@
                     @endforeach
                 </div>
                 <div class="mt-5">
-                    <p class="text-sm">Subtotal untuk produk : @currency($transaksi->subtotal)</p>
+                    <p class="text-sm">Subtotal : @currency($transaksi->subtotal)</p>
+                    <p class="text-sm">Total Beli : @currency($transaksi->total_beli)</p>
+                    <p class="text-sm">Potongan Harga : @currency($transaksi->subtotal - $transaksi->total_beli)</p>
                     <p class="text-sm">Total Ongkir : @currency($transaksi->total_ongkir)</p>
                     <p class="font-bold">Total : @currency($transaksi->total_transaksi)</p>
                 </div>
