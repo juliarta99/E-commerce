@@ -18,72 +18,80 @@
                     <div class="w-auto p-2 px-2 mt-8 text-sm font-semibold text-center bg-green-500 rounded-t-md lg:mt-4 lg:text-base">{{ session('success') }}</div>
                 @endif
                 {{-- profile start --}}
-                    <div class="flex flex-wrap">
-                        <div class="w-full">
-                            <div class="relative group">
-                                @if ($toko->backImage != null)
-                                    <img src="{{ 'storage/' . $toko->backImage }}" alt="Background Toko" class="w-full h-52 object-cover">
-                                @else
-                                    <img src="{{ asset('img/back_toko.jpg') }}" alt="Background Toko" class="w-full h-52 object-cover">
-                                @endif
-                                {{-- edit back toko --}}
-                                <a href="/toko/{{ $toko->slug }}/editBack">
-                                    <div class="absolute hidden top-6 lg:top-4 group-hover:block right-2 fill-white hover:fill-black">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6">
-                                            <path d="M21.731 2.269a2.625 2.625 0 00-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 000-3.712zM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 00-1.32 2.214l-.8 2.685a.75.75 0 00.933.933l2.685-.8a5.25 5.25 0 002.214-1.32l8.4-8.4z" />
-                                            <path d="M5.25 5.25a3 3 0 00-3 3v10.5a3 3 0 003 3h10.5a3 3 0 003-3V13.5a.75.75 0 00-1.5 0v5.25a1.5 1.5 0 01-1.5 1.5H5.25a1.5 1.5 0 01-1.5-1.5V8.25a1.5 1.5 0 011.5-1.5h5.25a.75.75 0 000-1.5H5.25z" />
-                                        </svg>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="w-full px-4 pt-4 pb-2">
-                            <div class="flex items-center justify-between w-full ">
-                                <div class="flex items-center w-full">
-                                    @if ($toko->image != null)
-                                        <img src="{{ asset('storage/'. $toko->image) }}" class="object-cover w-10 h-10 rounded-full" alt="{{ $toko->name }}">
-                                    @else
-                                        <img src="{{ asset('img/toko_default.jpg') }}" alt="Background Toko" class="w-10 h-10 rounded-full object-cover">
-                                    @endif
-                                    <div class="ml-2">
-                                        <h1 class="text-sm lg:text-base">{{ $toko->name }}</h1>
-                                        <a href="/toko/{{ $toko->slug }}/edit" class="text-xs text-blue-500 lg:text-sm">edit toko</a>
-                                    </div>
-                                </div>
-                                <a href="/toko/product/create">
-                                    <button class="p-2 px-4 text-xs text-white bg-blue-500 rounded-md lg:text-sm">Tambah product</button>
-                                </a>
-                            </div>
-                            <div class="w-full mt-2">
-                                <div class="flex items-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
-                                        <path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
+                <div class="flex flex-wrap">
+                    <div class="w-full">
+                        <div class="relative group">
+                            @if ($toko->backImage != null)
+                                <img src="{{ 'storage/' . $toko->backImage }}" alt="Background Toko" class="w-full h-52 object-cover">
+                            @else
+                                <img src="{{ asset('img/back_toko.jpg') }}" alt="Background Toko" class="w-full h-52 object-cover">
+                            @endif
+                            {{-- edit back toko --}}
+                            <a href="/toko/{{ $toko->slug }}/editBack">
+                                <div class="absolute hidden top-6 lg:top-4 group-hover:block right-2 fill-white hover:fill-black">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6">
+                                        <path d="M21.731 2.269a2.625 2.625 0 00-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 000-3.712zM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 00-1.32 2.214l-.8 2.685a.75.75 0 00.933.933l2.685-.8a5.25 5.25 0 002.214-1.32l8.4-8.4z" />
+                                        <path d="M5.25 5.25a3 3 0 00-3 3v10.5a3 3 0 003 3h10.5a3 3 0 003-3V13.5a.75.75 0 00-1.5 0v5.25a1.5 1.5 0 01-1.5 1.5H5.25a1.5 1.5 0 01-1.5-1.5V8.25a1.5 1.5 0 011.5-1.5h5.25a.75.75 0 000-1.5H5.25z" />
                                     </svg>
-                                    <h3 class="ml-1 text-xs lg:Text-sm">{{ $toko->city->city_name. ' , ' .$toko->city->province_name }}</h3>
                                 </div>
-                                <p class="text-xs text-justify opacity-60">{{ $toko->tentang }}</p>
-                            </div>
+                            </a>
                         </div>
                     </div>
+                    <div class="w-full px-4 pt-4 pb-2">
+                        <div class="flex items-center justify-between w-full ">
+                            <div class="flex items-center w-full">
+                                @if ($toko->image != null)
+                                    <img src="{{ asset('storage/'. $toko->image) }}" class="object-cover w-10 h-10 rounded-full" alt="{{ $toko->name }}">
+                                @else
+                                    <img src="{{ asset('img/toko_default.jpg') }}" alt="Background Toko" class="w-10 h-10 rounded-full object-cover">
+                                @endif
+                                <div class="ml-2">
+                                    <h1 class="text-sm lg:text-base">{{ $toko->name }}</h1>
+                                    <a href="/toko/{{ $toko->slug }}/edit" class="text-xs text-blue-500 lg:text-sm">edit toko</a>
+                                </div>
+                            </div>
+                            <a href="/toko/product/create">
+                                <button class="p-2 px-4 text-xs text-white bg-blue-500 rounded-md lg:text-sm">Tambah product</button>
+                            </a>
+                        </div>
+                        <div class="w-full my-2">
+                            <div class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+                                    <path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
+                                </svg>
+                                <h3 class="ml-1 text-xs">{{ $toko->city->city_name. ' , ' .$toko->city->province_name }}</h3>
+                            </div>
+                            <p class="text-xs text-justify opacity-60">{{ $toko->tentang }}</p>
+                        </div>
+                        <a href="{{ route('toko.transaksi') }}" class="w-max">
+                            <button type="button" class="flex gap-1 bg-blue-500 items-center p-2 rounded-md">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 fill-white" viewBox="0 0 512 512"><path d="M470.7 9.4c3 3.1 5.3 6.6 6.9 10.3s2.4 7.8 2.4 12.2l0 .1v0 96c0 17.7-14.3 32-32 32s-32-14.3-32-32V109.3L310.6 214.6c-11.8 11.8-30.8 12.6-43.5 1.7L176 138.1 84.8 216.3c-13.4 11.5-33.6 9.9-45.1-3.5s-9.9-33.6 3.5-45.1l112-96c12-10.3 29.7-10.3 41.7 0l89.5 76.7L370.7 64H352c-17.7 0-32-14.3-32-32s14.3-32 32-32h96 0c8.8 0 16.8 3.6 22.6 9.3l.1 .1zM0 304c0-26.5 21.5-48 48-48H464c26.5 0 48 21.5 48 48V464c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V304zM48 416v48H96c0-26.5-21.5-48-48-48zM96 304H48v48c26.5 0 48-21.5 48-48zM464 416c-26.5 0-48 21.5-48 48h48V416zM416 304c0 26.5 21.5 48 48 48V304H416zm-96 80a64 64 0 1 0 -128 0 64 64 0 1 0 128 0z"/></svg>
+                                <h3 class="ml-1 text-xs lg:text-sm text-white">Transaksi Toko</h3>
+                            </button>
+                        </a>
+                    </div>
+                </div>
                 {{-- profile end  --}}
                 {{-- product toko --}}
                 <div class="w-full px-4 py-2 pb-4">
                     <h1 class="font-bold text-base lg:text-lg">Product</h1>
                     <div class="w-16 h-1 bg-blue-500 lg:w-20"></div>
                     @if (count($products) > 0)
-                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mt-3">
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 my-3">
                             @foreach ($products as $product)
                             <div class="w-full">
                                 @if ($product->approve)
                                     <a href="/toko/product/{{ $product->slug }}">
                                 @endif
-                                        <div class="grid grid-cols-1 md:grid-cols-1-2 lg:grid-cols-1 items-center w-full p-4 bg-white shadow-md relative">
-                                            <div class="absolute w-full h-full bg-[rgba(0,0,0,.5)] top-0 left-0 z-10 flex justify-center items-center flex-col p-2">
-                                                <p class="font-bold text-red-500 rounded-lg text-center text-xs lg:text-sm mb-2 p-1 bg-white">Product dilarang untuk dijual!</p>
-                                                <a href="mailto:adij4255@gmail.com" target="_blank" rel="noopener noreferrer">
-                                                    <button class="p-2 rounded-md text-xs lg:text-sm bg-red-500 text-white">Ajukan banding</button>
-                                                </a>
-                                            </div>
+                                        <div class="grid grid-cols-1 md:grid-cols-1-2 lg:grid-cols-1 items-center w-full p-4 bg-white shadow-md relative rounded-md">
+                                            @if (!$product->approve)
+                                                <div class="absolute w-full h-full rounded-md bg-[rgba(0,0,0,.5)] top-0 left-0 z-10 flex justify-center items-center flex-col p-2">
+                                                    <p class="font-bold text-red-500 rounded-lg text-center text-xs lg:text-sm mb-2 p-1 bg-white">Product dilarang untuk dijual!</p>
+                                                    <a href="mailto:adij4255@gmail.com" target="_blank" rel="noopener noreferrer">
+                                                        <button class="p-2 rounded-md text-xs lg:text-sm bg-red-500 text-white">Ajukan banding</button>
+                                                    </a>
+                                                </div>
+                                            @endif
                                             <div class="w-full">
                                                     <div class="relative">
                                                             <img src="{{ asset('storage/'. $product->image) }}" class="rounded-md h-52 object-cover w-full" alt="Product">

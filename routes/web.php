@@ -16,6 +16,7 @@ use App\Http\Controllers\DashboardKategoriController;
 use App\Http\Controllers\DashboardProductController;
 use App\Http\Controllers\DashboardTokoController;
 use App\Http\Controllers\DashboardTransaksiController;
+use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\FavoritController;
 use App\Http\Controllers\TokoProductController;
 use App\Http\Controllers\TransaksiController;
@@ -52,12 +53,15 @@ Route::middleware('guest:admin')->group(function() {
 
 Route::middleware('is_toko')->group(function() {
     Route::get('/toko', [TokoController::class, 'index'])->name('toko');
+    Route::get('/toko/transaksi', [TokoController::class, 'transaksi'])->name('toko.transaksi');
+    Route::get('/toko/transaksi/{transaksi}', [TokoController::class, 'transaksiShow'])->name('toko.transaksi.show');
     Route::get('/toko/{toko:slug}/edit', [TokoController::class, 'edit'])->name('toko.edit');
     Route::put('/toko/{toko:slug}', [TokoController::class, 'update'])->name('toko.update');
     Route::get('/toko/{toko:slug}/editBack', [TokoController::class, 'editBack'])->name('toko.editBack');
     Route::put('/toko/{toko:slug}/editBack', [TokoController::class, 'updateBack'])->name('toko.updateBack');
     Route::resource('/toko/product', TokoProductController::class);
     Route::put('/toko/product/show/{product}', [TokoProductController::class, 'updateShow'])->name('toko.product.updateShow');
+    Route::put('/delivery/resi/{delivery}', [DeliveryController::class, 'updateResi'])->name('toko.delivery.resi');
 });
 
 Route::middleware('is_admin')->group(function () {
@@ -114,7 +118,6 @@ Route::middleware('auth')->group(function() {
     Route::get('/transaksi', [TransaksiController::class, 'index'])->name('transaksi');
     Route::get('/transaksi/{transaksi}', [TransaksiController::class, 'show'])->name('transaksi.show');
     Route::post('/transaksi', [TransaksiController::class, 'store'])->name('transaksi.create');
-    Route::get('/invoice/{transaksi}', [TransaksiController::class, 'invoice'])->name('transaksi.invoice');
 
     Route::get('/checkout/lokasi', [TransaksiController::class, 'lokasi'])->name('checkout.lokasi');
     Route::post('/checkout/ongkir', [TransaksiController::class, 'ongkir'])->name('checkout.ongkir');

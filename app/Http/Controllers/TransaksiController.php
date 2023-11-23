@@ -253,11 +253,18 @@ class TransaksiController extends Controller
     {
         $signature = hash('sha512', $request->order_id.$request->status_code.$request->gross_amount.config('midtrans.server_key'));
         if($signature == $request->signature_key){
-            if($request->transaction_status == "capture"){
-                $transaksi = Transaksi::where('kd', $request->order_id)->first();
+            $transaksi = Transaksi::where('kd', $request->order_id)->first();
+            if($request->transaction_status == "capture" || $request->transaction_status == "settlement"){
                 $transaksi->update([
                     'date_done' => $request->transaction_time,
                     'status' => 'success'
+                ]);
+            } else if($request->transaction_status == "deny" || $request->transaction_status == "cancel" || $request->transaction_status == "expire" ||$request->transaction_status == "failure"){
+                $transaksi->update([
+                    'status' => 'cancel'
+                ]);
+                Delivery::where('id_transaksi', $transaksi->id)->update([
+                    'status' => 'cancel'
                 ]);
             }
         }

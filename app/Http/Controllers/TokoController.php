@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\City;
+use App\Models\Delivery;
+use App\Models\DetailTransaksi;
 use Illuminate\Http\Request;
 use App\Models\Toko;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Product;
+use App\Models\Transaksi;
 
 class TokoController extends Controller
 {
@@ -130,5 +133,29 @@ class TokoController extends Controller
             })->avg();
         }
         return view('toko', compact('title', 'toko', 'products', 'avgToko'));
+    }
+
+    public function transaksi()
+    {
+        $title = "All Transaction in Shop";
+        $deliverys = Delivery::where('id_toko', Auth::user()->toko->id)->orderBy('created_at', 'DESC')
+        ->with(['transaksi.details' => function ($q) {
+            $q->whereHas('product.toko', function ($q) {
+                  $q->where('id', Auth::user()->toko->id);
+              });
+        }])->get();
+        return view('toko.transaksi.index', compact('title', 'deliverys'));
+    }
+
+    public function transaksiShow(Transaksi $transaksi)
+    {
+        $title = "Transaction ".$transaksi->kd;
+        $delivery = Delivery::where('id_transaksi', $transaksi->id)
+        ->with(['transaksi.details' => function ($q) {
+            $q->whereHas('product.toko', function ($q) {
+                  $q->where('id', Auth::user()->toko->id);
+              });
+        }])->first();
+        return view('toko.transaksi.show', compact('title', 'delivery'));
     }
 }
