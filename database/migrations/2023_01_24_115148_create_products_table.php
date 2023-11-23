@@ -29,6 +29,7 @@ return new class extends Migration
             $table->string('image');
             $table->bigInteger('terjual')->default(0);
             $table->boolean('show')->default(1);
+            $table->boolean('approve')->default(1);
             $table->timestamps();
         });
     }

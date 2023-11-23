@@ -13,19 +13,19 @@ class ProductController extends Controller
                 ->whereHas('toko', function($query){
                     $query->where('approve', true);
                 })
-                ->where('stok', '>', 0)->where('show', 1)
+                ->where('stok', '>', 0)->where('show', 1)->where('approve', 1)
                 ->filter(request(['search']))->paginate(10);
         return view('products', compact('title', 'products'));
     }
 
     public function show(Product $product)
     {   
-        if(!$product->show) {
+        if(!$product->show || !$product->approve) {
             return redirect()->route('home')->with('error', 'Terjadi kesalahan!');
         }
         $title = $product->name;
         $cComment=0;$c5=0;$c4=0;$c3=0;$c2=0;$c1=0;$c0=0;
-        if(Product::where('id', $product->id)->with('transaksis.comment')->whereHas('transaksis.comment')->exists()){
+        if(Product::where('id', $product->id)->with('transaksis.comment')->whereHas('transaksis.comment')->where('show', 1)->where('approve', 1)->exists()){
             $cComment = Product::where('id', $product->id)->whereHas('transaksis.comment', function($q) {
                 $q->where('rate', '>=', "0");
             })->count();
@@ -50,8 +50,8 @@ class ProductController extends Controller
         }
 
         $avgToko=0;
-        if(Product::where('id_toko', $product->toko->id)->with('transaksis.comment')->whereHas('transaksis.comment')->exists()){
-            $products = Product::where('id_toko', $product->toko->id)->with('transaksis', 'transaksis.comment')->get();
+        if(Product::where('id_toko', $product->toko->id)->with('transaksis.comment')->whereHas('transaksis.comment')->where('show', 1)->where('approve', 1)->exists()){
+            $products = Product::where('id_toko', $product->toko->id)->with('transaksis', 'transaksis.comment')->where('show', 1)->where('approve', 1)->get();
             $avgToko = $products->flatMap(function ($product) {
                 return $product->transaksis->flatMap(function ($transaksi) {
                     if($transaksi->comment){

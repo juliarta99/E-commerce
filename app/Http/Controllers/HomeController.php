@@ -13,7 +13,7 @@ class HomeController extends Controller
             ->whereHas('toko', function($query){
                 $query->where('approve', true);
             })
-            ->where('stok', '>', 0)->where('show', 1)->paginate(5);
+            ->where('stok', '>', 0)->where('show', 1)->where('approve', 1)->paginate(5);
         return view('welcome', compact('products', 'title'));
     }
 }

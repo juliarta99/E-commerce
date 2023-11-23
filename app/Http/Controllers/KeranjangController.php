@@ -19,12 +19,10 @@ class KeranjangController extends Controller
     {
         $title = 'Keranjang';
         Keranjang::whereHas('product', function ($query) {
-            $query->where('show', 0);
+            $query->where('show', 0)->orWhere('approve', 0);
         })->where('id_user', Auth::user()->id)->delete();
                 
-        $keranjangs = Keranjang::where('id_user', Auth::user()->id)->whereHas('product', function($product){
-            $product->where('show', 1);
-        })->orderBy('created_at', 'DESC')->get();
+        $keranjangs = Keranjang::where('id_user', Auth::user()->id)->with('product')->orderBy('created_at', 'DESC')->get();
         $total = DB::table('keranjangs')->join('products', 'keranjangs.id_product', '=', 'products.id')
         ->where('id_user', Auth::user()->id)->sum(DB::raw('products.harga * keranjangs.kuantitas'));
         return view('keranjang', compact('title', 'keranjangs', 'total'));
@@ -52,7 +50,7 @@ class KeranjangController extends Controller
             return back()->with('error', 'Product sudah ditambahkan di keranjang');
         }
         $product = Product::find($request->id_product);
-        if($product->stok == 0 || $product->show == 0) {
+        if($product->stok == 0 || $product->show == 0 || $product->approve == 0) {
             return back()->with('error', 'Terjadi kesalahan!');
         }
         $validateData = $request->validate([

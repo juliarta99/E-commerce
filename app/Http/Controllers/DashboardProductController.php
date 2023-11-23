@@ -20,9 +20,9 @@ class DashboardProductController extends Controller
         return view('dashboard.product.show', compact('title', 'product'));
     }
 
-    public function updateShow(Product $product)
+    public function updateApprove(Product $product)
     {
-        $product->update(['show' => !$product->show]);
+        $product->update(['approve' => !$product->approve]);
         return redirect()->route('dashboard.product')->with('success', 'Product berhasil di perbaharui!');
     }
 }

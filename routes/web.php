@@ -76,7 +76,7 @@ Route::middleware('is_admin')->group(function () {
         
         Route::get('/product', [DashboardProductController::class, 'index'])->name('dashboard.product');
         Route::get('/product/{product}', [DashboardProductController::class, 'show'])->name('dashboard.product.show');
-        Route::put('/product/show/{product}', [DashboardProductController::class, 'updateShow'])->name('dashboard.product.updateShow');
+        Route::put('/product/approve/{product}', [DashboardProductController::class, 'updateApprove'])->name('dashboard.product.updateApprove');
         
         Route::get('/comment', [DashboardCommentController::class, 'index'])->name('dashboard.comment');
         Route::get('/comment/{comment}', [DashboardCommentController::class, 'show'])->name('dashboard.comment.show');

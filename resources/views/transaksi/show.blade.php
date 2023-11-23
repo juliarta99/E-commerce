@@ -73,7 +73,7 @@
                                             <img src="{{ asset('storage/'.$detail->product->image) }}" class="w-20 h-20 object-cover" alt="">
                                             <p class="text-xs">@currency($detail->harga)</p>
                                             <h3>{{ $detail->product_name }}</h3>
-                                        @if (!$detail->product->show)
+                                        @if (!$detail->product->show  || !$detail->product->approve)
                                             <p class="text-xs text-red-500">Product tidak dijual lagi!</p>
                                         @endif
                                     @if ($detail->product->show)

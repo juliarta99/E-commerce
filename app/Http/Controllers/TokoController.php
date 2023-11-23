@@ -15,7 +15,7 @@ class TokoController extends Controller
     public function index()
     {
         $title = 'Toko Saya';
-        $products = Product::where('id_toko', Auth::user()->toko->id)->with('transaksis', 'transaksis.comment')->orderBy('id', 'DESC')->paginate(6);
+        $products = Product::where('id_toko', Auth::user()->toko->id)->orderBy('id', 'DESC')->paginate(6);
         return view('toko.index', compact('title', 'products'));
     }
 
@@ -117,10 +117,10 @@ class TokoController extends Controller
             }
         }
         $title = $toko->name;
-        $products = Product::where('id_toko', $toko->id)->get();
+        $products = Product::where('id_toko', $toko->id)->where('show', 1)->where('approve', 1)->get();
         $avgToko=0;
-        if(Product::where('id_toko', $toko->id)->with('transaksis.comment')->whereHas('transaksis.comment')->exists()){
-            $products = Product::where('id_toko', $toko->id)->with('transaksis', 'transaksis.comment')->get();
+        if(Product::where('id_toko', $toko->id)->with('transaksis.comment')->whereHas('transaksis.comment')->where('show', 1)->where('approve', 1)->exists()){
+            $products = Product::where('id_toko', $toko->id)->with('transaksis', 'transaksis.comment')->where('show', 1)->where('approve', 1)->get();
             $avgToko = $products->flatMap(function ($product) {
                 return $product->transaksis->flatMap(function ($transaksi) {
                     if($transaksi->comment){
