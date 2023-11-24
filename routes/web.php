@@ -131,6 +131,8 @@ Route::middleware('auth')->group(function() {
     
     Route::get('/toko/create', [TokoController::class, 'create'])->name('toko.create');
     Route::post('/toko/create', [TokoController::class, 'store'])->name('toko.store');
+
+    Route::get('/delivery/resi/{delivery:no_resi}', [DeliveryController::class, 'cekResi'])->name('delivery.resi');
 });
 Route::get('/{toko:slug}', [TokoController::class, 'show'])->name('toko.show');
 

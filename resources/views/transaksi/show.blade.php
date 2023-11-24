@@ -57,7 +57,7 @@
                                                 <h3>{{ $delivery->service }}</h3>
                                                 <p class="text-sm opacity-75 capitalize">status : {{ $delivery->status }}</p>
                                                 @if ($delivery->no_resi)
-                                                    <a href="" class="text-sm text-white">Lihat detail</a>
+                                                    <a href="{{ route('delivery.resi', $delivery->no_resi) }}" class="text-sm text-white">Lihat detail</a>
                                                 @endif
                                             </div>
                                             <div class="text-end">

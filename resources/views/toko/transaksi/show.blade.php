@@ -31,13 +31,20 @@
             <p>Catatan : {{ $delivery->catatan }}</p>
         @endif
         <p>Kurir : <span class="uppercase">{{ $delivery->kurir }}</span></p>
-        <p>Transaction : <span class="capitalize p-2 rounded-full {{ $delivery->transaksi->status == 'success' ? 'bg-green-500' : ($delivery->transaksi->status == 'cancel' ? 'bg-red-500' : 'bg-yellow-500') }}">{{ $delivery->transaksi->status }}</span></p>
+        <p>Transaction : <span class="capitalize p-2 rounded-full {{ $delivery->transaksi->status == 'success' ? 'bg-green-500' : ($delivery->transaksi->status == 'cancel' ? 'bg-red-500' : 'bg-yellow-500') }}">{{ $delivery->transaksi->status }}</span>
+            @if ($delivery->transaksi->date_done)
+                ({{ date('d F Y, h:i:s A', strtotime($delivery->transaksi->date_done)) }})
+            @endif
+        </p>
         <div class="mt-5">
             <p class="font-bold">Delivery</p>
             <div class="w-full  {{ $delivery->status == 'success' ? 'bg-green-500' : ($delivery->status == 'cancel' ? 'bg-red-500' : 'bg-yellow-500') }} p-2 rounded-md flex justify-between">
                 <div class="">
                     <h3>{{ $delivery->service }}</h3>
                     <p class="text-sm opacity-75 capitalize">status : {{ $delivery->status }}</p>
+                    @if ($delivery->no_resi)
+                        <a href="{{ route('delivery.resi', $delivery->no_resi) }}" class="text-sm text-white">Lihat detail</a>
+                    @endif
                 </div>
                 <div class="text-end">
                     <p class="text-sm font-bold">@currency($delivery->cost)</p>
